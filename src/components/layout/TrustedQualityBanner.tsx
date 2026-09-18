@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, Variants, useMotionValue, useSpring, useTransform } from 'framer-motion';
@@ -28,6 +28,7 @@ const staggerContainer: Variants = {
 
 export default function TrustedQualityBanner({ className }: { className?: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Mouse tracking for 3D tilt & parallax
   const mouseX = useMotionValue(0);
@@ -66,6 +67,11 @@ export default function TrustedQualityBanner({ className }: { className?: string
   const handleMouseLeave = () => {
     mouseX.set(0);
     mouseY.set(0);
+    setIsHovered(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
   };
 
   return (
@@ -75,6 +81,7 @@ export default function TrustedQualityBanner({ className }: { className?: string
           ref={cardRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
+          onMouseEnter={handleMouseEnter}
           // style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
           initial={{ opacity: 0, y: 40, scale: 0.96 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -114,7 +121,7 @@ export default function TrustedQualityBanner({ className }: { className?: string
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, delay: 0.25, type: "spring", stiffness: 120, damping: 14 }}
-            className="absolute top-3 right-4 sm:top-4 sm:right-5 lg:top-5 lg:right-[40%] z-50 w-20 sm:w-26 lg:w-32 xl:w-38 h-8 sm:h-11 lg:h-13 pointer-events-none"
+            className="absolute top-3 right-4 sm:top-4 sm:right-5 lg:top-3 lg:right-[40%] z-50 w-22 sm:w-28 lg:w-36 xl:w-42 h-9 sm:h-12 lg:h-14 xl:h-16 pointer-events-none"
           >
             <motion.div
               animate={{
@@ -261,32 +268,22 @@ export default function TrustedQualityBanner({ className }: { className?: string
               </motion.div>
             </motion.div>
 
-            {/* Chicken Popup */}
+            {/* Chicken Popup - Hidden by default, appears on card hover */}
+            {/* Chicken Popup - Peeking by default, slides in on card hover */}
             <motion.div
-              initial={{
-                x: -50,
-                y: 85,
-                scale: 0.7,
-              }}
-              whileInView={{
-                x: [-150, -60, 0],
-                y: [85, 20, 0],
-                scale: [0.7, 0.85, 1],
-              }}
-              viewport={{
-                once: false,
-                amount: 0.5,
-              }}
+              initial={false}
+              animate={
+                isHovered
+                  ? { x: 0, y: 0, scale: 1 }
+                  : { x: -45, y: -65, scale: 0.6 }
+              }
               transition={{
-                duration: 1.8,
-                times: [0, 0.5, 1],
-                ease: "easeInOut",
+                duration: 1.0,
+                ease: [0.22, 1, 0.36, 1],
               }}
-
               className="absolute right-[-1%] min-[390px]:right-[1%] sm:right-[3%] md:right-[5%] lg:right-auto lg:left-[65%] lg:-translate-x-1/2 bottom-0 z-[9] w-[85px] min-[390px]:w-[98px] sm:w-[135px] md:w-[165px] lg:w-[285px] xl:w-[320px] h-[82%] sm:h-[88%] lg:h-[95%] pointer-events-none origin-bottom"
             >
               <motion.div
-                
                 transition={{
                   repeat: Infinity,
                   duration: 3.6,

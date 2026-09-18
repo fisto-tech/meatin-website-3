@@ -24,7 +24,7 @@ export const PageBanner: React.FC<PageBannerProps> = ({
           <span className="w-2 h-2 rounded-full bg-[#8DC541] animate-ping" />
           <span className="normal-case">MEATiN</span> Fresh Quality
         </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-bree tracking-tight text-white mb-4">
           {title}
         </h1>
         {subtitle && (

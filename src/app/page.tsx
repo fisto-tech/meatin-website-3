@@ -554,7 +554,7 @@ export default function HomePage() {
                   transition={{ duration: 0.8 }}
                   className="space-y-3"
                 >
-                  <h1 className="text-4xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[6vw] font-bold font-barlow tracking-tight uppercase leading-[0.92] space-y-1.5">
+                  <h1 className="text-4xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[6vw] font-bold font-bree tracking-tight uppercase leading-[0.92] space-y-1.5">
                     <span className="block text-[#8DC541] normal-case">MEATiN:</span>
                     <span className="block text-white">PURE QUALITY.</span>
                     <span className="block text-[#F7840F]">TRUSTED MEAT.</span>

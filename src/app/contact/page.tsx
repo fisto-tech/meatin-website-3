@@ -67,6 +67,8 @@ const faqs: FaqItem[] = [
 export default function ContactPage() {
   // Form fields state
   const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [enquiryType, setEnquiryType] = useState('');
   const [customEnquiryType, setCustomEnquiryType] = useState('');
   const [message, setMessage] = useState('');
@@ -105,6 +107,16 @@ export default function ContactPage() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!fullName.trim()) newErrors.fullName = 'Full name is required';
+    if (!email.trim()) {
+      newErrors.email = 'Email address is required';
+    } else if (!/^\S+@\S+\.\S+$/.test(email.trim())) {
+      newErrors.email = 'Enter a valid email address';
+    }
+    if (!phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!/^[0-9+\s\-()]{7,20}$/.test(phone.trim())) {
+      newErrors.phone = 'Enter a valid phone number';
+    }
     if (!enquiryType) newErrors.enquiryType = 'Please select enquiry type';
     if (enquiryType === 'Other' && !customEnquiryType.trim()) {
       newErrors.customEnquiryType = 'Please specify your enquiry type';
@@ -124,6 +136,8 @@ export default function ContactPage() {
 
   const resetForm = () => {
     setFullName('');
+    setEmail('');
+    setPhone('');
     setEnquiryType('');
     setCustomEnquiryType('');
     setMessage('');
@@ -171,7 +185,7 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="space-y-3"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7.5xl font-extrabold font-barlow tracking-normal uppercase">
+            <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7.5xl font-extrabold font-bree tracking-normal uppercase">
               <span className="text-[#8DC541] mr-4">CONTACT</span>
               <span className="text-white">US</span>
             </h1>
@@ -283,6 +297,73 @@ export default function ContactPage() {
                       />
                       {errors.fullName && <p className="text-xs text-[#D62828]">{errors.fullName}</p>}
                     </div>
+                    
+                    
+                    {/* Phone Number */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="relative w-5 h-5">
+                          <Image
+                            src="/ContactUs/contact-us-icons/phone-form-icon.svg"
+                            alt="Phone Icon"
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <label className="text-xs sm:text-sm font-bold text-slate-700">Phone Number <span className="text-[#D62828]">*</span></label>
+                      </div>
+                      <input
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        value={phone}
+                        onChange={(e) => {
+                          setPhone(e.target.value);
+                          if (errors.phone) {
+                            setErrors(prev => {
+                              const next = { ...prev };
+                              delete next.phone;
+                              return next;
+                            });
+                          }
+                        }}
+                        className={`w-full px-4 py-3 border rounded-xl text-sm outline-none transition-all placeholder:text-slate-455/80 ${errors.phone ? 'border-[#D62828]' : 'border-slate-300 focus:border-[#064823] focus:ring-1 focus:ring-[#064823]/20'}`}
+                      />
+                      {errors.phone && <p className="text-xs text-[#D62828]">{errors.phone}</p>}
+                    </div>
+
+
+                    {/* Email Address */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="relative w-5 h-5">
+                          <Image
+                            src="/ContactUs/contact-us-icons/email-address-form-icon.svg"
+                            alt="Email Icon"
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <label className="text-xs sm:text-sm font-bold text-slate-700">Email Address <span className="text-[#D62828]">*</span></label>
+                      </div>
+                      <input
+                        type="email"
+                        placeholder="Enter your email address"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          if (errors.email) {
+                            setErrors(prev => {
+                              const next = { ...prev };
+                              delete next.email;
+                              return next;
+                            });
+                          }
+                        }}
+                        className={`w-full px-4 py-3 border rounded-xl text-sm outline-none transition-all placeholder:text-slate-455/80 ${errors.email ? 'border-[#D62828]' : 'border-slate-300 focus:border-[#064823] focus:ring-1 focus:ring-[#064823]/20'}`}
+                      />
+                      {errors.email && <p className="text-xs text-[#D62828]">{errors.email}</p>}
+                    </div>
+
 
                     {/* Enquiry Type Dropdown */}
                     <div className="space-y-1.5 relative" ref={dropdownRef}>
@@ -505,7 +586,7 @@ export default function ContactPage() {
                   <div>
                     <h4 className="text-sm font-bold text-[#000000]">Your Information is Safe</h4>
                     <p className="text-xs text-[#535353] font-medium leading-normal mt-0.5">
-                      We respond your privacy and keep your information secure.
+                      We respect your privacy and keep your information secure.
                     </p>
                   </div>
                 </div>

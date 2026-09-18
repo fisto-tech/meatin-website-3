@@ -18,13 +18,14 @@ export const Preloader: React.FC = () => {
   useEffect(() => {
     const routesToPrewarm = [
       '/',
+      '/about',
       '/know-your-meat',
+      '/product',
       '/recipes',
       '/franchise',
       '/team',
       '/vlog',
       '/contact',
-      '/about',
     ];
 
     routesToPrewarm.forEach((routePath) => {

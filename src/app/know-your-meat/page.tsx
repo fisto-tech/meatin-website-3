@@ -4,6 +4,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   motion,
   useScroll,
@@ -22,6 +23,7 @@ import {
 } from "@/data/knowYourMeatData";
 
 export default function KnowYourMeatPage() {
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const detailsSectionRef = useRef<HTMLDivElement>(null);
   const centerCircleRef = useRef<HTMLDivElement>(null);
@@ -417,202 +419,12 @@ export default function KnowYourMeatPage() {
     e.preventDefault();
     e.stopPropagation();
 
-    // 1. Resolve selected part index immediately
     const normalized = item.name.toLowerCase().trim();
-    const foundIdx = chickenParts.findIndex((part) => {
-      const partName = part.name.toLowerCase().trim();
-      if (normalized === "brest" && partName === "breast") return true;
-      if (normalized === "bact" && partName === "back") return true;
-      return (
-        partName === normalized ||
-        normalized.includes(partName) ||
-        partName.includes(normalized)
-      );
-    });
+    let partSlug = normalized;
+    if (normalized === "brest") partSlug = "breast";
+    if (normalized === "bact") partSlug = "back";
 
-    let matchedPart = item as any;
-    if (foundIdx !== -1) {
-      setSelectedPartIdx(foundIdx);
-      setManuallySelectedPartIdx(foundIdx);
-      setActiveViewTab("raw");
-      matchedPart = chickenParts[foundIdx];
-    }
-
-    setHasSelectedAnyPart(true);
-    setIsLandedInSection2(false);
-    setIsAutoSwitchStopped(false);
-    setIsOrbitHovered(false);
-
-    // 2. Immediately unhide both details section and recipe section in DOM to guarantee full scroll headroom
-    if (detailsSectionRef.current) {
-      detailsSectionRef.current.classList.remove("hidden");
-      detailsSectionRef.current.classList.add("block");
-      void detailsSectionRef.current.offsetHeight;
-    }
-    const recipesEl = document.querySelector(
-      ".recipe-section-wrap",
-    ) as HTMLElement | null;
-    if (recipesEl) {
-      recipesEl.classList.remove("hidden");
-      recipesEl.classList.add("block");
-    }
-
-    // Update stationary image preview immediately if ref is already present
-    if (stationaryImgRef.current) {
-      stationaryImgRef.current.src =
-        matchedPart.productImg || matchedPart.img || item.img;
-    }
-
-    // Notify Lenis smooth scroll of new document height
-    if (typeof window !== "undefined" && (window as any).lenis) {
-      (window as any).lenis.resize();
-    }
-
-    // 3. Compute starting position from clicked circular callout
-    const targetEl = e.currentTarget;
-    const circleEl =
-      targetEl.querySelector(".w-\\[85px\\]") ||
-      targetEl.querySelector("img")?.parentElement ||
-      targetEl;
-
-    const r = circleEl.getBoundingClientRect();
-    let startTop = r.top !== undefined && r.top !== 0 ? r.top : 150;
-    const startLeft = r.left !== undefined && r.left !== 0 ? r.left : 150;
-    const startWidth = r.width || 85;
-    const startHeight = r.height || 85;
-
-    // 4. Compute destination position directly on the Wood Plate in Section 2 for the clicked part
-    const targetIdx = foundIdx !== -1 ? foundIdx : selectedPartIdx;
-    const partStyle = getPlateStyleForPart(targetIdx);
-    const isMob = typeof window !== "undefined" && window.innerWidth < 640;
-    const isTablet = typeof window !== "undefined" && window.innerWidth < 1024;
-
-    let plateBoxW = 0;
-    let plateBoxH = 0;
-    let plateBoxTop = 0;
-    let plateBoxLeft = 0;
-
-    const plateBox =
-      woodPlateContainerRef.current ||
-      (centerCircleRef.current?.firstElementChild as HTMLElement | null) ||
-      centerCircleRef.current;
-
-    if (plateBox && plateBox.offsetWidth > 0 && detailsSectionRef.current) {
-      const boxRect = plateBox.getBoundingClientRect();
-      const sectionRect = detailsSectionRef.current.getBoundingClientRect();
-      plateBoxW = plateBox.offsetWidth;
-      plateBoxH = plateBox.offsetHeight;
-      plateBoxTop = boxRect.top - sectionRect.top;
-      plateBoxLeft = boxRect.left;
-    }
-
-    if (!plateBoxW || !plateBoxH || !plateBoxTop) {
-      plateBoxW = isMob
-        ? 280
-        : isTablet
-          ? 480
-          : Math.min(
-            540,
-            (typeof window !== "undefined" ? window.innerWidth : 1200) * 0.34,
-          );
-      plateBoxH = isMob
-        ? 210
-        : isTablet
-          ? 360
-          : Math.min(
-            400,
-            (typeof window !== "undefined" ? window.innerWidth : 1200) * 0.28,
-          );
-      plateBoxLeft =
-        (typeof window !== "undefined" ? window.innerWidth - plateBoxW : 600) /
-        2;
-      const headerH = isMob ? 130 : isTablet ? 160 : 180;
-      plateBoxTop = headerH + 20;
-    }
-
-    const widthPct = parseFloat(partStyle.width) / 100 || 0.42;
-    const heightPct = parseFloat(partStyle.height) / 100 || 0.62;
-    const targetW = plateBoxW * widthPct;
-    const targetH = plateBoxH * heightPct;
-
-    // Parse negative marginTop offset (e.g. "-14%", "-12%")
-    let marginTopPx = 0;
-    if (partStyle.marginTop) {
-      const mtStr = String(partStyle.marginTop).trim();
-      if (mtStr.endsWith("%")) {
-        marginTopPx = (parseFloat(mtStr) / 100) * plateBoxH;
-      } else {
-        marginTopPx = parseFloat(mtStr) || 0;
-      }
-    }
-
-    // Exact landing coordinates matching the flex-centered wood plate
-    const targetLeft = plateBoxLeft + (plateBoxW - targetW) / 2;
-    // Shift slightly down to place accurately onto the wood plate surface (reduced by 2px to 18px)
-    const targetTop =
-      plateBoxTop + (plateBoxH - targetH) / 2 + marginTopPx + (isMob ? 20 : 21);
-
-    // Set direct destination on the Wood Plate with matching height, width, and elevation
-    setFlyTarget({
-      top: targetTop,
-      left: targetLeft,
-      width: targetW,
-      height: targetH,
-    });
-    setAnimatingPart({
-      img: matchedPart.productImg || matchedPart.img || item.img,
-      name: matchedPart.name || item.name,
-      rotation: matchedPart.rotation || 0,
-      startRect: {
-        top: startTop,
-        left: startLeft,
-        width: startWidth,
-        height: startHeight,
-      },
-      timestamp: Date.now(),
-    });
-
-    // 5. Smooth scroll directly to the destination details section with layout-shift auto-correction
-    const fastSmoothScrollToElement = (
-      targetEl: HTMLElement,
-      duration = 800,
-    ) => {
-      if (typeof window !== "undefined" && (window as any).lenis) {
-        const lenis = (window as any).lenis;
-        lenis.resize();
-        lenis.scrollTo(targetEl, {
-          duration: duration / 1000,
-          offset: 0,
-          immediate: false,
-        });
-
-        // Periodic realignment checkpoints to neutralize mobile browser address bar collapse & Section 2 reflow
-        const checkPoints = [150, 350, 550, 800];
-        checkPoints.forEach((ms) => {
-          setTimeout(() => {
-            if (targetEl && targetEl.isConnected) {
-              lenis.resize();
-              const currentTop = targetEl.getBoundingClientRect().top;
-              if (Math.abs(currentTop) > 2) {
-                lenis.scrollTo(targetEl, {
-                  duration: 0.2,
-                  offset: 0,
-                  immediate: false,
-                });
-              }
-            }
-          }, ms);
-        });
-        return;
-      }
-
-      // Native fallback
-      targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
-
-    if (detailsSectionRef.current) {
-      fastSmoothScrollToElement(detailsSectionRef.current, 800);
-    }
+    router.push(`/product?part=${encodeURIComponent(partSlug)}`);
   };
 
   const isPartSelected = (itemName: string) => {
@@ -1548,7 +1360,7 @@ export default function KnowYourMeatPage() {
                 initial={{ opacity: 0, y: -15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: 0.22, ease: "easeOut" }}
-                className="text-4xl md:text-5xl font-bold font-barlow-condensed tracking-wide uppercase leading-none text-[#222222] viz-title-main"
+                className="text-4xl md:text-5xl font-bold font-bree tracking-wide uppercase leading-none text-[#222222] viz-title-main"
               >
                 {activeMeatType === "chicken" ? (
                   activeStage === "skin" ? (

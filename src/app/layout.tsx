@@ -1,43 +1,23 @@
 import type { Metadata } from 'next';
-import { Poppins, Chau_Philomene_One, Manrope, Inter, Barlow_Condensed } from 'next/font/google';
+import Script from 'next/script';
+import { Bree_Serif, Anek_Malayalam } from 'next/font/google';
 import './globals.css';
 import Preloader from '@/components/layout/Preloader';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import MeatSliderMarquee from '@/components/know-your-meat/MeatSliderMarquee';
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-poppins',
-  display: 'swap',
-});
-
-const chau = Chau_Philomene_One({
+const breeSerif = Bree_Serif({
   subsets: ['latin'],
   weight: ['400'],
-  variable: '--font-chau',
+  variable: '--font-bree-serif',
   display: 'swap',
 });
 
-const manrope = Manrope({
-  subsets: ['latin'],
-  weight: ['200', '300', '400', '500', '600', '700', '800'],
-  variable: '--font-manrope',
-  display: 'swap',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const barlow = Barlow_Condensed({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
-  variable: '--font-barlow-condensed',
+const anekMalayalam = Anek_Malayalam({
+  subsets: ['latin', 'malayalam'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
+  variable: '--font-anek-malayalam',
   display: 'swap',
 });
 
@@ -126,15 +106,19 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${poppins.variable} ${chau.variable} ${manrope.variable} ${inter.variable} ${barlow.variable}`} 
+      className={`${breeSerif.variable} ${anekMalayalam.variable}`} 
       suppressHydrationWarning
     >
       <head>
-        <script
+        <Script
+          id="schema-org"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <script
+        <Script
+          id="preloader-check"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               try {
@@ -146,7 +130,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-manrope bg-white text-slate-900 min-h-screen flex flex-col antialiased preloader-active" suppressHydrationWarning>
+      <body className="font-anek bg-white text-slate-900 min-h-screen flex flex-col antialiased preloader-active" suppressHydrationWarning>
         <Preloader />
 
         <Navbar />

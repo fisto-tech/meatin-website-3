@@ -15,6 +15,7 @@ const navItems: NavItem[] = [
   { label: 'HOME', href: '/' },
   { label: 'ABOUT US', href: '/about' },
   { label: 'KNOW YOUR MEAT', href: '/know-your-meat' },
+  { label: 'PRODUCTS', href: '/product' },
   { label: 'RECIPES', href: '/recipes' },
   { label: 'FRANCHISE', href: '/franchise' },
   { label: 'MEET OUR TEAM', href: '/team' },
@@ -57,17 +58,34 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isItemActive = (itemHref: string) => {
+    if (!pathname) return false;
+    const current = pathname.split('?')[0].replace(/\/+$/, '') || '/';
+    const target = itemHref.split('?')[0].replace(/\/+$/, '') || '/';
+
+    if (target === '/') {
+      return current === '/';
+    }
+    if (target === '/product' || target === '/products') {
+      return current === '/product' || current === '/products';
+    }
+    if (target === '/know-your-meat') {
+      return current === '/know-your-meat';
+    }
+    return current === target || current.startsWith(`${target}/`);
+  };
+
   const containerBgClass = 'bg-white/95 border-slate-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.08)]';
 
   const getLinkColorClass = (isActive: boolean) => {
     if (isActive) {
-      return 'text-[#064823] font-black';
+      return 'text-[#C62828] font-black';
     }
     return 'text-slate-800 hover:text-[#064823]';
   };
 
   const getUnderlineColorClass = () => {
-    return 'bg-[#F7840F]';
+    return 'bg-[#C62828]';
   };
 
   const hamburgerColorClass = 'text-slate-800 hover:bg-slate-100';
@@ -80,9 +98,9 @@ export const Navbar: React.FC = () => {
           <Logo variant="dark" className="shrink-0" />
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-3 xl:gap-5 2xl:gap-[2.5vw] whitespace-nowrap" suppressHydrationWarning>
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-[1.8vw] whitespace-nowrap" suppressHydrationWarning>
             {navItems.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive = isItemActive(item.href);
 
               return (
                 <Link
@@ -95,7 +113,7 @@ export const Navbar: React.FC = () => {
                     } catch (e) {}
                   }}
                   suppressHydrationWarning
-                  className={`relative text-xs lg:text-xs xl:text-xs 2xl:text-[0.8vw] font-black font-inter tracking-wider transition-all duration-200 lg:px-1 xl:px-1.5 py-1 ${getLinkColorClass(isActive)}`}
+                  className={`relative text-xs lg:text-[11px] xl:text-xs 2xl:text-[0.8vw] font-black font-inter tracking-wider transition-all duration-200 lg:px-1 xl:px-1.5 py-1 ${getLinkColorClass(isActive)}`}
                 >
                   {item.label}
                   {isActive && (
@@ -114,7 +132,7 @@ export const Navbar: React.FC = () => {
               suppressHydrationWarning
               className="hidden sm:inline-block bg-[#064823] hover:bg-[#0a5e30] text-white font-bold font-inter text-xs lg:text-xs xl:text-xs 2xl:text-[0.75vw] px-4 lg:px-4 py-2 lg:py-2 rounded-xl uppercase tracking-wider transition-all shadow-md active:scale-95"
             >
-              Enquiry Now
+              ENQUIRY KNOW
             </Link>
 
             {/* Mobile Hamburger Button */}
@@ -159,7 +177,7 @@ export const Navbar: React.FC = () => {
         {/* Drawer Navigation Links */}
         <div className="flex-1 overflow-y-auto p-5 space-y-2" suppressHydrationWarning>
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = isItemActive(item.href);
             return (
               <Link
                 key={item.label}
@@ -187,7 +205,7 @@ export const Navbar: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-center bg-[#064823] hover:bg-[#0a5e30] text-white font-bold font-inter text-xs py-3 rounded-xl uppercase tracking-wider transition-all shadow-md"
             >
-              Enquiry Now
+              ENQUIRY KNOW
             </Link>
           </div>
         </div>

@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
+import { Icon } from '@iconify/react';
 import {
   Building2,
   Warehouse,
@@ -115,7 +116,7 @@ function Counter({ value }: { value: string }) {
   }, [isInView, target]);
 
   return (
-    <span ref={ref}>
+    <span ref={ref} className="text-[#000000] text-black">
       {count.toLocaleString()}
       {suffix}
     </span>
@@ -150,31 +151,31 @@ export default function AboutUsPage() {
       value: "30+",
       label: "ACRES",
       desc: "OF INTEGRATED LAND",
-      icon: "/AboutUs/about-hero-icons/acres-icon.svg"
+      icon: "ph:farm-light"
     },
     {
       value: "82,000+",
       label: "SQ.FT.",
       desc: "OF PLANT SPACE",
-      icon: "/AboutUs/about-hero-icons/sq-ft-icon.svg"
+      icon: "la:industry"
     },
     {
       value: "45,000+",
       label: "KG",
       desc: "PROCESSING CAPACITY",
-      icon: "/AboutUs/about-hero-icons/kg-icon.svg"
+      icon: "weui:setting-outlined"
     },
     {
       value: "300+",
       label: "TONS",
       desc: "COLD STORAGE CAPACITY",
-      icon: "/AboutUs/about-hero-icons/tons-icon.svg"
+      icon: "streamline:interface-weather-snow-flake-winter-freeze-snow-freezing-ice-cold-weather-snowflake"
     },
     {
       value: "15+",
-      label: "VEHICLES",
+      label: "VEHICALS",
       desc: "IN LOGISTICS NETWORK",
-      icon: "/AboutUs/about-hero-icons/vehicles-icon.svg"
+      icon: "carbon:delivery-truck"
     }
   ];
 
@@ -228,40 +229,45 @@ export default function AboutUsPage() {
     <div className="min-h-screen bg-[#F3F3F3] font-manrope overflow-x-clip">
 
       {/* 1. HERO HEADER BANNER SECTION */}
-      <section className="relative w-full min-h-[540px] sm:min-h-[600px] lg:min-h-[640px] xl:min-h-[700px] bg-[#E8EDE7] pt-[5.5rem] sm:pt-[6.5rem] lg:pt-[7.5rem] pb-12 sm:pb-16 lg:pb-20 overflow-hidden flex items-center">
-        {/* Hero Background Image */}
+      <section className="relative w-full h-[600px] sm:h-[680px] md:h-[750px] lg:h-[88vh] xl:h-[92vh] min-h-[580px] lg:min-h-[680px] xl:min-h-[720px] bg-[#E8EDE7] pt-24 sm:pt-28 lg:pt-24 pb-10 sm:pb-12 overflow-hidden flex items-center">
+        {/* Hero Background Image - clean and crisp without full-screen overlays */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/AboutUs/hero-image.webp"
             alt="MEATiN Scientific Meat Processing Facility"
             fill
             priority
-            className="object-cover object-center lg:object-[center_right]"
+            className="object-cover object-[78%_center] sm:object-[72%_center] md:object-[68%_center] lg:object-[center_right]"
           />
-          {/* Smooth Left-Side Light Gradient Scrim matching reference mockup */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 via-35% md:via-white/70 md:via-45% to-transparent z-10 pointer-events-none" />
-          {/* Mobile full subtle scrim for text contrast */}
-          <div className="absolute inset-0 bg-white/40 sm:hidden z-10 pointer-events-none" />
         </div>
 
-        {/* Content Area: Left Typography matching reference mockup */}
-        <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 relative z-20">
+        {/* Content Area: Left Typography matching reference mockup with local white overlay only around text */}
+        <div className="w-full mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 relative z-20">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-xl lg:max-w-2xl"
+            className="relative max-w-2xl lg:max-w-3xl p-6 sm:p-8 lg:p-10"
           >
+            {/* Custom radial gradient with blur filter applied specifically behind the text area */}
+            <div
+              className="absolute -inset-4 sm:-inset-6 lg:-inset-8 -z-10 pointer-events-none rounded-[60px]"
+              style={{
+                background: 'radial-gradient(71.28% 67.51% at 47.21% 50%, #EFEFEF 0%, #FFFFFF 100%)',
+                filter: 'blur(131.23px)',
+              }}
+            />
+
             {/* Eyebrow Label */}
-            <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-3.5">
-              <span className="h-[2px] w-5 sm:w-7 bg-[#D4A437]" />
-              <span className="text-xs sm:text-[13px] font-extrabold tracking-[0.22em] text-[#0A4D27] uppercase font-manrope">
+            <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-4">
+              <span className="h-[2.5px] w-6 sm:w-8 bg-[#D4A437]" />
+              <span className="text-sm sm:text-base md:text-lg font-extrabold tracking-[0.25em] text-[#0A4D27] uppercase font-manrope">
                 WHAT IS MEATIN?
               </span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] xl:text-[4.8rem] font-extrabold font-barlow tracking-tight uppercase leading-[0.93] mb-3 sm:mb-4">
+            {/* Main Headline with increased font sizes */}
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[4.8rem] xl:text-[5.4rem] font-extrabold font-bree tracking-tight uppercase leading-[0.93] mb-4 sm:mb-5">
               <span className="block text-[#0A4D27]">WE ENGINEER</span>
               <span className="block text-[#F7840F]">QUALITY INTO</span>
               <span className="block text-[#0A4D27]">
@@ -270,10 +276,10 @@ export default function AboutUsPage() {
             </h1>
 
             {/* Subtle Divider Line */}
-            <div className="w-full max-w-[400px] sm:max-w-[460px] h-[1px] bg-[#0A4D27]/25 my-3 sm:my-4" />
+            <div className="w-full max-w-[380px] sm:max-w-[480px] md:max-w-[540px] h-[1.5px] bg-[#0A4D27]/30 my-4 sm:my-5" />
 
-            {/* Subtitle Paragraph */}
-            <p className="text-slate-800 text-sm sm:text-base lg:text-lg font-semibold leading-relaxed font-manrope max-w-lg">
+            {/* Subtitle Paragraph with increased text size */}
+            <p className="text-slate-900 text-base sm:text-lg lg:text-xl xl:text-2xl font-semibold leading-relaxed font-manrope max-w-xl">
               Integrated farming, scientific processing,<br className="hidden sm:inline" />
               and cold-chain distribution.
             </p>
@@ -283,47 +289,41 @@ export default function AboutUsPage() {
 
       {/* 2. STATS METRICS BAR MATCHING ATTACHED DESIGN */}
       <section className="relative w-full bg-white border-y border-slate-200/90 shadow-sm z-20">
-        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7 lg:py-8">
+        <div className="w-full max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-14 py-6 sm:py-7 lg:py-8">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-30px" }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-6 sm:gap-y-6 lg:gap-y-0 lg:divide-x lg:divide-slate-200 items-center"
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-8 sm:gap-y-8 lg:gap-y-0 lg:divide-x lg:divide-slate-300/80 items-center w-full"
           >
             {stats.map((stat, idx) => {
               return (
                 <motion.div
                   key={idx}
                   variants={springScale}
-                  className={`flex flex-col items-center text-center px-3 sm:px-4 lg:px-6 ${
+                  className={`flex flex-col items-center text-center px-3 sm:px-5 lg:px-6 xl:px-8 ${
                     idx === 4 ? 'col-span-2 sm:col-span-1' : ''
                   }`}
                 >
                   {/* Green Circle Icon Badge */}
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#0E6838] flex items-center justify-center p-2.5 sm:p-3 shrink-0 shadow-sm mb-2.5 sm:mb-3">
-                    <Image
-                      src={stat.icon}
-                      alt={stat.label}
-                      width={36}
-                      height={36}
-                      className="w-full h-full object-contain"
+                  <div className="w-13 h-13 sm:w-14 sm:h-14 lg:w-15 lg:h-15 xl:w-16 xl:h-16 rounded-full bg-[#0E6838] flex items-center justify-center shrink-0 shadow-sm mb-3 text-white">
+                    <Icon
+                      icon={stat.icon}
+                      className="w-7 h-7 sm:w-8 sm:h-8 xl:w-9 xl:h-9 text-white"
                     />
                   </div>
 
-                  {/* Number Counter */}
-                  <div className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-extrabold text-[#0B3B20] font-manrope tracking-tight leading-none mb-1">
+                  {/* Number Counter (bold, pure black color) */}
+                  <div className="text-3xl sm:text-4xl lg:text-[38px] xl:text-[42px] font-bold text-[#000000] text-black font-manrope tracking-tight leading-none mb-2">
                     <Counter value={stat.value} />
                   </div>
 
-                  {/* Primary Green Label */}
-                  <div className="text-xs sm:text-[13px] font-black text-[#0E6838] uppercase tracking-wider leading-none mb-1 font-manrope">
-                    {stat.label}
-                  </div>
-
-                  {/* Dark Secondary Description */}
-                  <div className="text-[10px] sm:text-[11px] font-bold text-slate-800 uppercase tracking-tight leading-tight font-manrope max-w-[180px]">
-                    {stat.desc}
+                  {/* Merged metric label and description into a single line text */}
+                  <div className="flex items-center justify-center text-center font-manrope text-black">
+                    <span className="text-sm sm:text-[15px] xl:text-base font-medium text-black uppercase tracking-tight whitespace-nowrap leading-none">
+                      {stat.label} {stat.desc}
+                    </span>
                   </div>
                 </motion.div>
               );

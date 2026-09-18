@@ -82,8 +82,8 @@ export const Footer: React.FC = () => {
   const [isFooterInView, setIsFooterInView] = useState<boolean>(false);
   const hoverIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Total links count is 8 (4 Quick Links + 4 Explore)
-  const totalItems = 8;
+  // Total links count is 9 (5 Quick Links + 4 Explore)
+  const totalItems = 9;
 
   useEffect(() => {
     if (isFooterInView && !isUserHovering) {
@@ -284,9 +284,21 @@ export const Footer: React.FC = () => {
                 </motion.li>
                 <motion.li variants={listItemVariants}>
                   <Link
-                    href="/contact"
+                    href="/product"
                     prefetch={true}
                     className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(3)}`}
+                  >
+                    <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 20 17 13 9 6" />
+                    </svg>
+                    Product
+                  </Link>
+                </motion.li>
+                <motion.li variants={listItemVariants}>
+                  <Link
+                    href="/contact"
+                    prefetch={true}
+                    className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(4)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="9 20 17 13 9 6" />
@@ -321,7 +333,7 @@ export const Footer: React.FC = () => {
                   <Link
                     href="/recipes"
                     prefetch={true}
-                    className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(4)}`}
+                    className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(5)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="9 20 17 13 9 6" />
@@ -333,7 +345,7 @@ export const Footer: React.FC = () => {
                   <Link
                     href="/franchise"
                     prefetch={true}
-                    className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(5)}`}
+                    className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(6)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="9 20 17 13 9 6" />
@@ -345,7 +357,7 @@ export const Footer: React.FC = () => {
                   <Link
                     href="/team"
                     prefetch={true}
-                    className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(6)}`}
+                    className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(7)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="9 20 17 13 9 6" />
@@ -357,7 +369,7 @@ export const Footer: React.FC = () => {
                   <Link
                     href="/vlog"
                     prefetch={true}
-                    className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(7)}`}
+                    className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(8)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="9 20 17 13 9 6" />

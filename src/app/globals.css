@@ -4,13 +4,15 @@
 
 @layer base {
   :root {
-    --font-poppins: 'Poppins', sans-serif;
-    --font-lexend: 'Lexend', sans-serif;
-    --font-chau: 'Chau Philomene One', cursive, sans-serif;
-    --font-manrope: 'Manrope', sans-serif;
-    --font-inter: 'Inter', sans-serif;
-    --font-dm-serif: 'DM Serif Display', serif;
-    --font-barlow-condensed: 'Barlow Condensed', sans-serif;
+    --font-bree-serif: 'Bree Serif', serif;
+    --font-anek-malayalam: 'Anek Malayalam', sans-serif;
+    --font-poppins: var(--font-anek-malayalam);
+    --font-lexend: var(--font-anek-malayalam);
+    --font-chau: var(--font-anek-malayalam);
+    --font-manrope: var(--font-anek-malayalam);
+    --font-inter: var(--font-anek-malayalam);
+    --font-dm-serif: var(--font-anek-malayalam);
+    --font-barlow-condensed: var(--font-anek-malayalam);
   }
 
   html {
@@ -25,7 +27,7 @@
   }
 
   body {
-    font-family: var(--font-manrope);
+    font-family: var(--font-anek-malayalam), sans-serif;
     color: #1a1a1a;
     background-color: #ffffff;
     overflow-x: clip;
