@@ -40,9 +40,9 @@ export class AssetPreloadEngine {
 
   /**
    * Priority Bucket Sort Algorithm (O(N)):
-   * Bucket 1 (P1): Hero, Logo, Home, Brand Story, Background textures
-   * Bucket 2 (P2): Product cuts, chicken parts, meat cards
-   * Bucket 3 (P3): Secondary page images, galleries
+   * Bucket 1 (P1): Critical first view - Hero, Logo, Home, Brand Story, Background textures, Truck
+   * Bucket 2 (P2): Main interactive pages - Products, Know Your Meat (chicken parts, full chicken), Platters, Recipes
+   * Bucket 3 (P3): Secondary pages - About Us, Franchise, Team, Contact Us, Vlog
    */
   private prioritySort(assets: string[]): string[] {
     const p1: string[] = [];
@@ -55,8 +55,9 @@ export class AssetPreloadEngine {
 
       if (
         lower.includes('video-frames') ||
-        lower.includes('/logo') ||
+        lower.includes('logo') ||
         lower.includes('/home') ||
+        lower.includes('trustedqualitybanner') ||
         lower.includes('/brand-story') ||
         lower.includes('bg-image') ||
         lower.includes('truck') ||
@@ -65,8 +66,12 @@ export class AssetPreloadEngine {
         p1.push(path);
       } else if (
         lower.includes('/product') ||
+        lower.includes('/chicken') ||
         lower.includes('/chickenparts') ||
         lower.includes('/fullchicken') ||
+        lower.includes('/platters') ||
+        lower.includes('/raw-meat') ||
+        lower.includes('/packed-meat') ||
         lower.includes('/recipies')
       ) {
         p2.push(path);

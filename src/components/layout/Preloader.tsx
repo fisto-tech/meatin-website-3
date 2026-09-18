@@ -77,8 +77,8 @@ export const Preloader: React.FC = () => {
             window.dispatchEvent(new Event('resize'));
             window.dispatchEvent(new Event('scroll'));
           }
-        }, 500);
-      }, 300);
+        }, 350);
+      }, 150);
     };
 
     const checkReady = () => {
@@ -98,20 +98,19 @@ export const Preloader: React.FC = () => {
 
     // Asset preload engine tracking
     if (typeof window !== 'undefined') {
+      // Use higher worker concurrency (16) so hundreds of assets load in parallel
       const engine = new AssetPreloadEngine(PRELOAD_ASSETS, {
-        concurrency: 6,
+        concurrency: 16,
         onProgress: (percent) => {
           setProgress((prev) => Math.max(prev, percent));
+          // Once 80%+ of prioritized assets are ready and DOM is ready, dismiss preloader to keep UX snappy
+          if (percent >= 80 && (document.readyState === 'complete' || document.readyState === 'interactive')) {
+            finishLoading();
+          }
         },
         onComplete: () => {
           assetsLoaded = true;
-          // Ensure window is also ready
-          if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            windowLoaded = true;
-            finishLoading();
-          } else {
-            checkReady();
-          }
+          finishLoading();
         },
       });
 
