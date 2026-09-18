@@ -188,7 +188,7 @@ export default function HomePage() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const totalFrames = 836;
+    const totalFrames = 240;
     const safeTarget = Math.max(1, Math.min(totalFrames, Math.round(targetFrame)));
     const map = imagesMapRef.current;
 
@@ -231,7 +231,7 @@ export default function HomePage() {
       }
     }
 
-    if (!imgToDraw) return; // Unlikely fallback state
+    if (!imgToDraw) return;
 
     const containerWidth = canvas.clientWidth || window.innerWidth;
     const containerHeight = canvas.clientHeight || window.innerHeight;
@@ -268,7 +268,6 @@ export default function HomePage() {
       // Silently skip if image state changes mid-render
     }
 
-    // If target frame is still downloading, render it automatically when ready
     const targetImg = map.get(safeTarget);
     if (targetImg && !targetImg.complete) {
       targetImg.onload = () => {
@@ -277,9 +276,9 @@ export default function HomePage() {
     }
   }, []);
 
-  // Priority-based frame preloading system to avoid network queue starvation
+  // Priority-based frame preloading system
   React.useEffect(() => {
-    const totalFrames = 836;
+    const totalFrames = 240;
     const map = imagesMapRef.current;
 
     const loadFrame = (frameNum: number): HTMLImageElement => {
@@ -287,7 +286,7 @@ export default function HomePage() {
       if (img) return img;
       img = new window.Image();
       const frameStr = String(frameNum).padStart(5, "0");
-      img.src = `/Home/Hero/video-frames/${frameStr}.webp`;
+      img.src = `/Home/Hero/video-frames-opt/${frameStr}.jpg`;
       map.set(frameNum, img);
       return img;
     };
@@ -301,34 +300,32 @@ export default function HomePage() {
       if (!isCancelled) renderFrame(1);
     };
 
-    // P2: Keyframes & Remaining frames scheduled via idle callbacks / micro-batches
+    // P2: Preload initial frames for immediate scroll responsiveness
     const timerId = setTimeout(() => {
       if (isCancelled) return;
-      // Preload next immediate 30 frames for smooth initial scroll
       for (let i = 1; i <= Math.min(totalFrames, 30); i++) {
         loadFrame(i);
       }
 
-      // Schedule subsequent frames cooperatively so navigation is never blocked
       let currentIdx = 31;
       const batchNext = () => {
         if (isCancelled || currentIdx > totalFrames) return;
-        const batchEnd = Math.min(totalFrames, currentIdx + 10);
+        const batchEnd = Math.min(totalFrames, currentIdx + 15);
         for (let i = currentIdx; i <= batchEnd; i++) {
           loadFrame(i);
         }
         currentIdx = batchEnd + 1;
         if (!isCancelled && currentIdx <= totalFrames) {
-          microBatchTimer = setTimeout(batchNext, 120);
+          microBatchTimer = setTimeout(batchNext, 60);
         }
       };
 
       if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-        (window as any).requestIdleCallback(() => batchNext(), { timeout: 1000 });
+        (window as any).requestIdleCallback(() => batchNext(), { timeout: 600 });
       } else {
-        microBatchTimer = setTimeout(batchNext, 200);
+        microBatchTimer = setTimeout(batchNext, 100);
       }
-    }, 500);
+    }, 150);
 
     const t1 = setTimeout(() => {
       if (!isCancelled) window.dispatchEvent(new Event("resize"));
@@ -346,10 +343,9 @@ export default function HomePage() {
     };
   }, [renderFrame]);
 
-
   // Connect scroll progress directly to canvas drawing (60FPS without React re-renders)
   useMotionValueEvent(smoothProgress, "change", (latest) => {
-    const totalFrames = 836;
+    const totalFrames = 240;
     const frame = Math.min(
       totalFrames,
       Math.max(1, Math.floor(latest * totalFrames)),

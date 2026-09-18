@@ -41,65 +41,55 @@ export default function MeatSliderMarquee({
 }: MeatSliderMarqueeProps) {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
+  // Duplicate items so loop is seamless
   const repeatedItems = [...items, ...items, ...items, ...items];
 
   const animationDirectionClass =
-    direction === "left"
-      ? "animate-marquee-left"
-      : "animate-marquee-right";
+    direction === "left" ? "animate-marquee-left" : "animate-marquee-right";
 
   return (
     <div
-      className={`relative w-full overflow-hidden select-none shadow-md bg-slate-200 ${className}`}
+      className={`group relative w-full overflow-hidden select-none shadow-md bg-slate-200 ${className}`}
     >
-      {/* === MOVING BELT (renders the bg image twice, side by side, and scrolls) === */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div
-          className={`flex h-full w-[200%] ${animationDirectionClass} ${
-            pauseOnHover ? "group-hover:[animation-play-state:paused]" : ""
-          }`}
-          style={{ animationDuration: `${speed}s` }}
-        >
-          {/* Two copies of the bg image for a seamless loop */}
-          <div className="relative h-full w-1/2 shrink-0">
-            <Image
-              src={bgImage}
-              alt=""
-              fill
-              unoptimized
-              sizes="100vw"
-              className="object-fill pointer-events-none select-none"
-              draggable={false}
-            />
-          </div>
-          <div className="relative h-full w-1/2 shrink-0">
-            <Image
-              src={bgImage}
-              alt=""
-              fill
-              unoptimized
-              sizes="100vw"
-              className="object-fill pointer-events-none select-none"
-              draggable={false}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Top & Bottom rail glow */}
-      <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-slate-400/40 to-transparent z-20 pointer-events-none" />
-      <div className="absolute bottom-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-slate-400/40 to-transparent z-20 pointer-events-none" />
-
-      {/* === Chicken Track (same animation, same duration → moves in sync) === */}
+      {/* ===================== SINGLE ANIMATED TRACK =====================
+          Both belt + chickens live inside this one animated flex row.
+          Because they share the container, they translate together
+          perfectly — no separate keyframes, no sync math. */}
       <div
-        className={`group relative flex items-center w-full ${heightClass} overflow-hidden z-10`}
+        className={`relative flex items-center w-full ${heightClass} ${animationDirectionClass} ${
+          pauseOnHover ? "group-hover:[animation-play-state:paused]" : ""
+        }`}
+        style={{ animationDuration: `${speed}s` }}
       >
-        <div
-          className={`flex items-center shrink-0 min-w-full gap-8 sm:gap-12 md:gap-16 lg:gap-20 py-2 ${animationDirectionClass} ${
-            pauseOnHover ? "group-hover:[animation-play-state:paused]" : ""
-          }`}
-          style={{ animationDuration: `${speed}s` }}
-        >
+        {/* ---------- BELT LAYER (absolute, behind) ---------- */}
+        <div className="absolute inset-0 flex items-stretch h-full pointer-events-none">
+          {/* Two full copies of the belt image, each rendered at its
+              natural aspect ratio (h-full, width auto). Translating
+              the parent by -50% loops seamlessly. */}
+          {[0, 1].map((copy) => (
+            <div
+              key={`belt-copy-${copy}`}
+              className="relative h-full shrink-0"
+              style={{
+                // Each copy should be at least as wide as the container,
+                // so the strip always covers the viewport. Width:auto
+                // preserves the belt image's aspect ratio.
+                width: "auto",
+                aspectRatio: "auto",
+              }}
+            >
+              <img
+                src={bgImage}
+                alt=""
+                className="h-full w-auto block pointer-events-none select-none"
+                draggable={false}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* ---------- CHICKEN LAYER (foreground) ---------- */}
+        <div className="relative z-10 flex items-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 py-2 px-4">
           {repeatedItems.map((item, idx) => (
             <div
               key={`${item.name}-${idx}`}
@@ -127,22 +117,28 @@ export default function MeatSliderMarquee({
         </div>
       </div>
 
+      {/* Top & Bottom rail glow */}
+      <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-slate-400/40 to-transparent z-20 pointer-events-none" />
+      <div className="absolute bottom-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-slate-400/40 to-transparent z-20 pointer-events-none" />
+
       <style jsx global>{`
         @keyframes marqueeLeft {
           0% {
-            transform: translateX(0%);
+            transform: translateX(0);
           }
           100% {
-            transform: translateX(-50%);
+            /* Move by exactly one chicken-set width, not 50% of parent.
+               Set this to match (items.length * (itemWidth + gap)). */
+            transform: translateX(calc(-1 * var(--marquee-distance, 100%)));
           }
         }
 
         @keyframes marqueeRight {
           0% {
-            transform: translateX(-50%);
+            transform: translateX(calc(-1 * var(--marquee-distance, 100%)));
           }
           100% {
-            transform: translateX(0%);
+            transform: translateX(0);
           }
         }
 

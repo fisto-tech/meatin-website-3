@@ -2192,72 +2192,74 @@ export default function RecipesPage() {
                             );
                           }
                         }}
-                        className="relative aspect-[3/2.8] w-full rounded-2xl overflow-hidden shadow-xl group flex flex-col justify-end p-4 select-none recipe-card-box cursor-pointer border border-slate-200/40"
+                        className="w-full bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.14)] transition-all duration-300 group flex flex-col select-none cursor-pointer border border-slate-200/90 ring-1 ring-black/[0.04]"
                       >
-                        {/* Top Left Red Category Tag */}
-                        <span className="absolute top-4 left-4 z-20 bg-[#d62828] text-white text-[11px] font-extrabold px-3.5 py-1.5 rounded-md uppercase tracking-wider shadow-lg pointer-events-none">
-                          {recipe.label}
-                        </span>
+                        {/* Compact 16:9.5 Image Header */}
+                        <div className="relative aspect-[16/9.5] w-full overflow-hidden bg-slate-100">
+                          <Image
+                            src={recipe.img}
+                            alt={recipe.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
 
-                        {/* Background Image */}
-                        <Image
-                          src={recipe.img}
-                          alt={recipe.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
+                          {/* Top-Left Category Badge Pill */}
+                          <span className="absolute top-2.5 left-2.5 z-10 bg-[#d62828] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider shadow-sm pointer-events-none">
+                            {recipe.label}
+                          </span>
+                        </div>
 
-                        {/* Dark Gradient Overlay */}
-                        <div className="absolute bottom-0 left-0 right-0 h-[70%] z-10 bg-gradient-to-t from-black/85 via-black/50 to-transparent pointer-events-none" />
+                        {/* Distinct Elevated White Card Body */}
+                        <div className="p-3.5 pt-1.5 sm:p-4 sm:pt-2 flex-1 flex flex-col justify-between space-y-1.5 font-inter bg-white">
+                          <div className="space-y-0">
+                            {/* Recipe Title */}
+                            <h3
+                              className="text-md sm:text-base font-bold text-black tracking-wide uppercase leading-normal group-hover:text-[#064823] transition-colors line-clamp-2 h-[2.5rem] flex items-center"
+                              title={recipe.title}
+                            >
+                              {recipe.title}
+                            </h3>
 
-                        {/* Card Content */}
-                        <div className="relative z-10 space-y-3 font-inter">
-                          {/* Recipe Title */}
-                          <h3 className="text-base sm:text-lg lg:text-lg xl:text-xl font-bold text-white font-barlow-condensed tracking-wide uppercase leading-tight group-hover:text-[#E1C609] transition-colors truncate whitespace-nowrap" title={recipe.title}>
-                            {recipe.title}
-                          </h3>
-
-                          
-
-                          {/* Spec Row (Easy, Time, Servings) */}
-                          <div className="flex items-center gap-3 text-[12px] font-bold text-slate-300 font-manrope recipe-card-spec">
-                            <div className="flex items-center gap-1.5">
-                              <div className="relative w-4 h-4 shrink-0">
-                                <img
-                                  src="/Product/recipies/easy.svg"
-                                  alt="Difficulty"
-                                  className="w-full h-full object-contain"
-                                />
+                            {/* Spec Row (Difficulty, Cooking Time, Servings) */}
+                            <div className="flex items-center justify-between gap-1 text-[11px] font-semibold text-slate-900 font-manrope pt-2 border-t border-slate-200">
+                              <div className="flex items-center gap-1.5">
+                                <div className="relative w-3.5 h-3.5 shrink-0">
+                                  <img
+                                    src="/Product/recipies/easy.svg"
+                                    alt="Difficulty"
+                                    className="w-full h-full object-contain opacity-75"
+                                  />
+                                </div>
+                                <span>{recipe.diff}</span>
                               </div>
-                              <span>{recipe.diff}</span>
-                            </div>
 
-                            <div className="flex items-center gap-1.5">
-                              <div className="relative w-5 h-5 shrink-0">
-                                <img
-                                  src="/Product/recipies/time.svg"
-                                  alt="Time"
-                                  className="w-full h-full object-contain"
-                                />
+                              <div className="flex items-center gap-1.5">
+                                <div className="relative w-3.5 h-3.5 shrink-0">
+                                  <img
+                                    src="/Product/recipies/time.svg"
+                                    alt="Time"
+                                    className="w-full h-full object-contain opacity-75"
+                                  />
+                                </div>
+                                <span>{recipe.time}</span>
                               </div>
-                              <span>{recipe.time}</span>
-                            </div>
 
-                            <div className="flex items-center gap-1.5">
-                              <div className="relative w-5 h-5 shrink-0">
-                                <Image
-                                  src="/Product/recipies/servings.png"
-                                  alt="Servings"
-                                  fill
-                                  className="object-contain"
-                                />
+                              <div className="flex items-center gap-1.5">
+                                <div className="relative w-3.5 h-3.5 shrink-0">
+                                  <Image
+                                    src="/Product/recipies/servings.png"
+                                    alt="Servings"
+                                    fill
+                                    className="object-contain opacity-75"
+                                  />
+                                </div>
+                                <span>{recipe.servings}</span>
                               </div>
-                              <span>{recipe.servings}</span>
                             </div>
                           </div>
 
                           {/* Action Button */}
-                          <button className="w-full bg-[#F7840F] hover:bg-[#e0730b] text-white text-[12px] font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 uppercase tracking-wider transition-colors cursor-pointer font-inter shadow-md mt-1 recipe-card-btn">
+                          <button className="w-full bg-[#F7840F] group-hover:bg-[#e0730b] text-white text-[11px] font-bold py-2 px-3.5 rounded-xl flex items-center justify-center gap-1.5 uppercase tracking-wider transition-colors cursor-pointer font-inter shadow-sm group-hover:shadow mt-1">
                             <span>VIEW RECIPE & STEPS →</span>
                           </button>
                         </div>
@@ -2329,7 +2331,7 @@ export default function RecipesPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-0" />
 
                 <div className="relative z-10 p-4 sm:p-6 lg:pl-8 xl:pl-12 space-y-2 font-inter">
-                  <span className="bg-[#d62828] text-white text-[11px] font-extrabold px-3 py-1 rounded-md uppercase tracking-wider shadow-md inline-block">
+                  <span className="bg-[#d62828] text-white text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider shadow-md inline-block">
                     {selectedRecipe.label}
                   </span>
                   <h1 className="text-xl sm:text-2xl lg:text-2xl xl:text-3xl font-bold text-white font-barlow-condensed tracking-wide uppercase leading-tight">

@@ -132,6 +132,23 @@ export class AssetPreloadEngine {
         fetch(assetPath, { mode: 'cors', cache: 'force-cache' })
           .then(() => resolve())
           .catch(() => resolve());
+      } else if (ext === 'mp4' || ext === 'webm') {
+        const video = document.createElement('video');
+        video.preload = 'auto';
+        video.muted = true;
+        video.src = assetPath;
+        let done = false;
+        const finish = () => {
+          if (!done) {
+            done = true;
+            resolve();
+          }
+        };
+        video.onloadeddata = finish;
+        video.oncanplay = finish;
+        video.onerror = finish;
+        // Fallback safety timeout for video chunk buffering
+        setTimeout(finish, 1200);
       } else {
         const img = new window.Image();
         img.src = assetPath;
