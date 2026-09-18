@@ -2221,9 +2221,9 @@ export default function RecipesPage() {
                             </h3>
 
                             {/* Spec Row (Difficulty, Cooking Time, Servings) */}
-                            <div className="flex items-center justify-between gap-1 text-[11px] font-semibold text-slate-900 font-manrope pt-2 border-t border-slate-200">
+                            <div className="flex items-center justify-between gap-1 text-[13.5px] font-semibold text-slate-900 font-manrope pt-2 border-t border-slate-200">
                               <div className="flex items-center gap-1.5">
-                                <div className="relative w-3.5 h-3.5 shrink-0">
+                                <div className="relative w-4 h-4 shrink-0">
                                   <img
                                     src="/Product/recipies/easy.svg"
                                     alt="Difficulty"
@@ -2234,7 +2234,7 @@ export default function RecipesPage() {
                               </div>
 
                               <div className="flex items-center gap-1.5">
-                                <div className="relative w-3.5 h-3.5 shrink-0">
+                                <div className="relative w-4.25 h-4.25 shrink-0">
                                   <img
                                     src="/Product/recipies/time.svg"
                                     alt="Time"
@@ -2245,7 +2245,7 @@ export default function RecipesPage() {
                               </div>
 
                               <div className="flex items-center gap-1.5">
-                                <div className="relative w-3.5 h-3.5 shrink-0">
+                                <div className="relative w-5 h-5 shrink-0">
                                   <Image
                                     src="/Product/recipies/servings.png"
                                     alt="Servings"
@@ -2259,7 +2259,7 @@ export default function RecipesPage() {
                           </div>
 
                           {/* Action Button */}
-                          <button className="w-full bg-[#F7840F] group-hover:bg-[#e0730b] text-white text-[11px] font-bold py-2 px-3.5 rounded-xl flex items-center justify-center gap-1.5 uppercase tracking-wider transition-colors cursor-pointer font-inter shadow-sm group-hover:shadow mt-1">
+                          <button className="w-full bg-[#F7840F] group-hover:bg-[#e0730b] text-white text-[12.5px] font-bold py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 uppercase tracking-wider transition-colors cursor-pointer font-inter shadow-sm group-hover:shadow !mt-3">
                             <span>VIEW RECIPE & STEPS →</span>
                           </button>
                         </div>
@@ -2328,18 +2328,16 @@ export default function RecipesPage() {
                   priority
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-0" />
+                {/* Subtle soft localized gradient at bottom for text contrast without clouding the image */}
+                <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/75 via-black/35 to-transparent pointer-events-none z-0" />
 
-                <div className="relative z-10 p-4 sm:p-6 lg:pl-8 xl:pl-12 space-y-2 font-inter">
+                <div className="relative z-10 p-4 sm:p-5 lg:pl-7 xl:pl-10 space-y-1.5 font-inter">
                   <span className="bg-[#d62828] text-white text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider shadow-md inline-block">
                     {selectedRecipe.label}
                   </span>
-                  <h1 className="text-xl sm:text-2xl lg:text-2xl xl:text-3xl font-bold text-white font-barlow-condensed tracking-wide uppercase leading-tight">
+                  <h1 className="text-xl sm:text-2xl lg:text-2xl xl:text-3xl font-bold text-white font-barlow-condensed tracking-wide uppercase leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                     {selectedRecipe.title}
                   </h1>
-                  <p className="text-xs sm:text-sm font-medium text-slate-200 font-manrope max-w-[420px] leading-relaxed line-clamp-2">
-                    {selectedRecipe.desc}
-                  </p>
                 </div>
               </motion.div>
 
