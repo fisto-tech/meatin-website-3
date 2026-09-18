@@ -461,7 +461,7 @@ export default function HomePage() {
             />
             {/* Gradients for readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 lg:via-transparent to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/60 to-transparent" />
+            {/* <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/60 to-transparent" /> */}
           </div>
 
           <motion.div
