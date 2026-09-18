@@ -1,5 +1,7 @@
 // Auto-generated comprehensive site assets for preloader and background cache
 export const PRELOAD_ASSETS: string[] = [
+  "/preloader-running-clean.gif",
+  "/meatin-logo.webp",
   "/404.webp",
   "/AboutUs/about-hero-icons/acres-icon.svg",
   "/AboutUs/about-hero-icons/kg-icon.svg",

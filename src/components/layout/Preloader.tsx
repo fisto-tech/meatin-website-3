@@ -144,77 +144,116 @@ export const Preloader: React.FC = () => {
         body.preloader-active > *:not(#preloader-root) {
           opacity: 0 !important;
         }
+        @keyframes pulseGlow {
+          0%, 100% {
+            box-shadow: 0 10px 40px -10px rgba(6, 72, 35, 0.18), 0 0 0 1px rgba(141, 197, 65, 0.2);
+          }
+          50% {
+            box-shadow: 0 16px 50px -8px rgba(6, 72, 35, 0.26), 0 0 0 1px rgba(141, 197, 65, 0.4);
+          }
+        }
         @keyframes gentleFloat {
-          0%, 100% { transform: translateY(0) scale(1.1); }
-          50% { transform: translateY(-6px) scale(1.13); }
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-4px); }
         }
-        .animated-logo {
-          animation: gentleFloat 3s ease-in-out infinite;
+        .preloader-card {
+          animation: pulseGlow 3s ease-in-out infinite;
         }
-        @keyframes shimmerEffect {
-          0% { background-position: -200px 0; }
-          100% { background-position: 200px 0; }
-        }
-        .glowing-bar {
-          box-shadow: 0 0 12px rgba(6, 72, 35, 0.25);
-          background: linear-gradient(
-            90deg,
-            #064823 0%,
-            #488E40 30%,
-            #8DC541 50%,
-            #488E40 70%,
-            #064823 100%
-          );
-          background-size: 200px 100%;
-          animation: shimmerEffect 1.8s linear infinite;
+        .preloader-mascot {
+          animation: gentleFloat 2.4s ease-in-out infinite;
         }
       `}</style>
 
-      {/* Compact Round Circular Preloader Container */}
-      <div className="relative w-52 h-52 sm:w-60 sm:h-60 rounded-full flex items-center justify-center p-1 shadow-[0_20px_50px_rgba(6,72,35,0.15)]">
-        
-        {/* Animated Running Green Circular Border */}
-        <div
-          className="absolute inset-0 rounded-full animate-spin pointer-events-none"
-          style={{
-            animationDuration: '2.2s',
-            padding: '7px',
-            background: 'conic-gradient(from 0deg, rgba(141, 197, 65, 0.15) 0%, #8DC541 40%, #064823 75%, #488E40 100%)',
-            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-            WebkitMaskComposite: 'xor',
-            maskComposite: 'exclude',
-          }}
-        />
+      {/* Main Glassmorphic Container Card */}
+      <div className="relative flex flex-col items-center">
+        {/* Ambient Backlight Glow */}
+        <div className="absolute -inset-8 bg-gradient-to-tr from-[#064823]/10 via-[#8DC541]/15 to-[#F7840F]/10 rounded-full blur-2xl pointer-events-none -z-10" />
 
-        {/* Clean Interior Circle Container (Perfectly Centered Content) */}
-        <div className="relative w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden p-4 shadow-inner">
-          {/* Content Layer Inside Circle */}
-          <div className="relative z-10 flex flex-col items-center justify-center my-auto">
-            {/* 1. Enlarged Running Chicken Mascot GIF */}
-            <div className="relative w-[170px] h-[120px] sm:w-[190px] sm:h-[135px] flex items-center justify-center shrink-0">
+        {/* Circular Hub with Smooth SVG Circular Progress Indicator */}
+        <div className="preloader-card relative w-56 h-56 sm:w-64 sm:h-64 rounded-full bg-white flex items-center justify-center p-3 transition-all duration-300">
+          
+          {/* Precise Circular SVG Progress Ring */}
+          <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none p-1.5" viewBox="0 0 100 100">
+            {/* Background Track Ring */}
+            <circle
+              cx="50"
+              cy="50"
+              r="46"
+              className="text-[#E8ECE7]"
+              strokeWidth="3"
+              stroke="currentColor"
+              fill="transparent"
+            />
+            {/* Animated Dynamic Gradient Fill Ring */}
+            <defs>
+              <linearGradient id="meatinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#8DC541" />
+                <stop offset="50%" stopColor="#064823" />
+                <stop offset="100%" stopColor="#F7840F" />
+              </linearGradient>
+            </defs>
+            <circle
+              cx="50"
+              cy="50"
+              r="46"
+              stroke="url(#meatinGrad)"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              fill="transparent"
+              style={{
+                strokeDasharray: 2 * Math.PI * 46,
+                strokeDashoffset: 2 * Math.PI * 46 * (1 - progress / 100),
+                transition: 'stroke-dashoffset 0.35s ease-out',
+              }}
+            />
+          </svg>
+
+          {/* Inner Content Display */}
+          <div className="relative z-10 w-full h-full rounded-full flex flex-col items-center justify-center px-4 py-2 select-none">
+            {/* Clean Cropped Running Mascot */}
+            <div className="preloader-mascot relative w-28 h-24 sm:w-32 sm:h-28 flex items-center justify-center -mt-1">
               <Image
-                src="/preloader.gif?v=3"
-                alt="Loading..."
+                src="/preloader-running-clean.gif"
+                alt="MEATiN Mascot"
                 fill
-                className="object-contain object-center"
+                className="object-contain"
                 priority
                 unoptimized
               />
             </div>
 
-            {/* 2. MEATiN Logo */}
-            <div className="animated-logo scale-100 sm:scale-105 shrink-0 -mt-2">
-              <Logo variant="dark" />
+            {/* Official MEATiN Logo Badge */}
+            <div className="relative w-28 sm:w-32 h-9 sm:h-10 mt-0.5">
+              <Image
+                src="/meatin-logo.webp"
+                alt="MEATiN"
+                fill
+                className="object-contain object-center"
+                priority
+              />
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Percentage Counter Below Circle */}
-      <div className="mt-6 flex items-center justify-center">
-        <span className="text-xl sm:text-2xl font-extrabold text-[#064823] tracking-wider font-manrope">
-          {progress}%
-        </span>
+        {/* Bottom Status Block with Elegant Progress & Live Percentage */}
+        <div className="mt-8 flex flex-col items-center gap-2 text-center select-none">
+          {/* Linear Progress Bar Accent */}
+          <div className="w-48 sm:w-56 h-1.5 bg-[#E2E8E0] rounded-full overflow-hidden shadow-inner">
+            <div
+              className="h-full bg-gradient-to-r from-[#8DC541] via-[#064823] to-[#F7840F] rounded-full transition-all duration-300 ease-out"
+              style={{ width: `${Math.max(6, progress)}%` }}
+            />
+          </div>
+
+          <div className="flex items-center justify-between w-48 sm:w-56 px-0.5 mt-1">
+            <span className="text-[11px] font-bold text-[#064823]/70 uppercase tracking-widest font-manrope">
+              {progress < 40 ? 'Preparing Experience' : progress < 80 ? 'Seasoning Quality' : 'Ready to Serve'}
+            </span>
+            <span className="text-xs font-black text-[#064823] font-manrope tabular-nums">
+              {progress}%
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

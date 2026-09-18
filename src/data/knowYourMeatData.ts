@@ -659,7 +659,7 @@ export const BASE_PARTS = {
       id: "neck",
     },
     {
-      name: "BREST",
+      name: "BREAST",
       desc: "Lean & protein rich. Best\nfor grilling & healthy meals",
       img: "/Product/Chicken/ChickenParts/brest.webp",
       id: "brest",
