@@ -181,6 +181,8 @@ export default function HomePage() {
   const lastDrawnFrameRef = React.useRef<number>(1);
   const imagesMapRef = React.useRef<Map<number, HTMLImageElement>>(new Map());
 
+  const TOTAL_HERO_FRAMES = 445;
+
   // Guaranteed Canvas Render Engine with Nearest-Frame Fallback
   const renderFrame = React.useCallback((targetFrame: number) => {
     const canvas = canvasRef.current;
@@ -188,7 +190,7 @@ export default function HomePage() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const totalFrames = 240;
+    const totalFrames = TOTAL_HERO_FRAMES;
     const safeTarget = Math.max(1, Math.min(totalFrames, Math.round(targetFrame)));
     const map = imagesMapRef.current;
 
@@ -278,7 +280,7 @@ export default function HomePage() {
 
   // Priority-based frame preloading system
   React.useEffect(() => {
-    const totalFrames = 240;
+    const totalFrames = TOTAL_HERO_FRAMES;
     const map = imagesMapRef.current;
 
     const loadFrame = (frameNum: number): HTMLImageElement => {
@@ -344,11 +346,14 @@ export default function HomePage() {
   }, [renderFrame]);
 
   // Connect scroll progress directly to canvas drawing (60FPS without React re-renders)
+  // Reaches the final frame at 0.88 scroll progress and holds it until 1.0 (providing a hold/rest stop before release)
   useMotionValueEvent(smoothProgress, "change", (latest) => {
-    const totalFrames = 240;
+    const totalFrames = TOTAL_HERO_FRAMES;
+    const holdThreshold = 0.88;
+    const normalizedProgress = Math.min(1, latest / holdThreshold);
     const frame = Math.min(
       totalFrames,
-      Math.max(1, Math.floor(latest * totalFrames)),
+      Math.max(1, Math.floor(normalizedProgress * totalFrames)),
     );
     renderFrame(frame);
 
@@ -373,8 +378,8 @@ export default function HomePage() {
     };
   }, [renderFrame]);
 
-  const heroContentOpacity = useTransform(smoothProgress, [0.85, 0.98], [1, 0]);
-  const heroContentY = useTransform(smoothProgress, [0.85, 0.98], [0, -30]);
+  const heroContentOpacity = useTransform(smoothProgress, [0.75, 0.88], [1, 0]);
+  const heroContentY = useTransform(smoothProgress, [0.75, 0.88], [0, -30]);
 
   const storySteps = [
     {
@@ -451,7 +456,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#F6F5F0] overflow-x-clip font-manrope">
       {/* 1. HERO BANNER WITH STICKY SCROLL SEQUENCE */}
-      <section ref={heroRef} className="relative w-full h-[300vh] bg-black">
+      <section ref={heroRef} className="relative w-full h-[380vh] bg-black">
         <div className="sticky top-0 left-0 w-full h-screen flex items-center bg-black overflow-hidden">
           {/* Background Frame Sequence Canvas */}
           <div className="absolute inset-0 z-0 select-none pointer-events-none w-full h-full">
