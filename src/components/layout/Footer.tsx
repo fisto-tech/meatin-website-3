@@ -249,6 +249,7 @@ export const Footer: React.FC = () => {
                 <motion.li variants={listItemVariants}>
                   <Link
                     href="/"
+                    prefetch={true}
                     className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(0)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -260,6 +261,7 @@ export const Footer: React.FC = () => {
                 <motion.li variants={listItemVariants}>
                   <Link
                     href="/about"
+                    prefetch={true}
                     className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(1)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -271,6 +273,7 @@ export const Footer: React.FC = () => {
                 <motion.li variants={listItemVariants}>
                   <Link
                     href="/know-your-meat"
+                    prefetch={true}
                     className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(2)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -282,6 +285,7 @@ export const Footer: React.FC = () => {
                 <motion.li variants={listItemVariants}>
                   <Link
                     href="/contact"
+                    prefetch={true}
                     className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(3)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -316,6 +320,7 @@ export const Footer: React.FC = () => {
                 <motion.li variants={listItemVariants}>
                   <Link
                     href="/recipes"
+                    prefetch={true}
                     className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(4)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -327,6 +332,7 @@ export const Footer: React.FC = () => {
                 <motion.li variants={listItemVariants}>
                   <Link
                     href="/franchise"
+                    prefetch={true}
                     className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(5)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -338,6 +344,7 @@ export const Footer: React.FC = () => {
                 <motion.li variants={listItemVariants}>
                   <Link
                     href="/team"
+                    prefetch={true}
                     className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(6)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -349,6 +356,7 @@ export const Footer: React.FC = () => {
                 <motion.li variants={listItemVariants}>
                   <Link
                     href="/vlog"
+                    prefetch={true}
                     className={`flex items-center gap-2 sm:gap-2.5 origin-left whitespace-nowrap ${getHighlightClass(7)}`}
                   >
                     <svg className="w-3 h-5 text-[#F7840F] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">

@@ -165,7 +165,7 @@ export default function TrustedQualityBanner({ className }: { className?: string
                 href="/know-your-meat"
                 className="inline-flex items-center gap-1.5 px-3 sm:px-5 py-1 sm:py-1.5 bg-[#064823] hover:bg-[#0a5e30] text-white rounded-md font-bold text-[10px] sm:text-xs md:text-sm transition-all duration-300 shadow-md hover:shadow-xl hover:scale-[1.02] group"
               >
-                <span>Shop Now</span>
+                <span>Explore Our Products</span>
                 <motion.span
                   animate={{ x: [0, 4, 0] }}
                   transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}

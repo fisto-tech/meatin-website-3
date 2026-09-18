@@ -21,7 +21,7 @@ export const Preloader: React.FC = () => {
       '/know-your-meat',
       '/recipes',
       '/franchise',
-      '/meet-our-team',
+      '/team',
       '/vlog',
       '/contact',
       '/about',
@@ -36,10 +36,13 @@ export const Preloader: React.FC = () => {
     });
   }, [router]);
 
+  // Listen for immediate completion if already visited
   useEffect(() => {
-    // Skip preloader on internal page clicks if already preloaded during session
+    // Check if session preloaded
     if (typeof window !== 'undefined' && sessionStorage.getItem('meatin_preloaded') === 'true') {
       setLoading(false);
+      document.body.classList.remove('preloader-active');
+      document.body.style.overflow = '';
       return;
     }
 
@@ -50,6 +53,8 @@ export const Preloader: React.FC = () => {
     }
 
     let isFinished = false;
+    let assetsLoaded = false;
+    let windowLoaded = typeof document !== 'undefined' && document.readyState === 'complete';
 
     const finishLoading = () => {
       if (isFinished) return;
@@ -76,25 +81,47 @@ export const Preloader: React.FC = () => {
       }, 300);
     };
 
-    // Instantiate DSA Asset Preload Engine (Priority Queue + Worker Pool + Set Deduplication)
+    const checkReady = () => {
+      if (assetsLoaded && windowLoaded) {
+        finishLoading();
+      }
+    };
+
+    // Listen for actual window load event
+    if (!windowLoaded && typeof window !== 'undefined') {
+      const handleWindowLoad = () => {
+        windowLoaded = true;
+        checkReady();
+      };
+      window.addEventListener('load', handleWindowLoad, { once: true });
+    }
+
+    // Asset preload engine tracking
     if (typeof window !== 'undefined') {
       const engine = new AssetPreloadEngine(PRELOAD_ASSETS, {
-        concurrency: 12, // Fast parallel loading for critical hero assets
+        concurrency: 6,
         onProgress: (percent) => {
           setProgress((prev) => Math.max(prev, percent));
         },
         onComplete: () => {
-          finishLoading();
+          assetsLoaded = true;
+          // Ensure window is also ready
+          if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            windowLoaded = true;
+            finishLoading();
+          } else {
+            checkReady();
+          }
         },
       });
 
       engine.start();
     }
 
-    // Maximum fallback safety timeout (1.5s) to guarantee fast entry
+    // Safety timeout ensuring user is never stuck indefinitely (e.g. slow connection)
     const maxTimeout = setTimeout(() => {
       finishLoading();
-    }, 1500);
+    }, 4500);
 
     return () => {
       clearTimeout(maxTimeout);
@@ -105,7 +132,8 @@ export const Preloader: React.FC = () => {
     };
   }, []);
 
-  if (!mounted || !loading) return null;
+  if (!loading) return null;
+
 
   return (
     <div

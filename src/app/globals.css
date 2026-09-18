@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Chau+Philomene+One&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -178,3 +176,13 @@
     top: 2.5vh !important;
   }
 }
+
+/* Instant Preloader Barrier: Keep website contents hidden until preloader unlocks */
+body.preloader-active > *:not(#preloader-root) {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body.preloader-active {
+  overflow: hidden !important;
+}

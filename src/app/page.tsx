@@ -292,42 +292,60 @@ export default function HomePage() {
       return img;
     };
 
+    let isCancelled = false;
+    let microBatchTimer: NodeJS.Timeout | null = null;
+
     // P1: Frame 1 immediately
     const firstImg = loadFrame(1);
-    firstImg.onload = () => renderFrame(1);
+    firstImg.onload = () => {
+      if (!isCancelled) renderFrame(1);
+    };
 
-    // P2: Keyframes (every 5th frame)
+    // P2: Keyframes & Remaining frames scheduled via idle callbacks / micro-batches
     const timerId = setTimeout(() => {
-      for (let i = 1; i <= totalFrames; i += 5) {
+      if (isCancelled) return;
+      // Preload next immediate 30 frames for smooth initial scroll
+      for (let i = 1; i <= Math.min(totalFrames, 30); i++) {
         loadFrame(i);
       }
-      loadFrame(totalFrames);
 
-      // P3: Remaining frames in micro-batches
-      let currentIdx = 1;
+      // Schedule subsequent frames cooperatively so navigation is never blocked
+      let currentIdx = 31;
       const batchNext = () => {
-        if (currentIdx > totalFrames) return;
-        const batchEnd = Math.min(totalFrames, currentIdx + 15);
+        if (isCancelled || currentIdx > totalFrames) return;
+        const batchEnd = Math.min(totalFrames, currentIdx + 10);
         for (let i = currentIdx; i <= batchEnd; i++) {
           loadFrame(i);
         }
         currentIdx = batchEnd + 1;
-        if (currentIdx <= totalFrames) {
-          setTimeout(batchNext, 40);
+        if (!isCancelled && currentIdx <= totalFrames) {
+          microBatchTimer = setTimeout(batchNext, 120);
         }
       };
-      setTimeout(batchNext, 80);
-    }, 30);
 
-    const t1 = setTimeout(() => window.dispatchEvent(new Event("resize")), 100);
-    const t2 = setTimeout(() => window.dispatchEvent(new Event("resize")), 600);
+      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+        (window as any).requestIdleCallback(() => batchNext(), { timeout: 1000 });
+      } else {
+        microBatchTimer = setTimeout(batchNext, 200);
+      }
+    }, 500);
+
+    const t1 = setTimeout(() => {
+      if (!isCancelled) window.dispatchEvent(new Event("resize"));
+    }, 100);
+    const t2 = setTimeout(() => {
+      if (!isCancelled) window.dispatchEvent(new Event("resize"));
+    }, 600);
 
     return () => {
+      isCancelled = true;
       clearTimeout(timerId);
+      if (microBatchTimer) clearTimeout(microBatchTimer);
       clearTimeout(t1);
       clearTimeout(t2);
     };
   }, [renderFrame]);
+
 
   // Connect scroll progress directly to canvas drawing (60FPS without React re-renders)
   useMotionValueEvent(smoothProgress, "change", (latest) => {

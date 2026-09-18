@@ -352,13 +352,14 @@ export default function AboutUsPage() {
                 muted
                 loop
                 playsInline
-                preload="auto"
+                preload="metadata"
                 className="w-full h-full object-cover"
               >
                 <source src="/AboutUs/about-us-video.mp4" type="video/mp4" />
                 <source src="/AboutUs/about-us-video.webm" type="video/webm" />
                 Your browser does not support the video tag.
               </video>
+
             </motion.div>
 
             {/* Right Side: Description (Right 50% Column with comfortable padding) */}

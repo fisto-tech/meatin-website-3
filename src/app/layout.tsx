@@ -134,9 +134,21 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (sessionStorage.getItem('meatin_preloaded') !== 'true') {
+                  document.documentElement.classList.add('is-preloading');
+                }
+              } catch(e) {}
+            `,
+          }}
+        />
       </head>
-      <body className="font-manrope bg-white text-slate-900 min-h-screen flex flex-col antialiased" suppressHydrationWarning>
+      <body className="font-manrope bg-white text-slate-900 min-h-screen flex flex-col antialiased preloader-active" suppressHydrationWarning>
         <Preloader />
+
         <Navbar />
         <main className="flex-1 w-full">
           <SmoothScroll>

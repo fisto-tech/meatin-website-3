@@ -12,7 +12,7 @@ export interface MeatSliderItem {
 export interface MeatSliderMarqueeProps {
   items?: MeatSliderItem[];
   bgImage?: string;
-  speed?: number; // duration in seconds
+  speed?: number;
   direction?: "left" | "right";
   pauseOnHover?: boolean;
   className?: string;
@@ -41,7 +41,6 @@ export default function MeatSliderMarquee({
 }: MeatSliderMarqueeProps) {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
-  // Duplicate items array 4 times to ensure seamless infinite looping on all screen sizes
   const repeatedItems = [...items, ...items, ...items, ...items];
 
   const animationDirectionClass =
@@ -51,29 +50,55 @@ export default function MeatSliderMarquee({
 
   return (
     <div
-      className={`relative w-full overflow-hidden select-none shadow-md ${className}`}
-      style={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "100% 100%",
-        backgroundPosition: "center",
-      }}
+      className={`relative w-full overflow-hidden select-none shadow-md bg-slate-200 ${className}`}
     >
-      {/* Top & Bottom Subtle Rail Glow / Shadows */}
-      <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-slate-400/40 to-transparent z-10 pointer-events-none" />
-      <div className="absolute bottom-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-slate-400/40 to-transparent z-10 pointer-events-none" />
+      {/* === MOVING BELT (renders the bg image twice, side by side, and scrolls) === */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div
+          className={`flex h-full w-[200%] ${animationDirectionClass} ${
+            pauseOnHover ? "group-hover:[animation-play-state:paused]" : ""
+          }`}
+          style={{ animationDuration: `${speed}s` }}
+        >
+          {/* Two copies of the bg image for a seamless loop */}
+          <div className="relative h-full w-1/2 shrink-0">
+            <Image
+              src={bgImage}
+              alt=""
+              fill
+              unoptimized
+              sizes="100vw"
+              className="object-fill pointer-events-none select-none"
+              draggable={false}
+            />
+          </div>
+          <div className="relative h-full w-1/2 shrink-0">
+            <Image
+              src={bgImage}
+              alt=""
+              fill
+              unoptimized
+              sizes="100vw"
+              className="object-fill pointer-events-none select-none"
+              draggable={false}
+            />
+          </div>
+        </div>
+      </div>
 
-      {/* Marquee Wrapper Container */}
+      {/* Top & Bottom rail glow */}
+      <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-slate-400/40 to-transparent z-20 pointer-events-none" />
+      <div className="absolute bottom-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-slate-400/40 to-transparent z-20 pointer-events-none" />
+
+      {/* === Chicken Track (same animation, same duration → moves in sync) === */}
       <div
-        className={`group relative flex items-center w-full ${heightClass} overflow-hidden`}
+        className={`group relative flex items-center w-full ${heightClass} overflow-hidden z-10`}
       >
         <div
           className={`flex items-center shrink-0 min-w-full gap-8 sm:gap-12 md:gap-16 lg:gap-20 py-2 ${animationDirectionClass} ${
             pauseOnHover ? "group-hover:[animation-play-state:paused]" : ""
           }`}
-          style={{
-            animationDuration: `${speed}s`,
-          }}
+          style={{ animationDuration: `${speed}s` }}
         >
           {repeatedItems.map((item, idx) => (
             <div
@@ -82,7 +107,6 @@ export default function MeatSliderMarquee({
               onMouseLeave={() => setHoveredIdx(null)}
               className="relative flex flex-col items-center justify-center shrink-0 cursor-pointer group/item transition-transform duration-300 ease-out hover:scale-110 sm:hover:scale-115"
             >
-              {/* Product Image on Conveyor Belt */}
               <div className="relative w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 flex items-center justify-center filter drop-shadow-[0_8px_10px_rgba(0,0,0,0.22)] transition-all duration-300">
                 <Image
                   src={item.img}
@@ -93,9 +117,8 @@ export default function MeatSliderMarquee({
                 />
               </div>
 
-              {/* Optional Floating Label / Badge on Hover or Always */}
               {(showLabels || hoveredIdx === idx) && (
-                <div className="absolute -bottom-2 sm:bottom-1 bg-[#064823]/90 text-white text-[10px] sm:text-xs font-bold font-inter tracking-wider px-2.5 py-1 rounded-full shadow-lg backdrop-blur-sm whitespace-nowrap transition-all duration-300 animate-fadeIn pointer-events-none">
+                <div className="absolute -bottom-2 sm:bottom-1 bg-[#064823]/90 text-white text-[10px] sm:text-xs font-bold font-inter tracking-wider px-2.5 py-1 rounded-full shadow-lg backdrop-blur-sm whitespace-nowrap transition-all duration-300 animate-fadeIn pointer-events-none z-30">
                   {item.name}
                 </div>
               )}
@@ -104,7 +127,6 @@ export default function MeatSliderMarquee({
         </div>
       </div>
 
-      {/* Inline styles for keyframe marquee animations */}
       <style jsx global>{`
         @keyframes marqueeLeft {
           0% {
@@ -132,6 +154,21 @@ export default function MeatSliderMarquee({
         .animate-marquee-right {
           animation: marqueeRight linear infinite;
           will-change: transform;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(4px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fadeIn {
+          animation: fadeIn 0.25s ease-out;
         }
       `}</style>
     </div>

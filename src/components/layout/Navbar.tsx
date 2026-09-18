@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
 
@@ -24,8 +24,19 @@ const navItems: NavItem[] = [
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // Eagerly prefetch all pages immediately after Navbar mounts
+  useEffect(() => {
+    navItems.forEach((item) => {
+      try {
+        router.prefetch(item.href);
+      } catch (e) {}
+    });
+  }, [router]);
+
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -78,6 +89,11 @@ export const Navbar: React.FC = () => {
                   key={item.label}
                   href={item.href}
                   prefetch={true}
+                  onMouseEnter={() => {
+                    try {
+                      router.prefetch(item.href);
+                    } catch (e) {}
+                  }}
                   suppressHydrationWarning
                   className={`relative text-xs lg:text-xs xl:text-xs 2xl:text-[0.8vw] font-black font-inter tracking-wider transition-all duration-200 lg:px-1 xl:px-1.5 py-1 ${getLinkColorClass(isActive)}`}
                 >
@@ -86,6 +102,7 @@ export const Navbar: React.FC = () => {
                     <span className={`absolute bottom-0 left-0 right-0 h-[2px] rounded-full ${getUnderlineColorClass()}`} />
                   )}
                 </Link>
+
               );
             })}
           </nav>
