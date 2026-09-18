@@ -179,12 +179,14 @@ export default function HomePage() {
   );
   const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
   const lastDrawnFrameRef = React.useRef<number>(1);
+  const targetFrameRef = React.useRef<number>(1);
+  const rafIdRef = React.useRef<number | null>(null);
   const imagesMapRef = React.useRef<Map<number, HTMLImageElement>>(new Map());
 
   const TOTAL_HERO_FRAMES = 445;
 
-  // Guaranteed Canvas Render Engine with Nearest-Frame Fallback
-  const renderFrame = React.useCallback((targetFrame: number) => {
+  // Draw the best available frame for the given target
+  const drawCanvas = React.useCallback((targetFrame: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -203,34 +205,36 @@ export default function HomePage() {
       return null;
     };
 
-    // 1. Try target frame
+    // 1. Direct hit on target frame
     let imgToDraw = getReadyImg(safeTarget);
     let frameUsed = safeTarget;
 
-    // 2. Fallback to last successfully drawn frame if target frame isn't loaded yet
+    // 2. If target frame isn't loaded yet, find the CLOSEST loaded frame in memory to safeTarget
+    // This ensures smooth responsive scrubbing without EVER getting stuck on an early frame
+    if (!imgToDraw) {
+      let closestFrame = -1;
+      let minDiff = Infinity;
+
+      map.forEach((img, num) => {
+        if (img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
+          const diff = Math.abs(num - safeTarget);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestFrame = num;
+          }
+        }
+      });
+
+      if (closestFrame !== -1) {
+        imgToDraw = map.get(closestFrame) || null;
+        frameUsed = closestFrame;
+      }
+    }
+
+    // 3. Fallback to last successfully drawn frame if no other frame found
     if (!imgToDraw) {
       imgToDraw = getReadyImg(lastDrawnFrameRef.current);
       frameUsed = lastDrawnFrameRef.current;
-    }
-
-    // 3. Fallback outwards to nearest loaded frame in memory
-    if (!imgToDraw) {
-      for (let offset = 1; offset < totalFrames; offset++) {
-        if (safeTarget - offset >= 1) {
-          imgToDraw = getReadyImg(safeTarget - offset);
-          if (imgToDraw) {
-            frameUsed = safeTarget - offset;
-            break;
-          }
-        }
-        if (safeTarget + offset <= totalFrames) {
-          imgToDraw = getReadyImg(safeTarget + offset);
-          if (imgToDraw) {
-            frameUsed = safeTarget + offset;
-            break;
-          }
-        }
-      }
     }
 
     if (!imgToDraw) return;
@@ -269,81 +273,149 @@ export default function HomePage() {
     } catch (err) {
       // Silently skip if image state changes mid-render
     }
-
-    const targetImg = map.get(safeTarget);
-    if (targetImg && !targetImg.complete) {
-      targetImg.onload = () => {
-        renderFrame(safeTarget);
-      };
-    }
   }, []);
 
-  // Priority-based frame preloading system
+  // Coalesced 60FPS RAF-based Canvas Drawing
+  const scheduleRender = React.useCallback(() => {
+    if (rafIdRef.current !== null) return;
+    rafIdRef.current = requestAnimationFrame(() => {
+      rafIdRef.current = null;
+      drawCanvas(targetFrameRef.current);
+    });
+  }, [drawCanvas]);
+
+  // Synchronous / on-demand frame loader linked to global cache
+  const loadFrame = React.useCallback((frameNum: number): HTMLImageElement | null => {
+    if (frameNum < 1 || frameNum > TOTAL_HERO_FRAMES) return null;
+    const map = imagesMapRef.current;
+    let img = map.get(frameNum);
+    if (img) return img;
+
+    const frameStr = String(frameNum).padStart(5, "0");
+    const src = `/Home/Hero/video-frames-opt/${frameStr}.jpg`;
+
+    // 1. Check global preloader cache
+    if (typeof window !== "undefined" && (window as any).__HERO_FRAMES__?.[src]) {
+      const globalImg = (window as any).__HERO_FRAMES__[src] as HTMLImageElement;
+      map.set(frameNum, globalImg);
+      return globalImg;
+    }
+
+    // 2. Instantiate new Image
+    img = new window.Image();
+    img.src = src;
+    map.set(frameNum, img);
+    if (typeof window !== "undefined") {
+      (window as any).__HERO_FRAMES__ = (window as any).__HERO_FRAMES__ || {};
+      (window as any).__HERO_FRAMES__[src] = img;
+    }
+
+    // When this image loads, re-render if this frame is closer to targetFrameRef than the currently drawn frame
+    // This allows progressive visual refinement while completely preventing old frames from hijacking playback
+    img.onload = () => {
+      const currentDiff = Math.abs(targetFrameRef.current - lastDrawnFrameRef.current);
+      const newDiff = Math.abs(targetFrameRef.current - frameNum);
+      if (newDiff < currentDiff || Math.abs(targetFrameRef.current - frameNum) <= 2) {
+        scheduleRender();
+      }
+    };
+
+    return img;
+  }, [scheduleRender]);
+
+  // Guaranteed Canvas Render Engine with On-Demand Prioritization
+  const renderFrame = React.useCallback((targetFrame: number) => {
+    const safeTarget = Math.max(1, Math.min(TOTAL_HERO_FRAMES, Math.round(targetFrame)));
+    targetFrameRef.current = safeTarget;
+
+    // Immediately load target frame and proactive lookahead buffer in both directions
+    loadFrame(safeTarget);
+    for (let i = 1; i <= 8; i++) {
+      if (safeTarget + i <= TOTAL_HERO_FRAMES) loadFrame(safeTarget + i);
+      if (safeTarget - i >= 1) loadFrame(safeTarget - i);
+    }
+
+    scheduleRender();
+  }, [loadFrame, scheduleRender]);
+
+  // Two-tier background frame preloader:
+  // Tier 1: Keyframe milestones across the whole sequence (every 10th frame) -> scrubs immediately across entire video
+  // Tier 2: Fill in remaining intermediate frames progressively
   React.useEffect(() => {
     const totalFrames = TOTAL_HERO_FRAMES;
-    const map = imagesMapRef.current;
-
-    const loadFrame = (frameNum: number): HTMLImageElement => {
-      let img = map.get(frameNum);
-      if (img) return img;
-      img = new window.Image();
-      const frameStr = String(frameNum).padStart(5, "0");
-      img.src = `/Home/Hero/video-frames-opt/${frameStr}.jpg`;
-      map.set(frameNum, img);
-      return img;
-    };
-
     let isCancelled = false;
-    let microBatchTimer: NodeJS.Timeout | null = null;
+    let batchTimer: NodeJS.Timeout | null = null;
 
-    // P1: Frame 1 immediately
+    // 1. Load Frame 1 immediately
     const firstImg = loadFrame(1);
-    firstImg.onload = () => {
-      if (!isCancelled) renderFrame(1);
-    };
+    if (firstImg && firstImg.complete) {
+      renderFrame(1);
+    } else if (firstImg) {
+      firstImg.onload = () => {
+        if (!isCancelled) renderFrame(1);
+      };
+    }
 
-    // P2: Preload initial frames for immediate scroll responsiveness
+    // 2. Tier 1: Preload milestones every 10 frames (10, 20, 30... 440, 445)
+    // Only ~45 frames total, loads in ~1.5s and provides seamless scrub across the full video
+    const milestones: number[] = [];
+    for (let i = 10; i <= totalFrames; i += 10) {
+      milestones.push(i);
+    }
+    if (totalFrames % 10 !== 0) milestones.push(totalFrames);
+
     const timerId = setTimeout(() => {
       if (isCancelled) return;
-      for (let i = 1; i <= Math.min(totalFrames, 30); i++) {
-        loadFrame(i);
+      for (let i = 0; i < Math.min(milestones.length, 15); i++) {
+        loadFrame(milestones[i]);
       }
 
-      let currentIdx = 31;
-      const batchNext = () => {
-        if (isCancelled || currentIdx > totalFrames) return;
-        const batchEnd = Math.min(totalFrames, currentIdx + 15);
-        for (let i = currentIdx; i <= batchEnd; i++) {
-          loadFrame(i);
+      let milestoneIdx = 15;
+      const processMilestones = () => {
+        if (isCancelled) return;
+        const end = Math.min(milestones.length, milestoneIdx + 10);
+        for (let i = milestoneIdx; i < end; i++) {
+          loadFrame(milestones[i]);
         }
-        currentIdx = batchEnd + 1;
-        if (!isCancelled && currentIdx <= totalFrames) {
-          microBatchTimer = setTimeout(batchNext, 60);
+        milestoneIdx = end;
+
+        if (milestoneIdx < milestones.length) {
+          batchTimer = setTimeout(processMilestones, 40);
+        } else {
+          // Tier 2: Fill in remaining intermediate frames
+          let currentFrame = 2;
+          const processRemaining = () => {
+            if (isCancelled || currentFrame > totalFrames) return;
+            const batchEnd = Math.min(totalFrames, currentFrame + 12);
+            for (let f = currentFrame; f <= batchEnd; f++) {
+              if (f % 10 !== 0) loadFrame(f);
+            }
+            currentFrame = batchEnd + 1;
+            if (currentFrame <= totalFrames) {
+              batchTimer = setTimeout(processRemaining, 50);
+            }
+          };
+          batchTimer = setTimeout(processRemaining, 60);
         }
       };
 
-      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-        (window as any).requestIdleCallback(() => batchNext(), { timeout: 600 });
-      } else {
-        microBatchTimer = setTimeout(batchNext, 100);
-      }
-    }, 150);
+      batchTimer = setTimeout(processMilestones, 50);
+    }, 100);
 
     const t1 = setTimeout(() => {
       if (!isCancelled) window.dispatchEvent(new Event("resize"));
     }, 100);
-    const t2 = setTimeout(() => {
-      if (!isCancelled) window.dispatchEvent(new Event("resize"));
-    }, 600);
 
     return () => {
       isCancelled = true;
       clearTimeout(timerId);
-      if (microBatchTimer) clearTimeout(microBatchTimer);
+      if (batchTimer) clearTimeout(batchTimer);
       clearTimeout(t1);
-      clearTimeout(t2);
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
     };
-  }, [renderFrame]);
+  }, [loadFrame, renderFrame]);
 
   // Connect scroll progress directly to canvas drawing (60FPS without React re-renders)
   // Reaches the final frame at 0.88 scroll progress and holds it until 1.0 (providing a hold/rest stop before release)
@@ -369,14 +441,14 @@ export default function HomePage() {
     renderFrame(1);
 
     const handleResize = () => {
-      renderFrame(lastDrawnFrameRef.current);
+      drawCanvas(lastDrawnFrameRef.current);
     };
 
     window.addEventListener("resize", handleResize, { passive: true });
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [renderFrame]);
+  }, [renderFrame, drawCanvas]);
 
   const heroContentOpacity = useTransform(smoothProgress, [0.75, 0.88], [1, 0]);
   const heroContentY = useTransform(smoothProgress, [0.75, 0.88], [0, -30]);

@@ -26,7 +26,7 @@ export class AssetPreloadEngine {
   private isFinished: boolean = false;
 
   constructor(assets: string[], options: PreloadOptions = {}) {
-    this.maxConcurrency = options.concurrency || 24;
+    this.maxConcurrency = options.concurrency || 8;
     this.onProgress = options.onProgress;
     this.onComplete = options.onComplete;
 
