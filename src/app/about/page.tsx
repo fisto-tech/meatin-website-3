@@ -227,95 +227,107 @@ export default function AboutUsPage() {
   return (
     <div className="min-h-screen bg-[#F3F3F3] font-manrope overflow-x-clip">
 
-      {/* 1. HERO HEADER BANNER SECTION WITH INTEGRATED STATS */}
-      <section className="relative w-full min-h-[85vh] lg:min-h-[90vh] xl:min-h-[820px] bg-slate-900 pt-[6.5rem] sm:pt-[7rem] lg:pt-[7.5rem] pb-8 lg:pb-12 overflow-hidden flex flex-col justify-between">
-        {/* Background Image */}
+      {/* 1. HERO HEADER BANNER SECTION */}
+      <section className="relative w-full min-h-[540px] sm:min-h-[600px] lg:min-h-[640px] xl:min-h-[700px] bg-[#E8EDE7] pt-[5.5rem] sm:pt-[6.5rem] lg:pt-[7.5rem] pb-12 sm:pb-16 lg:pb-20 overflow-hidden flex items-center">
+        {/* Hero Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/AboutUs/about-hero-img.webp"
-            alt="MEATiN Facility"
+            src="/AboutUs/hero-image.webp"
+            alt="MEATiN Scientific Meat Processing Facility"
             fill
             priority
-            className="object-cover object-center"
+            className="object-cover object-center lg:object-[center_right]"
           />
+          {/* Smooth Left-Side Light Gradient Scrim matching reference mockup */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 via-35% md:via-white/70 md:via-45% to-transparent z-10 pointer-events-none" />
+          {/* Mobile full subtle scrim for text contrast */}
+          <div className="absolute inset-0 bg-white/40 sm:hidden z-10 pointer-events-none" />
         </div>
 
-        {/* Top/Middle Content Area: Left Hero Graphic */}
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10 flex-1 flex items-center pt-4 lg:pt-8 pb-6">
+        {/* Content Area: Left Typography matching reference mockup */}
+        <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 relative z-20">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="relative w-full sm:w-[520px] lg:w-[580px] xl:w-[640px] max-w-full"
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-xl lg:max-w-2xl"
           >
-            {/* Soft white shadow glow backdrop behind the graphic for readability */}
-            <div className="absolute -inset-4 sm:-inset-6 bg-white/50 blur-2xl rounded-[30px] pointer-events-none -z-10" />
+            {/* Eyebrow Label */}
+            <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-3.5">
+              <span className="h-[2px] w-5 sm:w-7 bg-[#D4A437]" />
+              <span className="text-xs sm:text-[13px] font-extrabold tracking-[0.22em] text-[#0A4D27] uppercase font-manrope">
+                WHAT IS MEATIN?
+              </span>
+            </div>
 
-            <Image
-              src="/AboutUs/heroimage.webp"
-              alt="What is MEATiN? We Engineer Quality Into Every Cut."
-              width={1706}
-              height={1138}
-              priority
-              className="w-full h-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.9)] drop-shadow-[0_0_30px_rgba(255,255,255,0.8)]"
-            />
+            {/* Main Headline */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] xl:text-[4.8rem] font-extrabold font-barlow tracking-tight uppercase leading-[0.93] mb-3 sm:mb-4">
+              <span className="block text-[#0A4D27]">WE ENGINEER</span>
+              <span className="block text-[#F7840F]">QUALITY INTO</span>
+              <span className="block text-[#0A4D27]">
+                EVERY CUT<span className="text-[#E31E24]">.</span>
+              </span>
+            </h1>
+
+            {/* Subtle Divider Line */}
+            <div className="w-full max-w-[400px] sm:max-w-[460px] h-[1px] bg-[#0A4D27]/25 my-3 sm:my-4" />
+
+            {/* Subtitle Paragraph */}
+            <p className="text-slate-800 text-sm sm:text-base lg:text-lg font-semibold leading-relaxed font-manrope max-w-lg">
+              Integrated farming, scientific processing,<br className="hidden sm:inline" />
+              and cold-chain distribution.
+            </p>
           </motion.div>
         </div>
+      </section>
 
-        {/* Bottom Glassmorphism Stats Bar */}
-        <div className="w-full px-3 sm:px-6 lg:px-8 relative z-10 flex justify-center">
+      {/* 2. STATS METRICS BAR MATCHING ATTACHED DESIGN */}
+      <section className="relative w-full bg-white border-y border-slate-200/90 shadow-sm z-20">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7 lg:py-8">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            className="w-full max-w-[1240px] bg-white/85 backdrop-blur-md rounded-[22px] sm:rounded-[28px] lg:rounded-[36px] p-3 sm:p-4 lg:py-4 lg:px-6 border border-white/90 shadow-2xl"
+            viewport={{ once: true, margin: "-30px" }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-6 sm:gap-y-6 lg:gap-y-0 lg:divide-x lg:divide-slate-200 items-center"
           >
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-5 gap-x-3 sm:gap-x-4 lg:gap-x-0 lg:divide-x lg:divide-slate-300/70 items-center">
-              {stats.map((stat, idx) => {
-                return (
-                  <motion.div
-                    key={idx}
-                    variants={springScale}
-                    className={`flex items-center gap-2.5 sm:gap-3.5 lg:gap-4 px-2 sm:px-3 lg:px-5 xl:px-6 py-1.5 ${
-                      idx === 4 ? 'col-span-2 sm:col-span-1 justify-center sm:justify-start' : 'justify-start'
-                    }`}
-                  >
-                    {/* Green Circle Icon Badge with 0.15px Black Outer Stroke */}
-                    <div className="w-11 h-11 sm:w-13 sm:h-13 lg:w-[54px] lg:h-[54px] xl:w-[60px] xl:h-[60px] rounded-full bg-[#138047] border-[0.15px] border-[#333333] flex items-center justify-center shrink-0 shadow-sm p-1 sm:p-1.5">
-                      <Image
-                        src={stat.icon}
-                        alt={stat.label}
-                        width={48}
-                        height={48}
-                        className="w-[92%] h-[92%] object-contain"
-                      />
-                    </div>
+            {stats.map((stat, idx) => {
+              return (
+                <motion.div
+                  key={idx}
+                  variants={springScale}
+                  className={`flex flex-col items-center text-center px-3 sm:px-4 lg:px-6 ${
+                    idx === 4 ? 'col-span-2 sm:col-span-1' : ''
+                  }`}
+                >
+                  {/* Green Circle Icon Badge */}
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#0E6838] flex items-center justify-center p-2.5 sm:p-3 shrink-0 shadow-sm mb-2.5 sm:mb-3">
+                    <Image
+                      src={stat.icon}
+                      alt={stat.label}
+                      width={36}
+                      height={36}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
 
-                    {/* Stat Content: Number + Red Bar + Labels */}
-                    <div className="flex flex-col items-start leading-none min-w-0">
-                      {/* Counter Number */}
-                      <div className="text-xl sm:text-2xl lg:text-[32px] xl:text-[36px] font-bold text-[#093d24] font-barlow-condensed tracking-tight leading-none">
-                        <Counter value={stat.value} />
-                      </div>
+                  {/* Number Counter */}
+                  <div className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-extrabold text-[#0B3B20] font-manrope tracking-tight leading-none mb-1">
+                    <Counter value={stat.value} />
+                  </div>
 
-                      {/* Red Accent Underline */}
-                      <div className="w-8 sm:w-10 lg:w-11 h-[2px] bg-[#E31E24] my-1" />
+                  {/* Primary Green Label */}
+                  <div className="text-xs sm:text-[13px] font-black text-[#0E6838] uppercase tracking-wider leading-none mb-1 font-manrope">
+                    {stat.label}
+                  </div>
 
-                      {/* Red Label */}
-                      <span className="text-[10px] sm:text-xs xl:text-[13px] font-bold text-[#E31E24] tracking-wider uppercase font-barlow-condensed leading-none">
-                        {stat.label}
-                      </span>
-
-                      {/* Dark Description */}
-                      <span className="text-[8px] sm:text-[9.5px] xl:text-[10.5px] font-semibold text-[#093d24] uppercase tracking-tight font-manrope leading-tight whitespace-nowrap mt-0.5">
-                        {stat.desc}
-                      </span>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                  {/* Dark Secondary Description */}
+                  <div className="text-[10px] sm:text-[11px] font-bold text-slate-800 uppercase tracking-tight leading-tight font-manrope max-w-[180px]">
+                    {stat.desc}
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>

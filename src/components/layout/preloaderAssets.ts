@@ -92,6 +92,7 @@ export const PRELOAD_ASSETS: string[] = [
   "/AboutUs/about-hero-icons/tons-icon.svg",
   "/AboutUs/about-hero-icons/vehicles-icon.svg",
   "/AboutUs/about-hero-img.webp",
+  "/AboutUs/hero-image.webp",
   "/AboutUs/about-us-hero-image.webp",
   "/AboutUs/heroimage.webp",
   "/AboutUs/keralas-original.webp",

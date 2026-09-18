@@ -114,7 +114,7 @@ export default function TrustedQualityBanner({ className }: { className?: string
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, delay: 0.25, type: "spring", stiffness: 120, damping: 14 }}
-            className="absolute top-3 right-4 sm:top-4 sm:right-5 lg:top-5 lg:right-6 z-50 w-20 sm:w-26 lg:w-30 xl:w-34 h-8 sm:h-11 lg:h-13 pointer-events-none"
+            className="absolute top-3 right-4 sm:top-4 sm:right-5 lg:top-5 lg:right-[40%] z-50 w-20 sm:w-26 lg:w-32 xl:w-38 h-8 sm:h-11 lg:h-13 pointer-events-none"
           >
             <motion.div
               animate={{
