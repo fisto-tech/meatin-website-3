@@ -1357,8 +1357,8 @@ export default function KnowYourMeatPage() {
                 transition={{ duration: 0.4, delay: 0.34, ease: "easeOut" }}
                 onClick={() => handleMeatTabChange("goat")}
                 className={`px-8 flex items-center justify-center uppercase relative font-bold cursor-pointer transition-colors viz-switcher-btn ${activeMeatType === "goat"
-                    ? "bg-[#064823] text-white"
-                    : "text-slate-700 hover:bg-slate-50"
+                  ? "bg-[#064823] text-white"
+                  : "text-slate-700 hover:bg-slate-50"
                   }`}
               >
                 GOAT
@@ -3631,85 +3631,82 @@ export default function KnowYourMeatPage() {
             </div>
 
             {/* Category Circular Badges */}
-           <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: false, amount: 0.2 }}
-  variants={{
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
-    },
-  }}
-  className="grid grid-cols-3 sm:grid-cols-3 lg:flex lg:flex-nowrap lg:items-center lg:justify-around items-center justify-items-center gap-y-4 gap-x-1 sm:gap-y-5 sm:gap-x-2 lg:gap-0 px-2 sm:px-4 lg:px-8 w-full md:pl-[180px] lg:pl-[220px] xl:pl-[240px]"
->
-  {categories.map((cat, idx) => {
-    const isHighlighted = idx === highlightedCategoryIdx;
-
-    return (
-      <React.Fragment key={idx}>
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, scale: 0.7, y: 25 },
-            visible: {
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              transition: { duration: 0.5, ease: "easeOut" },
-            },
-          }}
-          animate={
-            isHighlighted
-              ? { scale: [1, 1.14, 1.08] }
-              : { scale: 1 }
-          }
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <div className="group flex flex-col items-center gap-1 sm:gap-1.5 lg:gap-2">
-            <div
-              className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full border-[3px] lg:border-[5px] bg-white flex items-center justify-center transition-all duration-500 ${
-                isHighlighted
-                  ? "border-[#F2CE07] ring-2 sm:ring-3 lg:ring-4 ring-[#F2CE07]/40 shadow-lg lg:shadow-xl shadow-[#F2CE07]/30 scale-105 lg:scale-108"
-                  : "border-[#CCCCCC] shadow-sm sm:shadow-md shadow-slate-200/50 group-hover:scale-105 group-hover:border-[#153520]"
-              }`}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1 },
+                },
+              }}
+              className="grid grid-cols-3 sm:grid-cols-3 lg:flex lg:flex-nowrap lg:items-center lg:justify-around items-center justify-items-center gap-y-4 gap-x-1 sm:gap-y-5 sm:gap-x-2 lg:gap-0 px-2 sm:px-4 lg:px-8 w-full md:pl-[180px] lg:pl-[220px] xl:pl-[240px]"
             >
-              <div
-                className={`w-11 h-11 sm:w-12 sm:h-12 lg:w-[68px] lg:h-[68px] rounded-full border-2 border-white flex items-center justify-center transition-all duration-500 bg-[#82B224] group-hover:bg-[#153520] ${
-                  isHighlighted ? "scale-105 shadow-inner" : ""
-                }`}
-              >
-                <div className="relative w-7 h-7 sm:w-8 sm:h-8 lg:w-12 lg:h-12">
-                  <Image
-                    src={cat.icon}
-                    alt={cat.name}
-                    fill
-                    sizes="36px"
-                    className="object-contain filter brightness-0 invert"
-                  />
-                </div>
-              </div>
-            </div>
+              {categories.map((cat, idx) => {
+                const isHighlighted = idx === highlightedCategoryIdx;
 
-            <span
-              className={`text-[10px] sm:text-[11px] lg:text-[14px] font-black tracking-wide lg:tracking-wider uppercase text-center leading-tight transition-all duration-300 group-hover:text-[#153520] ${
-                isHighlighted
-                  ? "text-[#127431] scale-105 lg:scale-110"
-                  : "text-slate-800 group-hover:text-[#127431]"
-              }`}
-            >
-              {cat.name}
-            </span>
-          </div>
-        </motion.div>
+                return (
+                  <React.Fragment key={idx}>
+                    <motion.div
+                      variants={{
+                        hidden: { opacity: 0, scale: 0.7, y: 25 },
+                        visible: {
+                          opacity: 1,
+                          scale: 1,
+                          y: 0,
+                          transition: { duration: 0.5, ease: "easeOut" },
+                        },
+                      }}
+                      animate={
+                        isHighlighted
+                          ? { scale: [1, 1.14, 1.08] }
+                          : { scale: 1 }
+                      }
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                    >
+                      <div className="group flex flex-col items-center gap-1 sm:gap-1.5 lg:gap-2">
+                        <div
+                          className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full border-[3px] lg:border-[5px] bg-white flex items-center justify-center transition-all duration-500 ${isHighlighted
+                              ? "border-[#F2CE07] ring-2 sm:ring-3 lg:ring-4 ring-[#F2CE07]/40 shadow-lg lg:shadow-xl shadow-[#F2CE07]/30 scale-105 lg:scale-108"
+                              : "border-[#CCCCCC] shadow-sm sm:shadow-md shadow-slate-200/50 group-hover:scale-105 group-hover:border-[#153520]"
+                            }`}
+                        >
+                          <div
+                            className={`w-11 h-11 sm:w-12 sm:h-12 lg:w-[68px] lg:h-[68px] rounded-full border-2 border-white flex items-center justify-center transition-all duration-500 bg-[#82B224] group-hover:bg-[#153520] ${isHighlighted ? "scale-105 shadow-inner" : ""
+                              }`}
+                          >
+                            <div className="relative w-7 h-7 sm:w-8 sm:h-8 lg:w-12 lg:h-12">
+                              <Image
+                                src={cat.icon}
+                                alt={cat.name}
+                                fill
+                                sizes="36px"
+                                className="object-contain filter brightness-0 invert"
+                              />
+                            </div>
+                          </div>
+                        </div>
 
-        {idx < categories.length - 1 && (
-          <div className="hidden lg:block w-[1px] h-10 bg-slate-300/60 self-start mt-5 shrink-0" />
-        )}
-      </React.Fragment>
-    );
-  })}
-</motion.div>
+                        <span
+                          className={`text-[10px] sm:text-[11px] lg:text-[14px] font-black tracking-wide lg:tracking-wider uppercase text-center leading-tight transition-all duration-300 group-hover:text-[#153520] ${isHighlighted
+                              ? "text-[#127431] scale-105 lg:scale-110"
+                              : "text-slate-800 group-hover:text-[#127431]"
+                            }`}
+                        >
+                          {cat.name}
+                        </span>
+                      </div>
+                    </motion.div>
+
+                    {idx < categories.length - 1 && (
+                      <div className="hidden lg:block w-[1px] h-10 bg-slate-300/60 self-start mt-5 shrink-0" />
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </motion.div>
           </div>
         </div>
       </section>
@@ -3718,7 +3715,7 @@ export default function KnowYourMeatPage() {
       <EcosystemCircle />
 
       {/* 2.5 Rewriting Quality in Meat Production Section */}
-      <section className="relative w-full bg-[#F5F4EE] py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden z-20">
+      <section className="relative w-full bg-[#F5F4EE] py-8 sm:py-12 md:py-12 lg:py-18 overflow-hidden z-20">
         {/* Subtle Background Doodle Pattern Overlay */}
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.07] bg-repeat z-0"
@@ -3728,7 +3725,7 @@ export default function KnowYourMeatPage() {
           }}
         />
 
-        <div className="relative z-10 max-w-[1540px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16">
+        <div className="relative z-10 w-full mx-auto px-5 sm:px-8 lg:px-12 xl:px-16">
           {/* Top Row: Left Typography + Right Facility Image */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
             {/* Left Content Column */}
@@ -3754,7 +3751,7 @@ export default function KnowYourMeatPage() {
               <div className="w-14 sm:w-16 h-1.5 sm:h-2 bg-[#8DC541] rounded-full mt-4 sm:mt-5 mb-5 sm:mb-6" />
 
               {/* Description Paragraph */}
-              <p className="text-[#334139] text-sm sm:text-base lg:text-[1.05rem] xl:text-[1.125rem] font-medium leading-relaxed font-manrope max-w-xl">
+              <p className="text-[#334139] text-base sm:text-[1.0625rem] lg:text-[1.125rem] xl:text-[1.25rem] font-medium leading-relaxed font-manrope max-w-xl">
                 Meatin is a vision born from the concern over India&apos;s unhealthy
                 slaughtering practices. India&apos;s meat industry has huge potential. We
                 channel this growing opportunity toward a healthy &amp; efficient meat habit.
@@ -3771,9 +3768,9 @@ export default function KnowYourMeatPage() {
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.12 }}
               className="lg:col-span-6 xl:col-span-7 flex justify-center lg:justify-end"
             >
-              <div className="relative w-full rounded-2xl sm:rounded-[24px] overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.07)] border-2 sm:border-[3px] border-white/90 bg-white">
+              <div className="relative w-full rounded-2xl sm:rounded-[24px] overflow-hidden border-1 sm:border-[3px] border-white/90 bg-white">
                 <Image
-                  src="/Product/meat-production-facility.png"
+                  src="/Product/rewriting-quality.webp"
                   alt="MEATiN Production and Quality Facility"
                   width={960}
                   height={540}
@@ -3790,7 +3787,7 @@ export default function KnowYourMeatPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-            className="mt-8 sm:mt-12 lg:mt-14 bg-white/95 rounded-2xl sm:rounded-[24px] p-5 sm:p-6 lg:py-7 lg:px-4 shadow-[0_6px_30px_rgba(0,0,0,0.04)] border border-slate-200/80"
+            className="mt-8 sm:mt-12 lg:mt-14 bg-[#F1F7EE] rounded-2xl sm:rounded-[24px] p-5 sm:p-6 lg:py-7 lg:px-4 shadow-[0_6px_30px_rgba(0,0,0,0.04)] border border-slate-200/80"
           >
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-y-6 sm:gap-y-6 gap-x-3 sm:gap-x-4 lg:gap-x-0 lg:divide-x lg:divide-slate-200/90 items-start">
               {PRODUCTION_PILLARS.map((pillar, idx) => (
@@ -3799,15 +3796,15 @@ export default function KnowYourMeatPage() {
                   className="flex flex-col items-center text-center px-2 lg:px-2.5 group"
                 >
                   {/* Circular Icon Container */}
-                  <div className="w-13 h-13 sm:w-15 sm:h-15 lg:w-16 lg:h-16 rounded-full bg-[#EBF4EE] flex items-center justify-center mb-2.5 sm:mb-3 shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#E0EFE5]">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-full bg-[#E6F1E0] flex items-center justify-center mb-2.5 sm:mb-3 shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#E0EFE5]">
                     <Icon
                       icon={pillar.icon}
-                      className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#1E5638] transition-colors duration-300 group-hover:text-[#134229]"
+                      className="w-9 h-9 sm:w-10 sm:h-10 lg:w-11 lg:h-11 text-[#1E5638] transition-colors duration-300 group-hover:text-[#134229]"
                     />
                   </div>
 
                   {/* 2-line Label */}
-                  <span className="text-xs sm:text-[13px] lg:text-[13.5px] font-bold text-[#1E3A2B] font-manrope leading-[1.25] max-w-[130px]">
+                  <span className="text-[13px] sm:text-sm lg:text-[14.5px] font-semibold text-[#1E3A2B] leading-[1.25] max-w-[130px]">
                     <span className="block">{pillar.line1}</span>
                     <span className="block">{pillar.line2}</span>
                   </span>
@@ -3815,6 +3812,7 @@ export default function KnowYourMeatPage() {
               ))}
             </div>
           </motion.div>
+
         </div>
       </section>
 
@@ -4147,8 +4145,8 @@ export default function KnowYourMeatPage() {
               </div>
               <div
                 className={`relative w-[54px] h-[54px] sm:w-[64px] sm:h-[64px] lg:w-[6.2vw] lg:h-[6.2vw] rounded-full flex items-center justify-center p-2 lg:p-[0.7vw] hover:scale-110 transition-all duration-300 ${activeViewTab === "raw"
-                    ? "border-[1.5px] border-transparent scale-110"
-                    : "border-[1.5px] border-black hover:border-black"
+                  ? "border-[1.5px] border-transparent scale-110"
+                  : "border-[1.5px] border-black hover:border-black"
                   }`}
               >
                 {/* Clockwise Running Dotted Ring: Odd Red & Even Green */}
@@ -4189,8 +4187,8 @@ export default function KnowYourMeatPage() {
               </div>
               <div
                 className={`relative w-[54px] h-[54px] sm:w-[64px] sm:h-[64px] lg:w-[6.2vw] lg:h-[6.2vw] rounded-full flex items-center justify-center p-2 lg:p-[0.7vw] hover:scale-110 transition-all duration-300 ${activeViewTab === "packed"
-                    ? "border-[1.5px] border-transparent scale-110"
-                    : "border-[1.5px] border-black hover:border-black"
+                  ? "border-[1.5px] border-transparent scale-110"
+                  : "border-[1.5px] border-black hover:border-black"
                   }`}
               >
                 {/* Clockwise Running Dotted Ring: Odd Red & Even Green */}
@@ -4231,8 +4229,8 @@ export default function KnowYourMeatPage() {
               </div>
               <div
                 className={`relative w-[54px] h-[54px] sm:w-[64px] sm:h-[64px] lg:w-[6.2vw] lg:h-[6.2vw] rounded-full flex items-center justify-center p-2 lg:p-[0.7vw] hover:scale-110 transition-all duration-300 ${activeViewTab === "platter"
-                    ? "border-[1.5px] border-transparent scale-110"
-                    : "border-[1.5px] border-black hover:border-black"
+                  ? "border-[1.5px] border-transparent scale-110"
+                  : "border-[1.5px] border-black hover:border-black"
                   }`}
               >
                 {/* Clockwise Running Dotted Ring: Odd Red & Even Green */}
@@ -4273,8 +4271,8 @@ export default function KnowYourMeatPage() {
               </div>
               <div
                 className={`relative w-[58px] h-[58px] sm:w-[68px] sm:h-[68px] lg:w-[6.6vw] lg:h-[6.6vw] rounded-full flex flex-col items-center justify-center p-1.5 lg:p-[0.45vw] hover:scale-110 transition-all duration-300 ${activeViewTab === "3d"
-                    ? "border-[1.5px] border-transparent scale-110"
-                    : "border-[1.5px] border-black hover:border-black"
+                  ? "border-[1.5px] border-transparent scale-110"
+                  : "border-[1.5px] border-black hover:border-black"
                   }`}
               >
                 {/* Clockwise Running Dotted Ring: Odd Red & Even Green */}
@@ -4312,8 +4310,8 @@ export default function KnowYourMeatPage() {
                 registerUserInteraction();
               }}
               className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2.5 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold shadow-sm transition-all w-full sm:w-auto ${activeViewTab === "raw"
-                  ? "bg-[#F2CE07] text-[#17442d] border-2 border-dotted border-[#17442d] ring-2 ring-[#F2CE07]/50 shadow-md scale-[1.04]"
-                  : "bg-white text-slate-800 border border-slate-200/90 hover:bg-slate-50"
+                ? "bg-[#F2CE07] text-[#17442d] border-2 border-dotted border-[#17442d] ring-2 ring-[#F2CE07]/50 shadow-md scale-[1.04]"
+                : "bg-white text-slate-800 border border-slate-200/90 hover:bg-slate-50"
                 }`}
             >
               <div className="w-5 h-5 sm:w-6 sm:h-6 relative shrink-0">
@@ -4348,8 +4346,8 @@ export default function KnowYourMeatPage() {
                 registerUserInteraction();
               }}
               className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2.5 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold shadow-sm transition-all w-full sm:w-auto ${activeViewTab === "packed"
-                  ? "bg-[#F2CE07] text-[#17442d] border-2 border-dotted border-[#17442d] ring-2 ring-[#F2CE07]/50 shadow-md scale-[1.04]"
-                  : "bg-white text-slate-800 border border-slate-200/90 hover:bg-slate-50"
+                ? "bg-[#F2CE07] text-[#17442d] border-2 border-dotted border-[#17442d] ring-2 ring-[#F2CE07]/50 shadow-md scale-[1.04]"
+                : "bg-white text-slate-800 border border-slate-200/90 hover:bg-slate-50"
                 }`}
             >
               <div className="w-5 h-5 sm:w-6 sm:h-6 relative shrink-0">
@@ -4384,8 +4382,8 @@ export default function KnowYourMeatPage() {
                 registerUserInteraction();
               }}
               className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2.5 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold shadow-sm transition-all w-full sm:w-auto ${activeViewTab === "platter"
-                  ? "bg-[#F2CE07] text-[#17442d] border-2 border-dotted border-[#17442d] ring-2 ring-[#F2CE07]/50 shadow-md scale-[1.04]"
-                  : "bg-white text-slate-800 border border-slate-200/90 hover:bg-slate-50"
+                ? "bg-[#F2CE07] text-[#17442d] border-2 border-dotted border-[#17442d] ring-2 ring-[#F2CE07]/50 shadow-md scale-[1.04]"
+                : "bg-white text-slate-800 border border-slate-200/90 hover:bg-slate-50"
                 }`}
             >
               <div className="w-5 h-5 sm:w-6 sm:h-6 relative shrink-0">
@@ -4420,8 +4418,8 @@ export default function KnowYourMeatPage() {
                 registerUserInteraction();
               }}
               className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2.5 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold shadow-sm transition-all w-full sm:w-auto ${activeViewTab === "3d"
-                  ? "bg-[#F2CE07] text-[#17442d] border-2 border-dotted border-[#17442d] ring-2 ring-[#F2CE07]/50 shadow-md scale-[1.04]"
-                  : "bg-white text-slate-800 border border-slate-200/90 hover:bg-slate-50"
+                ? "bg-[#F2CE07] text-[#17442d] border-2 border-dotted border-[#17442d] ring-2 ring-[#F2CE07]/50 shadow-md scale-[1.04]"
+                : "bg-white text-slate-800 border border-slate-200/90 hover:bg-slate-50"
                 }`}
             >
               <div className="w-5 h-5 sm:w-6 sm:h-6 relative shrink-0">

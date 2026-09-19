@@ -768,14 +768,14 @@ export default function HomePage() {
           >
             <div className="flex items-center justify-center gap-3 mb-2">
               <div className="h-[1.5px] w-8 sm:w-12 bg-white" />
-              <h4 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-white font-manrope">
+              <h4 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#CF9A16] font-manrope">
                 BRAND STORY
               </h4>
               <div className="h-[1.5px] w-8 sm:w-12 bg-white" />
             </div>
-            <h2 className="text-2xl sm:text-4xl lg:text-3xl xl:text-4xl 2xl:text-[3.5vw] font-normal font-chau tracking-tight leading-none mb-2">
-              More Than Meat. It&apos;s{" "}
-              <span className="text-[#F7840F]">Our</span> Promise.
+            <h2 className="text-2xl sm:text-4xl lg:text-3xl xl:text-4xl 2xl:text-[3.5vw] font-semibold tracking-tight leading-none mb-2">
+              More Than Meat. 
+              <span className="text-[#8DC541]"> It&apos;s{" "} Our Promise.</span> 
             </h2>
             <p className="text-[#F6F5F0]/90 text-xs sm:text-sm xl:text-sm 2xl:text-base max-w-2xl mx-auto font-manrope font-semibold leading-relaxed">
               From farm to fork, every step we take is guided by science, driven
@@ -879,14 +879,14 @@ export default function HomePage() {
           >
             <div className="flex items-center justify-center gap-3 mb-3">
               <div className="h-[1.5px] w-8 sm:w-12 bg-[#D4A437]" />
-              <h4 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#064823] font-manrope">
+              <h4 className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#CF9A16] font-manrope">
                 OUR PROMISE
               </h4>
               <div className="h-[1.5px] w-8 sm:w-12 bg-[#D4A437]" />
             </div>
-            <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl 2xl:text-[4vw] font-normal font-chau tracking-tight leading-none mb-4">
-              <span className="text-[#F7840F]">Certified</span>{" "}
-              <span className="text-[#064823]">Excellence</span>
+            <h2 className="text-3xl sm:text-5xl lg:text-4xl xl:text-5xl 2xl:text-[4vw] font-semibold tracking-normal leading-none mb-4">
+              <span className="text-[#064823]">Certified</span>{" "}
+              <span className="text-[#F7840F]">Excellence</span>
             </h2>
             <p className="text-slate-700 text-sm sm:text-base max-w-xl mx-auto font-manrope font-semibold leading-relaxed">
               Our commitment to international food safety and quality standards.

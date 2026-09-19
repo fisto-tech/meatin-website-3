@@ -2,24 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Cog,
-  Leaf,
-  HeartHandshake,
-  ShieldCheck,
-  Globe2,
-  Users2,
-  Sprout,
-  TrendingUp,
-  Award,
-  ChevronRight,
-  ChevronLeft,
-  Pause,
-  Play,
-  Sparkles,
-  ArrowUpRight
-} from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronRight } from 'lucide-react';
 
 export interface EcosystemPillar {
   id: number;
@@ -27,344 +11,224 @@ export interface EcosystemPillar {
   title: string;
   shortDesc: string;
   fullDesc: string;
-  icon: React.ComponentType<{ className?: string }>;
-  image: string;
-  category: string;
 }
 
 export const ECOSYSTEM_PILLARS: EcosystemPillar[] = [
   {
     id: 1,
     num: '01',
-    title: 'Professionalizing meat production',
-    shortDesc: 'Modernizing practices with advanced engineering & strict bio-security.',
-    fullDesc: 'Standardized benchmarks, automated climate-controlled facilities, and rigorous protocols to elevate meat processing industry-wide.',
-    icon: Cog,
-    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
-    category: 'Production'
+    title: 'Performing a safe and humane slaughter',
+    shortDesc: 'Adhering to strict humane protocols, stress-free processing, and certified hygienic practices.',
+    fullDesc: 'Standardized benchmarks, automated climate-controlled facilities, and rigorous protocols to elevate meat processing industry-wide with zero compromise on animal welfare.'
   },
   {
     id: 2,
     num: '02',
-    title: 'Adopting an integrated & sustainable model',
-    shortDesc: 'Circular farm-to-fork ecosystem optimizing resources and zero wastage.',
-    fullDesc: 'Closing the loop across feed management, livestock welfare, energy-efficient processing, and organic byproduct conversion.',
-    icon: Leaf,
-    image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80',
-    category: 'Sustainability'
+    title: 'Adopting animal husbandry and sustainable livestock practices',
+    shortDesc: 'Partnering with certified farms ensuring natural feed, open environments, and ecological balance.',
+    fullDesc: 'Closing the loop across feed management, livestock welfare, energy-efficient processing, and regenerative organic byproduct conversion.'
   },
   {
     id: 3,
     num: '03',
     title: 'Ensuring humane treatment of animals',
-    shortDesc: 'Compassionate handling adhering to ethical veterinary standards.',
-    fullDesc: 'Prioritizing ethical care, stress-free environments, continuous vet inspections, and humane protocols throughout every phase.',
-    icon: HeartHandshake,
-    image: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?auto=format&fit=crop&w=1200&q=80',
-    category: 'Animal Welfare'
+    shortDesc: 'Prioritizing animal welfare, ethical veterinary care, and compassionate handling at every stage.',
+    fullDesc: 'Prioritizing ethical care, stress-free environments, continuous veterinary inspections, and humane protocols throughout every phase of sourcing and transport.'
   },
   {
     id: 4,
     num: '04',
     title: 'Upholding Halal practices in production',
-    shortDesc: 'Strict 100% Halal integrity audited and certified by recognized authorities.',
-    fullDesc: 'Dedicated Islamic slaughter protocols, certified supervisors, segregated sanitation, and end-to-end supply chain purity assurance.',
-    icon: Sparkles,
-    image: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1200&q=80',
-    category: 'Halal Certified'
+    shortDesc: 'Dedicated to ensuring that our products, and the way we produce, meet the highest halal standards, with integrity and respect for our customers and communities.',
+    fullDesc: 'Dedicated to ensuring that our products, and the way we produce, meet the highest halal standards, with integrity and respect for our customers and communities.'
   },
   {
     id: 5,
     num: '05',
-    title: 'Supplying safe-to-eat meat products',
-    shortDesc: 'Uncompromising food safety with zero chemical adulteration or antibiotics.',
-    fullDesc: 'Multiple microbiological lab checkpoints, automated temperature verification, and tamper-evident sterile packaging.',
-    icon: ShieldCheck,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80',
-    category: 'Food Safety'
+    title: 'Respecting social economic development',
+    shortDesc: 'Generating rural prosperity, fair farming partnerships, and sustainable employment in local communities.',
+    fullDesc: 'Empowering local farmers, logistics operators, and rural communities through structured employment, fair pricing, and long-term economic enablement.'
   },
   {
     id: 6,
     num: '06',
-    title: 'Catering to domestic & global markets',
-    shortDesc: 'World-class export-grade standards reaching homes and culinary chefs everywhere.',
-    fullDesc: 'Seamless cold-chain logistics linking local farming hubs to international export requirements across the Middle East and worldwide.',
-    icon: Globe2,
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80',
-    category: 'Logistics'
+    title: 'Committing to environmental protection',
+    shortDesc: 'Investing in renewable energy, zero-waste byproduct recycling, and advanced wastewater treatment.',
+    fullDesc: 'Investing in rooftop solar energy, advanced effluent treatment plants (ETP), and progressive zero-landfill biodegradable packaging objectives.'
   },
   {
     id: 7,
     num: '07',
-    title: 'Supporting social economic development',
-    shortDesc: 'Generating rural prosperity, dependable livelihood, and skill enhancement.',
-    fullDesc: 'Empowering local farmers, logistic operators, and rural communities through structured employment, fair pricing, and training.',
-    icon: Users2,
-    image: 'https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?auto=format&fit=crop&w=1200&q=80',
-    category: 'Social Impact'
+    title: 'Offering our employees a healthy and safe work environment',
+    shortDesc: 'Providing world-class ergonomics, extensive safety gear, health benefits, and dignity of labor.',
+    fullDesc: 'Ensuring state-of-the-art protective equipment, ergonomic workstations, comprehensive healthcare coverage, and positive workplace safety culture.'
   },
   {
     id: 8,
     num: '08',
-    title: 'Committing to environmental protection',
-    shortDesc: 'Renewable energy adoption, biological water recycling, & green conservation.',
-    fullDesc: 'Investing in rooftop solar generation, advanced wastewater treatment plants (ETP), and zero landfill biodegradable packing goals.',
-    icon: Sprout,
-    image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1200&q=80',
-    category: 'Environment'
+    title: 'Maintaining continuous improvement in our operations',
+    shortDesc: 'Continuous R&D, cold-chain automation, and international standard audits across every unit.',
+    fullDesc: 'Executing rigorous microbiological quality audits, automated temperature controls, and international process standards across our facility network.'
   },
   {
     id: 9,
     num: '09',
-    title: 'Empowering entrepreneurs through a win-win format',
-    shortDesc: 'Fostering franchise and vendor partners with turnkey operational support.',
-    fullDesc: 'Creating thriving micro-entrepreneurs through our butchery franchise networks, standardized retail systems, and transparent profit-sharing.',
-    icon: TrendingUp,
-    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80',
-    category: 'Growth'
+    title: 'Upholding long-term value to stakeholders',
+    shortDesc: 'Delivering dependable supply, principled business ethics, and enduring value for consumers and partners.',
+    fullDesc: 'Creating durable resilience for consumers, team members, farmers, and investors through principled, ethical stewardship and dependable supply.'
   },
   {
     id: 10,
     num: '10',
-    title: 'Delivering long-term value to stakeholders',
-    shortDesc: 'Accountable corporate governance ensuring sustainable growth and consumer trust.',
-    fullDesc: 'Creating durable resilience for consumers, team members, farmers, and investors through principled, ethical stewardship.',
-    icon: Award,
-    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80',
-    category: 'Governance'
+    title: 'Building a legacy of trust',
+    shortDesc: 'Delivering pure quality, uncompromising food safety, and transparent honesty from our family to yours.',
+    fullDesc: 'Cultivating decades of consumer confidence by remaining transparent, scientifically modern, and deeply loyal to purity and customer health.'
   }
 ];
 
 export default function EcosystemCircle() {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [activeIndex, setActiveIndex] = useState<number>(3); // Default to 04 (Halal)
+  const [isHovered, setIsHovered] = useState<boolean>(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const activePillar = ECOSYSTEM_PILLARS[activeIndex];
-
-  // Auto-advance
+  // Auto-advance every 5.5s unless user is hovering/interacting with the list
   useEffect(() => {
-    if (!isPlaying) {
+    if (isHovered) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
 
     timerRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % ECOSYSTEM_PILLARS.length);
-    }, 4500);
+    }, 5500);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isPlaying]);
-
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % ECOSYSTEM_PILLARS.length);
-  };
-
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + ECOSYSTEM_PILLARS.length) % ECOSYSTEM_PILLARS.length);
-  };
+  }, [isHovered]);
 
   return (
-    <section className="relative w-full bg-[#FCFCF9] py-14 sm:py-20 lg:py-24 overflow-hidden select-none border-y border-[#EAE9E2]">
-      <div className="max-w-[1580px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16">
+    <section className="relative w-full bg-[#FBFBF8] py-12 sm:py-16 lg:py-14 overflow-hidden select-none border-y border-[#EAE8E0]">
+      {/* MAIN 2-COLUMN SECTION: Left Docked Visual (stretching to full height) + Right Content */}
+      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-stretch pr-5 sm:pr-8 lg:pr-12 xl:pr-16">
         
-        {/* TOP BAR: Clean Title with Controls */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 pb-8 mb-10 border-b border-[#E3E2D8]">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#8DC541] animate-pulse" />
-              <span className="text-xs font-bold uppercase tracking-widest text-[#064823]">
-                10 Core Commitments
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-barlow-condensed tracking-tight uppercase leading-none">
-              <span className="text-[#064823]">WE ARE </span>
-              <span className="text-[#8DC541]">MEATIN</span>
+        {/* LEFT: Single Meat Board Image Filling Height to Match Right Content */}
+        <div className="lg:col-span-6 xl:col-span-6 w-full pl-5 sm:pl-8 lg:pl-0 flex flex-col">
+          <div className="relative w-full h-[400px] sm:h-[480px] lg:h-full min-h-[400px] lg:min-h-[620px] rounded-[24px] sm:rounded-[28px] lg:rounded-l-none lg:rounded-r-[36px] xl:rounded-r-[42px] overflow-hidden shadow-[0_14px_36px_rgba(0,0,0,0.08)] border border-slate-200/80 bg-slate-100 group">
+            {/* The Single Meat Board Image */}
+            <Image
+              src="/Product/we-are-meatin-image.webp"
+              alt="MEATiN - Fresh Premium Meats"
+              fill
+              priority
+              className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+        </div>
+
+        {/* RIGHT: Heading + Timeline Accordion List */}
+        <div
+          className="lg:col-span-6 xl:col-span-6 w-full pl-5 sm:pl-8 lg:pl-0 flex flex-col justify-center"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Header placed inside the right side content */}
+          <div className="mb-4 sm:mb-5">
+            <h2 className="text-4xl sm:text-5xl lg:text-[3.4rem] xl:text-[3.75rem] font-black font-manrope tracking-tight leading-none">
+              <span className="text-[#0E4726]">WE ARE </span>
+              <span className="text-[#ea7200]">MEATiN</span>
             </h2>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-bold text-slate-500 font-mono">
-              <strong className="text-[#064823] text-base">{activePillar.num}</strong> / 10
-            </span>
-            <button
-              onClick={handlePrev}
-              className="w-10 h-10 rounded-full bg-white hover:bg-[#064823] hover:text-white text-slate-700 border border-slate-200 flex items-center justify-center transition-all duration-200 shadow-sm"
-              aria-label="Previous"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="px-4 h-10 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all duration-200 shadow-sm"
-              aria-label={isPlaying ? 'Pause' : 'Play'}
-            >
-              {isPlaying ? <Pause className="w-3.5 h-3.5 text-[#064823]" /> : <Play className="w-3.5 h-3.5 text-[#064823]" />}
-              <span>{isPlaying ? 'Pause' : 'Play'}</span>
-            </button>
-            <button
-              onClick={handleNext}
-              className="w-10 h-10 rounded-full bg-white hover:bg-[#064823] hover:text-white text-slate-700 border border-slate-200 flex items-center justify-center transition-all duration-200 shadow-sm"
-              aria-label="Next"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
+          <div className="relative space-y-2 sm:space-y-2.5">
+            {/* Continuous Vertical Timeline Line - Center mathematically locked at half of w-8/w-10 */}
+            <div className="absolute left-4 sm:left-5 top-5 bottom-5 w-[2px] -translate-x-1/2 bg-[#D8E4D3] pointer-events-none" />
 
-        {/* MAIN LAYOUT: IMAGE ON LEFT (5 COLS), CONTENT ON RIGHT (7 COLS) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
-          
-          {/* LEFT: Dynamic Focal Showcase Card */}
-          <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="relative w-full aspect-[4/5] sm:aspect-[1/1] lg:aspect-[4/5] max-w-[500px] rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 bg-slate-900 group">
-              
-              {/* Dynamic Image with Smooth Crossfade & Zoom */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activePillar.id}
-                  initial={{ opacity: 0, scale: 1.08 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
-                  className="absolute inset-0 w-full h-full"
-                >
-                  <Image
-                    src={activePillar.image}
-                    alt={activePillar.title}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 45vw"
-                    className="object-cover"
-                  />
-                  {/* Subtle vignette gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-transparent" />
-                </motion.div>
-              </AnimatePresence>
+            {ECOSYSTEM_PILLARS.map((item, index) => {
+              const isActive = index === activeIndex;
 
-              {/* Number Watermark in Background */}
-              <div className="absolute top-4 right-6 text-white/15 font-black text-8xl sm:text-9xl font-barlow-condensed pointer-events-none select-none">
-                {activePillar.num}
-              </div>
-
-              {/* Bottom Spotlight Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 space-y-3 z-10 text-white">
-                <div className="flex items-center gap-2.5">
-                  <span className="px-3 py-1 rounded-full bg-[#8DC541] text-[#064823] text-xs font-black uppercase tracking-wider">
-                    {activePillar.category}
-                  </span>
-                  <span className="text-xs text-white/70 font-mono font-medium">
-                    Commitment #{activePillar.num}
-                  </span>
-                </div>
-
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activePillar.id}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.25 }}
-                    className="space-y-1.5"
-                  >
-                    <h3 className="text-2xl sm:text-3xl font-extrabold font-barlow text-white tracking-tight leading-tight">
-                      {activePillar.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-200/90 leading-relaxed line-clamp-3">
-                      {activePillar.fullDesc}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Micro Progress Bar */}
-                <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden mt-3">
-                  <motion.div
-                    key={activePillar.id}
-                    initial={{ width: '0%' }}
-                    animate={{ width: '100%' }}
-                    transition={{ duration: 4.5, ease: 'linear' }}
-                    className="h-full bg-[#8DC541]"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT: Interactive Connected Commitments Matrix (2 Columns of 5 items) */}
-          <div className="lg:col-span-7 space-y-4">
-            
-            {/* Active Detail Header Callout */}
-            <div className="bg-white rounded-2xl p-5 border border-[#8DC541]/40 shadow-sm flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#064823] text-[#8DC541] flex items-center justify-center text-xl font-extrabold font-barlow-condensed shrink-0 shadow-md">
-                {activePillar.num}
-              </div>
-              <div className="space-y-0.5 flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#8DC541]">
-                    Active Selection
-                  </span>
-                </div>
-                <h4 className="text-base sm:text-lg font-bold text-[#064823] leading-snug">
-                  {activePillar.title}
-                </h4>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  {activePillar.shortDesc}
-                </p>
-              </div>
-            </div>
-
-            {/* 10 Interactive Commitment Tiles (Clean 2-column layout) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {ECOSYSTEM_PILLARS.map((pillar, idx) => {
-                const isActive = idx === activeIndex;
-
-                return (
-                  <button
-                    key={pillar.id}
-                    onClick={() => setActiveIndex(idx)}
-                    className={`group text-left p-3.5 rounded-xl transition-all duration-200 border flex items-center gap-3.5 w-full relative ${
-                      isActive
-                        ? 'bg-[#064823] border-[#064823] text-white shadow-lg shadow-[#064823]/15 scale-[1.01]'
-                        : 'bg-white hover:bg-slate-50 border-slate-200/80 hover:border-slate-300 text-slate-700'
-                    }`}
-                  >
-                    {/* Number Indicator */}
-                    <span
-                      className={`text-xl font-black font-barlow-condensed leading-none shrink-0 transition-colors ${
-                        isActive ? 'text-[#8DC541]' : 'text-slate-300 group-hover:text-[#064823]'
-                      }`}
-                    >
-                      {pillar.num}
-                    </span>
-
-                    {/* Title */}
-                    <span
-                      className={`text-xs sm:text-[13px] font-bold leading-snug flex-1 transition-colors line-clamp-2 ${
-                        isActive ? 'text-white' : 'text-slate-700 group-hover:text-[#064823]'
-                      }`}
-                    >
-                      {pillar.title}
-                    </span>
-
-                    {/* Active Icon Indicator */}
+              return (
+                <div key={item.id} className="relative flex items-center gap-3 sm:gap-4.5">
+                  {/* Dedicated Timeline Column - Centers every dot directly on the vertical line */}
+                  <div className="relative w-8 sm:w-10 shrink-0 flex items-center justify-center z-10">
                     {isActive ? (
-                      <span className="w-2 h-2 rounded-full bg-[#8DC541] shrink-0 animate-ping" />
+                      /* Active Dot on the line with glowing ring */
+                      <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#8DC541] ring-4 ring-[#8DC541]/30 ring-offset-2 ring-offset-[#FBFBF8] transition-all duration-300" />
                     ) : (
-                      <ArrowUpRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                      /* Inactive Dot on the line */
+                      <div
+                        className={`rounded-full transition-all duration-300 ${
+                          Math.abs(index - activeIndex) === 1
+                            ? 'w-2.5 h-2.5 bg-[#8DC541]'
+                            : 'w-2 h-2 bg-[#A8C7A0]'
+                        }`}
+                      />
                     )}
-                  </button>
-                );
-              })}
-            </div>
+                  </div>
 
+                  {/* Card Column - Seamlessly aligned for both active and inactive states */}
+                  <div className="flex-1 min-w-0">
+                    {isActive ? (
+                      /* ACTIVE EXPANDED ITEM CARD - Scaling & layout fully inside card with increased typography */
+                      <motion.div
+                        layout
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.28, ease: 'easeOut' }}
+                        className="w-full bg-white rounded-[20px] sm:rounded-[24px] border-2 border-[#A8DB86] p-4 sm:p-5 lg:p-6 shadow-[0_6px_22px_rgba(141,197,65,0.14)] flex items-center justify-between gap-3 sm:gap-4"
+                      >
+                        <div className="flex items-center gap-3.5 sm:gap-4 lg:gap-5 min-w-0">
+                          {/* Large Green Number Circle INSIDE the card */}
+                          <div className="w-12 h-12 sm:w-13 sm:h-13 lg:w-14 lg:h-14 rounded-full bg-[#8DC541] text-white font-bold text-base sm:text-lg lg:text-xl flex items-center justify-center shrink-0 shadow-[0_4px_14px_rgba(141,197,65,0.35)]">
+                            {item.num}
+                          </div>
+
+                          {/* Title & Description with increased font sizes */}
+                          <div className="space-y-1 min-w-0 pr-1">
+                            <h4 className="text-base sm:text-lg lg:text-[1.22rem] font-bold text-[#0E4726] font-manrope leading-snug">
+                              {item.title}
+                            </h4>
+                            <p className="text-xs sm:text-sm lg:text-[14.5px] text-slate-600 font-medium leading-relaxed font-manrope">
+                              {item.shortDesc}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Action Chevron Circle */}
+                        <div className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full border border-slate-200 flex items-center justify-center shrink-0 text-slate-400 bg-slate-50">
+                          <ChevronRight className="w-4 h-4 text-slate-600" />
+                        </div>
+                      </motion.div>
+                    ) : (
+                      /* INACTIVE ROW - Clean Pill with increased font size */
+                      <button
+                        type="button"
+                        onClick={() => setActiveIndex(index)}
+                        className="w-full bg-white/80 hover:bg-white rounded-xl sm:rounded-2xl border border-slate-200/90 hover:border-[#8DC541] py-2.5 sm:py-3.5 px-3.5 sm:px-5 flex items-center justify-between gap-3 shadow-none hover:shadow-md hover:translate-x-1 transition-all duration-200 cursor-pointer group text-left"
+                      >
+                        <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                          {/* Clean Number Pill */}
+                          <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full border border-slate-200 group-hover:border-[#8DC541] group-hover:bg-[#8DC541] text-xs sm:text-[13.5px] font-bold text-slate-600 group-hover:text-white shrink-0 transition-all duration-200">
+                            {item.num}
+                          </span>
+
+                          {/* Title with increased font size */}
+                          <span className="text-[14.5px] sm:text-base lg:text-[16.5px] font-semibold text-[#1F3327] group-hover:text-[#0E4726] transition-colors truncate">
+                            {item.title}
+                          </span>
+                        </div>
+
+                        {/* Subtle Chevron */}
+                        <ChevronRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-slate-300 group-hover:text-[#8DC541] group-hover:translate-x-1 transition-all shrink-0 ml-2" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
-
         </div>
-
       </div>
     </section>
   );
 }
-

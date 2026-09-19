@@ -692,10 +692,6 @@ export default function AboutUsPage() {
 
       </section>
 
-      
-      {/* 5. MEATiN ECOSYSTEM - CONNECTED CIRCLE INTERACTIVE COMPONENT */}
-      <EcosystemCircle />
-
 
       {/* Global Trusted Quality Banner */}
       <TrustedQualityBanner />
