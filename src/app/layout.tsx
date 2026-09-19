@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { Bree_Serif, Anek_Malayalam } from 'next/font/google';
 import './globals.css';
 import Preloader from '@/components/layout/Preloader';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import MeatSliderMarquee from '@/components/know-your-meat/MeatSliderMarquee';
+import SmoothScroll from '@/components/layout/SmoothScroll';
+import ScrollToTop from '@/components/layout/ScrollToTop';
 
 const breeSerif = Bree_Serif({
   subsets: ['latin'],
@@ -77,9 +78,6 @@ export const metadata: Metadata = {
   },
 };
 
-import SmoothScroll from '@/components/layout/SmoothScroll';
-import ScrollToTop from '@/components/layout/ScrollToTop';
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -109,28 +107,28 @@ export default function RootLayout({
       className={`${breeSerif.variable} ${anekMalayalam.variable}`} 
       suppressHydrationWarning
     >
-      <head>
-        <Script
+      <body className="font-anek bg-white text-slate-900 min-h-screen flex flex-col antialiased preloader-active" suppressHydrationWarning>
+        <script
           id="schema-org"
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          suppressHydrationWarning
         />
-        <Script
+        <script
           id="preloader-check"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                if (sessionStorage.getItem('meatin_preloaded') !== 'true') {
+                if (sessionStorage.getItem('meatin_preloaded') === 'true') {
+                  document.body.classList.remove('preloader-active');
+                } else {
                   document.documentElement.classList.add('is-preloading');
                 }
               } catch(e) {}
             `,
           }}
+          suppressHydrationWarning
         />
-      </head>
-      <body className="font-anek bg-white text-slate-900 min-h-screen flex flex-col antialiased preloader-active" suppressHydrationWarning>
         <Preloader />
 
         <Navbar />

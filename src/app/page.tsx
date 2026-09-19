@@ -198,7 +198,16 @@ export default function HomePage() {
 
     // Helper to check if an image is completely loaded and ready to draw
     const getReadyImg = (num: number): HTMLImageElement | null => {
-      const img = map.get(num);
+      let img = map.get(num);
+      if (!img && typeof window !== "undefined") {
+        const frameStr = String(num).padStart(5, "0");
+        const src = `/Home/Hero/video-frames-opt/${frameStr}.jpg`;
+        const globalImg = (window as any).__HERO_FRAMES__?.[src];
+        if (globalImg) {
+          map.set(num, globalImg);
+          img = globalImg;
+        }
+      }
       if (img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
         return img;
       }
@@ -289,7 +298,18 @@ export default function HomePage() {
     if (frameNum < 1 || frameNum > TOTAL_HERO_FRAMES) return null;
     const map = imagesMapRef.current;
     let img = map.get(frameNum);
-    if (img) return img;
+    if (img) {
+      if (!img.complete) {
+        img.addEventListener("load", () => {
+          const currentDiff = Math.abs(targetFrameRef.current - lastDrawnFrameRef.current);
+          const newDiff = Math.abs(targetFrameRef.current - frameNum);
+          if (newDiff <= currentDiff || Math.abs(targetFrameRef.current - frameNum) <= 4) {
+            scheduleRender();
+          }
+        }, { once: true });
+      }
+      return img;
+    }
 
     const frameStr = String(frameNum).padStart(5, "0");
     const src = `/Home/Hero/video-frames-opt/${frameStr}.jpg`;
@@ -298,27 +318,41 @@ export default function HomePage() {
     if (typeof window !== "undefined" && (window as any).__HERO_FRAMES__?.[src]) {
       const globalImg = (window as any).__HERO_FRAMES__[src] as HTMLImageElement;
       map.set(frameNum, globalImg);
+      if (globalImg.complete && globalImg.naturalWidth > 0) {
+        return globalImg;
+      }
+      globalImg.addEventListener("load", () => {
+        const currentDiff = Math.abs(targetFrameRef.current - lastDrawnFrameRef.current);
+        const newDiff = Math.abs(targetFrameRef.current - frameNum);
+        if (newDiff <= currentDiff || Math.abs(targetFrameRef.current - frameNum) <= 4) {
+          scheduleRender();
+        }
+      }, { once: true });
       return globalImg;
     }
 
     // 2. Instantiate new Image
     img = new window.Image();
-    img.src = src;
     map.set(frameNum, img);
     if (typeof window !== "undefined") {
       (window as any).__HERO_FRAMES__ = (window as any).__HERO_FRAMES__ || {};
       (window as any).__HERO_FRAMES__[src] = img;
     }
 
-    // When this image loads, re-render if this frame is closer to targetFrameRef than the currently drawn frame
-    // This allows progressive visual refinement while completely preventing old frames from hijacking playback
-    img.onload = () => {
+    const onImageLoaded = () => {
       const currentDiff = Math.abs(targetFrameRef.current - lastDrawnFrameRef.current);
       const newDiff = Math.abs(targetFrameRef.current - frameNum);
-      if (newDiff < currentDiff || Math.abs(targetFrameRef.current - frameNum) <= 2) {
+      if (newDiff <= currentDiff || Math.abs(targetFrameRef.current - frameNum) <= 4) {
         scheduleRender();
       }
     };
+
+    img.addEventListener("load", onImageLoaded, { once: true });
+    img.src = src;
+
+    if (img.complete && img.naturalWidth > 0) {
+      onImageLoaded();
+    }
 
     return img;
   }, [scheduleRender]);
@@ -413,6 +447,7 @@ export default function HomePage() {
       clearTimeout(t1);
       if (rafIdRef.current !== null) {
         cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
       }
     };
   }, [loadFrame, renderFrame]);
@@ -438,17 +473,29 @@ export default function HomePage() {
 
   // Handle window resize and initial canvas paint
   React.useEffect(() => {
-    renderFrame(1);
+    const totalFrames = TOTAL_HERO_FRAMES;
+    const holdThreshold = 0.88;
+    const currentProgress = smoothProgress.get() ?? scrollYProgress.get() ?? 0;
+    const normalizedProgress = Math.min(1, currentProgress / holdThreshold);
+    const initialFrame = Math.min(
+      totalFrames,
+      Math.max(1, Math.floor(normalizedProgress * totalFrames)),
+    );
+    renderFrame(initialFrame);
 
     const handleResize = () => {
-      drawCanvas(lastDrawnFrameRef.current);
+      drawCanvas(targetFrameRef.current);
     };
 
     window.addEventListener("resize", handleResize, { passive: true });
     return () => {
       window.removeEventListener("resize", handleResize);
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
     };
-  }, [renderFrame, drawCanvas]);
+  }, [renderFrame, drawCanvas, smoothProgress, scrollYProgress]);
 
   const heroContentOpacity = useTransform(smoothProgress, [0.75, 0.88], [1, 0]);
   const heroContentY = useTransform(smoothProgress, [0.75, 0.88], [0, -30]);
@@ -554,10 +601,27 @@ export default function HomePage() {
                   transition={{ duration: 0.8 }}
                   className="space-y-3"
                 >
-                  <h1 className="text-4xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[6vw] font-bold font-bree tracking-tight uppercase leading-[0.92] space-y-1.5">
-                    <span className="block text-[#8DC541] normal-case">MEATiN:</span>
+                  <h1 className="text-4xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[5.5vw] font-bold font-bree tracking-wide uppercase leading-[0.92] space-y-1.5">
+                    <span className="block text-[#F48207] normal-case">MEATiN</span>
                     <span className="block text-white">PURE QUALITY.</span>
-                    <span className="block text-[#F7840F]">TRUSTED MEAT.</span>
+                    <span
+                      className="block"
+                      style={{
+                        filter: "drop-shadow(0px 8px 2.7px rgba(0, 0, 0, 0.95))",
+                      }}
+                    >
+                      <span
+                        className="block"
+                        style={{
+                          background: "linear-gradient(180deg, #BADE78 39.9%, #89CE34 59.13%)",
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          backgroundClip: "text",
+                        }}
+                      >
+                        TRUSTED MEAT.
+                      </span>
+                    </span>
                   </h1>
                 </motion.div>
 
@@ -566,7 +630,7 @@ export default function HomePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <p className="text-white/90 text-sm sm:text-base lg:text-base xl:text-lg font-medium leading-relaxed font-inter max-w-xl">
+                  <p className="text-white/90 text-sm sm:text-base lg:text-base xl:text-xl font-medium leading-relaxed font-inter max-w-xl">
                     South India&apos;s{" "} Multi Species{" "} <br/>
                     <span className="text-[#8DC541] font-bold">Meat</span>{" "}
                     Processing Plant

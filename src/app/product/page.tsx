@@ -596,7 +596,7 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
   return (
     <div className="w-full min-h-screen bg-[#8DC541] flex flex-col font-anek">
       {/* 1. EXACT SECTION 3 DETAILS SECTION (1:1 with Reference Screenshot) */}
-      <section className="relative z-30 w-full min-h-[750px] lg:min-h-[820px] xl:min-h-[860px] 2xl:min-h-[920px] h-auto lg:h-[100vh] pt-20 sm:pt-24 lg:pt-[5rem] xl:pt-[5.5rem] 2xl:pt-[6.2rem] pb-6 sm:pb-8 lg:pb-0 flex flex-col justify-between m-0 overflow-x-hidden bg-[#8DC541]">
+      <section className="relative z-30 w-full pt-20 sm:pt-24 lg:pt-[4.5rem] xl:pt-[5.5rem] pb-8 sm:pb-10 lg:pb-8 flex flex-col justify-center m-0 overflow-x-hidden bg-[#8DC541]">
         {/* Background Image Container */}
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
           {/* Layer 1: Background Doodle Pattern Overlay */}
@@ -641,7 +641,8 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
         </div>
 
         {/* TOP MAIN CONTENT CONTAINER */}
-        <div className="relative w-full max-w-[100vw] mx-auto px-4 lg:px-[3.5vw] flex-1 flex flex-col justify-start z-10 pt-1 lg:pt-[0.5vw]">
+        <div className="relative w-full max-w-[100vw] mx-auto px-4 lg:px-[3.5vw] flex-1 lg:flex-none flex flex-col justify-start z-10 pt-1 lg:pt-[0.5vw]">
+
           {/* Top Left Slogan Badge: Goodness Begins at Our Farms + Two Leaves */}
           <div className="hidden md:flex lg:flex flex-col items-start absolute top-[1.2rem] lg:top-[1.6rem] xl:top-[2rem] 2xl:top-[2.4rem] left-[2.5vw] md:left-[3.5vw] z-20 pointer-events-none scale-90 md:scale-100">
             <div className="w-[13.5vw] max-w-[240px] h-auto">

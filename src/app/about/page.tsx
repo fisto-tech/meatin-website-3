@@ -19,6 +19,7 @@ import {
   FlaskConical
 } from 'lucide-react';
 import TrustedQualityBanner from '@/components/layout/TrustedQualityBanner';
+import EcosystemCircle from '@/components/EcosystemCircle';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -116,7 +117,7 @@ function Counter({ value }: { value: string }) {
   }, [isInView, target]);
 
   return (
-    <span ref={ref} className="text-[#000000] text-black">
+    <span ref={ref}>
       {count.toLocaleString()}
       {suffix}
     </span>
@@ -251,7 +252,7 @@ export default function AboutUsPage() {
           >
             {/* Custom radial gradient with blur filter applied specifically behind the text area */}
             <div
-              className="absolute -inset-4 sm:-inset-6 lg:-inset-8 -z-10 pointer-events-none rounded-[60px]"
+              className="absolute -inset-4 sm:-inset-6 lg:-inset-8 -z-10 pointer-events-none rounded-[60px] lg:-translate-x-8"
               style={{
                 background: 'radial-gradient(71.28% 67.51% at 47.21% 50%, #EFEFEF 0%, #FFFFFF 100%)',
                 filter: 'blur(131.23px)',
@@ -259,29 +260,27 @@ export default function AboutUsPage() {
             />
 
             {/* Eyebrow Label */}
-            <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-4">
-              <span className="h-[2.5px] w-6 sm:w-8 bg-[#D4A437]" />
-              <span className="text-sm sm:text-base md:text-lg font-extrabold tracking-[0.25em] text-[#0A4D27] uppercase font-manrope">
+            <div className="flex items-center gap-3 sm:gap-3.5 mb-3 sm:mb-4">
+              <span className="h-[2px] w-7 sm:w-9 bg-[#CCA33D] rounded-full shrink-0" />
+              <span className="text-xs sm:text-sm md:text-[15px] font-bold tracking-[0.22em] text-[#1B3E2C] uppercase font-manrope">
                 WHAT IS MEATIN?
               </span>
             </div>
 
-            {/* Main Headline with increased font sizes */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[4.8rem] xl:text-[5.4rem] font-extrabold font-bree tracking-tight uppercase leading-[0.93] mb-4 sm:mb-5">
-              <span className="block text-[#0A4D27]">WE ENGINEER</span>
-              <span className="block text-[#F7840F]">QUALITY INTO</span>
-              <span className="block text-[#0A4D27]">
-                EVERY CUT<span className="text-[#E31E24]">.</span>
-              </span>
+            {/* Main Headline matching reference image */}
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[5em] xl:text-[5.7rem] font-medium font-bree tracking-normal uppercase leading-[0.91] sm:leading-[0.89] mb-1">
+              <span className="block text-[#1E5638]">WE ENGINEER</span>
+              <span className="block text-[#E86D00]">QUALITY INTO</span>
+              <span className="block text-[#1E5638]">EVERY CUT.</span>
             </h1>
 
-            {/* Subtle Divider Line */}
-            <div className="w-full max-w-[380px] sm:max-w-[480px] md:max-w-[540px] h-[1.5px] bg-[#0A4D27]/30 my-4 sm:my-5" />
+            {/* Subtle Horizontal Divider Line */}
+            <div className="w-full max-w-[480px] sm:max-w-[580px] md:max-w-[640px] h-[1.5px] bg-[#1E5638]/25 my-5 sm:my-6 md:my-7" />
 
-            {/* Subtitle Paragraph with increased text size */}
-            <p className="text-slate-900 text-base sm:text-lg lg:text-xl xl:text-2xl font-semibold leading-relaxed font-manrope max-w-xl">
-              Integrated farming, scientific processing,<br className="hidden sm:inline" />
-              and cold-chain distribution.
+            {/* Subtitle Paragraph matching reference line-break and typography */}
+            <p className="text-[#1A2E26] text-base sm:text-lg md:text-xl lg:text-[1.35rem] font-semibold leading-snug sm:leading-relaxed font-manrope max-w-xl">
+              Integrated farming, scientific processing, and<br className="hidden sm:inline" />
+              cold-chain distribution.
             </p>
           </motion.div>
         </div>
@@ -315,7 +314,7 @@ export default function AboutUsPage() {
                   </div>
 
                   {/* Number Counter (bold, pure black color) */}
-                  <div className="text-3xl sm:text-4xl lg:text-[38px] xl:text-[42px] font-bold text-[#000000] text-black font-manrope tracking-tight leading-none mb-2">
+                  <div className="text-3xl sm:text-4xl lg:text-[38px] xl:text-[42px] font-bold text-[#153520] font-manrope tracking-tight leading-none mb-2">
                     <Counter value={stat.value} />
                   </div>
 
@@ -349,7 +348,6 @@ export default function AboutUsPage() {
 
         <div className="w-full relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
-
             {/* Left Side: Plant Video (Docked Flush Left - Exactly 50%) */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -494,6 +492,7 @@ export default function AboutUsPage() {
 
       {/* 4. MISSION & VISION SPLIT GRID */}
       <section className="relative w-full">
+
         {/* Vertical Divider Line */}
         <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/10 z-10 hidden lg:block" />
 
@@ -540,7 +539,7 @@ export default function AboutUsPage() {
               sizes="50vw"
             />
             {/* Full-height yellow-green overlay on mobile/tablet (1024px and below) for text contrast, and top-only (h-[65%]) overlay on desktop */}
-            <div className="absolute inset-0 lg:bottom-auto lg:h-[75%] bg-gradient-to-b from-[#E2F2B6]/95 via-[#E2F2B6]/85 lg:via-[#E2F2B6]/75 to-transparent z-0 pointer-events-none" />
+            <div className="absolute inset-0 lg:bottom-auto lg:h-[120%] bg-[linear-gradient(180deg,#8DC541_0%,rgba(163,208,102,0.807715)_35.2%,rgba(255,255,255,0)_62.27%)] z-0 pointer-events-none" />
             
             <motion.div 
               variants={staggerContainer}
@@ -692,6 +691,11 @@ export default function AboutUsPage() {
         </div>
 
       </section>
+
+      
+      {/* 5. MEATiN ECOSYSTEM - CONNECTED CIRCLE INTERACTIVE COMPONENT */}
+      <EcosystemCircle />
+
 
       {/* Global Trusted Quality Banner */}
       <TrustedQualityBanner />

@@ -44,6 +44,9 @@ export const Preloader: React.FC = () => {
       setLoading(false);
       document.body.classList.remove('preloader-active');
       document.body.style.overflow = '';
+      if ((window as any).lenis) {
+        (window as any).lenis.resize();
+      }
       return;
     }
 
@@ -75,6 +78,9 @@ export const Preloader: React.FC = () => {
           }
           setLoading(false);
           if (typeof window !== 'undefined') {
+            if ((window as any).lenis) {
+              (window as any).lenis.resize();
+            }
             window.dispatchEvent(new Event('resize'));
             window.dispatchEvent(new Event('scroll'));
           }

@@ -12,6 +12,7 @@ import {
   useMotionValueEvent,
   AnimatePresence,
 } from "framer-motion";
+import { Icon } from "@iconify/react";
 import GoatParts from "../../components/know-your-meat/GoatParts";
 import BuffaloParts from "../../components/know-your-meat/BeefParts";
 import {
@@ -21,6 +22,50 @@ import {
   CATEGORIES,
   PART_GLB_MAP,
 } from "@/data/knowYourMeatData";
+import EcosystemCircle from "@/components/EcosystemCircle";
+
+const PRODUCTION_PILLARS = [
+  {
+    icon: "ph:tractor-light",
+    line1: "Integrated",
+    line2: "farming",
+  },
+  {
+    icon: "vadivam:badge-check",
+    line1: "Quality",
+    line2: "control",
+  },
+  {
+    icon: "emojione-monotone:snowflake",
+    line1: "Storage &",
+    line2: "cold chain",
+  },
+  {
+    icon: "lets-icons:shop-light",
+    line1: "Wholesale &",
+    line2: "retail",
+  },
+  {
+    icon: "hugeicons:hand-heart",
+    line1: "Ethical",
+    line2: "procurement",
+  },
+  {
+    icon: "mdi-light:truck",
+    line1: "Branding &",
+    line2: "export",
+  },
+  {
+    icon: "hugeicons:flask-conical",
+    line1: "Scientific",
+    line2: "slaughtering",
+  },
+  {
+    icon: "hugeicons:package-check",
+    line1: "Logistics &",
+    line2: "distribution",
+  },
+];
 
 export default function KnowYourMeatPage() {
   const router = useRouter();
@@ -1636,14 +1681,14 @@ export default function KnowYourMeatPage() {
                           );
                         })()}
 
-                        {/* DRUMETTE → mid-left wing joint */}
+                        {/* DRUMETTE → mid-left wing joint (marked position 1) */}
                         {(() => {
                           const active = isPartActive("DRUMETTE");
                           const isHovered = isPartHovered("DRUMETTE");
                           const color = active ? "#F2CE07" : "#222222";
                           const r = active ? 4.5 : 3.5;
                           const sx = 440;
-                          const d = `M ${sx} 240 L 520 200 L 625 305`;
+                          const d = `M ${sx} 240 L 520 200 L 615 235`;
                           return (
                             <g key="line-drumette">
                               <path
@@ -1678,8 +1723,8 @@ export default function KnowYourMeatPage() {
                                 className="transition-all duration-300"
                               />
                               <circle
-                                cx="625"
-                                cy="305"
+                                cx="615"
+                                cy="235"
                                 r={active ? 7.5 : 3.5}
                                 fill={color}
                                 filter={active ? "url(#yellowGlow)" : undefined}
@@ -1688,8 +1733,8 @@ export default function KnowYourMeatPage() {
                               {active && (
                                 <g className="pointer-events-none">
                                   <motion.circle
-                                    cx="625"
-                                    cy="305"
+                                    cx="615"
+                                    cy="235"
                                     r={7.5}
                                     fill="none"
                                     stroke="#F2CE07"
@@ -1706,8 +1751,8 @@ export default function KnowYourMeatPage() {
                                     }}
                                   />
                                   <motion.circle
-                                    cx="625"
-                                    cy="305"
+                                    cx="615"
+                                    cy="235"
                                     r={7.5}
                                     fill="none"
                                     stroke="#F2CE07"
@@ -1730,14 +1775,14 @@ export default function KnowYourMeatPage() {
                           );
                         })()}
 
-                        {/* THIGH → lower-left thigh */}
+                        {/* THIGH → lower-left thigh (marked position 2) */}
                         {(() => {
                           const active = isPartActive("THIGH");
                           const isHovered = isPartHovered("THIGH");
                           const color = active ? "#F2CE07" : "#222222";
                           const r = active ? 4.5 : 3.5;
                           const sx = 440;
-                          const d = `M ${sx} 380 L 520 330 L 635 345`;
+                          const d = `M ${sx} 380 L 520 330 L 630 305`;
                           return (
                             <g key="line-thigh">
                               <path
@@ -1772,8 +1817,8 @@ export default function KnowYourMeatPage() {
                                 className="transition-all duration-300"
                               />
                               <circle
-                                cx="635"
-                                cy="345"
+                                cx="630"
+                                cy="305"
                                 r={active ? 7.5 : 3.5}
                                 fill={color}
                                 filter={active ? "url(#yellowGlow)" : undefined}
@@ -1782,8 +1827,8 @@ export default function KnowYourMeatPage() {
                               {active && (
                                 <g className="pointer-events-none">
                                   <motion.circle
-                                    cx="635"
-                                    cy="345"
+                                    cx="630"
+                                    cy="305"
                                     r={7.5}
                                     fill="none"
                                     stroke="#F2CE07"
@@ -1800,8 +1845,8 @@ export default function KnowYourMeatPage() {
                                     }}
                                   />
                                   <motion.circle
-                                    cx="635"
-                                    cy="345"
+                                    cx="630"
+                                    cy="305"
                                     r={7.5}
                                     fill="none"
                                     stroke="#F2CE07"
@@ -2297,14 +2342,14 @@ export default function KnowYourMeatPage() {
                           );
                         })()}
 
-                        {/* DRUMETTE (#3) → ~2vw before left shoulder/drumette joint */}
+                        {/* DRUMETTE (#3) → left wing/drumette forearm (marked position 1) */}
                         {(() => {
                           const active = isPartActive("DRUMETTE");
                           const isHovered = isPartHovered("DRUMETTE");
                           const color = active ? "#F2CE07" : "#222222";
                           const r = active ? 4.5 : 3.5;
                           const sx = isHovered ? 455 : 410;
-                          const d = `M ${sx} 300 L 520 250 L 625 305`;
+                          const d = `M ${sx} 300 L 520 250 L 615 235`;
                           return (
                             <g key="inside-drumette">
                               <path
@@ -2339,8 +2384,8 @@ export default function KnowYourMeatPage() {
                                 className="transition-all duration-300"
                               />
                               <circle
-                                cx="625"
-                                cy="305"
+                                cx="615"
+                                cy="235"
                                 r={active ? 7.5 : 3.5}
                                 fill={color}
                                 filter={active ? "url(#yellowGlow)" : undefined}
@@ -2349,8 +2394,8 @@ export default function KnowYourMeatPage() {
                               {active && (
                                 <g className="pointer-events-none">
                                   <motion.circle
-                                    cx="625"
-                                    cy="305"
+                                    cx="615"
+                                    cy="235"
                                     r={7.5}
                                     fill="none"
                                     stroke="#F2CE07"
@@ -2367,8 +2412,8 @@ export default function KnowYourMeatPage() {
                                     }}
                                   />
                                   <motion.circle
-                                    cx="625"
-                                    cy="305"
+                                    cx="615"
+                                    cy="235"
                                     r={7.5}
                                     fill="none"
                                     stroke="#F2CE07"
@@ -2391,14 +2436,14 @@ export default function KnowYourMeatPage() {
                           );
                         })()}
 
-                        {/* THIGH (#4) → lower-left thigh */}
+                        {/* THIGH (#4) → outer upper thigh curve (marked position 2) */}
                         {(() => {
                           const active = isPartActive("THIGH");
                           const isHovered = isPartHovered("THIGH");
                           const color = active ? "#F2CE07" : "#222222";
                           const r = active ? 4.5 : 3.5;
                           const sx = isHovered ? 465 : 420;
-                          const d = `M ${sx} 410 L 520 355 L 645 325`;
+                          const d = `M ${sx} 410 L 520 355 L 630 305`;
                           return (
                             <g key="inside-thigh">
                               <path
@@ -2433,8 +2478,8 @@ export default function KnowYourMeatPage() {
                                 className="transition-all duration-300"
                               />
                               <circle
-                                cx="645"
-                                cy="325"
+                                cx="630"
+                                cy="305"
                                 r={active ? 7.5 : 3.5}
                                 fill={color}
                                 filter={active ? "url(#yellowGlow)" : undefined}
@@ -2443,8 +2488,8 @@ export default function KnowYourMeatPage() {
                               {active && (
                                 <g className="pointer-events-none">
                                   <motion.circle
-                                    cx="645"
-                                    cy="325"
+                                    cx="630"
+                                    cy="305"
                                     r={7.5}
                                     fill="none"
                                     stroke="#F2CE07"
@@ -2461,8 +2506,8 @@ export default function KnowYourMeatPage() {
                                     }}
                                   />
                                   <motion.circle
-                                    cx="645"
-                                    cy="325"
+                                    cx="630"
+                                    cy="305"
                                     r={7.5}
                                     fill="none"
                                     stroke="#F2CE07"
@@ -3666,6 +3711,110 @@ export default function KnowYourMeatPage() {
   })}
 </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* 2.25 MEATiN Ecosystem Connected Circle Section */}
+      <EcosystemCircle />
+
+      {/* 2.5 Rewriting Quality in Meat Production Section */}
+      <section className="relative w-full bg-[#F5F4EE] py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden z-20">
+        {/* Subtle Background Doodle Pattern Overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.07] bg-repeat z-0"
+          style={{
+            backgroundImage: 'url("/Product/know-your-meat-bg.webp")',
+            backgroundSize: "650px",
+          }}
+        />
+
+        <div className="relative z-10 max-w-[1540px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16">
+          {/* Top Row: Left Typography + Right Facility Image */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
+            {/* Left Content Column */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="lg:col-span-6 xl:col-span-5 flex flex-col justify-center"
+            >
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.6rem] xl:text-[4.2rem] 2xl:text-[4.6rem] font-black font-manrope tracking-tight uppercase leading-[0.92] sm:leading-[0.90] select-none">
+                <span className="block text-[#1B5235]">REWRITING</span>
+                <span className="block mt-1">
+                  <span className="text-[#EA7200]">QUALITY</span>{" "}
+                  <span className="text-[#1B5235]">IN</span>
+                </span>
+                <span className="block text-[#1B5235] mt-1">
+                  MEAT PRODUCTION
+                </span>
+              </h2>
+
+              {/* Lime Accent Pill Bar */}
+              <div className="w-14 sm:w-16 h-1.5 sm:h-2 bg-[#8DC541] rounded-full mt-4 sm:mt-5 mb-5 sm:mb-6" />
+
+              {/* Description Paragraph */}
+              <p className="text-[#334139] text-sm sm:text-base lg:text-[1.05rem] xl:text-[1.125rem] font-medium leading-relaxed font-manrope max-w-xl">
+                Meatin is a vision born from the concern over India&apos;s unhealthy
+                slaughtering practices. India&apos;s meat industry has huge potential. We
+                channel this growing opportunity toward a healthy &amp; efficient meat habit.
+                Localising global standards through most advanced machinery and expert
+                manpower.
+              </p>
+            </motion.div>
+
+            {/* Right Facility Image Column */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.12 }}
+              className="lg:col-span-6 xl:col-span-7 flex justify-center lg:justify-end"
+            >
+              <div className="relative w-full rounded-2xl sm:rounded-[24px] overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.07)] border-2 sm:border-[3px] border-white/90 bg-white">
+                <Image
+                  src="/Product/meat-production-facility.png"
+                  alt="MEATiN Production and Quality Facility"
+                  width={960}
+                  height={540}
+                  className="w-full h-auto object-cover block rounded-xl sm:rounded-[21px]"
+                  priority
+                />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Bottom Floating 8-Icon Capability Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+            className="mt-8 sm:mt-12 lg:mt-14 bg-white/95 rounded-2xl sm:rounded-[24px] p-5 sm:p-6 lg:py-7 lg:px-4 shadow-[0_6px_30px_rgba(0,0,0,0.04)] border border-slate-200/80"
+          >
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-y-6 sm:gap-y-6 gap-x-3 sm:gap-x-4 lg:gap-x-0 lg:divide-x lg:divide-slate-200/90 items-start">
+              {PRODUCTION_PILLARS.map((pillar, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col items-center text-center px-2 lg:px-2.5 group"
+                >
+                  {/* Circular Icon Container */}
+                  <div className="w-13 h-13 sm:w-15 sm:h-15 lg:w-16 lg:h-16 rounded-full bg-[#EBF4EE] flex items-center justify-center mb-2.5 sm:mb-3 shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#E0EFE5]">
+                    <Icon
+                      icon={pillar.icon}
+                      className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#1E5638] transition-colors duration-300 group-hover:text-[#134229]"
+                    />
+                  </div>
+
+                  {/* 2-line Label */}
+                  <span className="text-xs sm:text-[13px] lg:text-[13.5px] font-bold text-[#1E3A2B] font-manrope leading-[1.25] max-w-[130px]">
+                    <span className="block">{pillar.line1}</span>
+                    <span className="block">{pillar.line2}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
