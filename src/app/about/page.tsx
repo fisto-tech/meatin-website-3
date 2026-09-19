@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import TrustedQualityBanner from '@/components/layout/TrustedQualityBanner';
 import EcosystemCircle from '@/components/EcosystemCircle';
+import InfrastructureSection from '@/components/about/InfrastructureSection';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -692,6 +693,8 @@ export default function AboutUsPage() {
 
       </section>
 
+      {/* 6. MEATiN INFRASTRUCTURE COMPONENTS SECTION */}
+      <InfrastructureSection />
 
       {/* Global Trusted Quality Banner */}
       <TrustedQualityBanner />
