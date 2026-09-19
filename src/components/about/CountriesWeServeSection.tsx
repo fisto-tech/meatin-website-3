@@ -33,10 +33,10 @@ const COUNTRIES: CountryItem[] = [
 
 export default function CountriesWeServeSection() {
   return (
-    <section className="relative w-full bg-[#FBFDF8] py-12 sm:py-16 lg:py-[5vw] overflow-hidden select-none">
+    <section className="relative w-full bg-[#FBFDF8] pt-8 sm:pt-12 lg:pt-[3.8vw] pb-10 sm:pb-14 lg:pb-[4.2vw] overflow-hidden select-none">
       
       {/* Background Subtle Organic Curved Pattern (as seen in mockup background) */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
+      <div className="absolute inset-0 pointer-events-none opacity-30">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1440 900" fill="none">
           <path d="M-50 150 C 300 50, 450 300, 800 120 C 1150 -60, 1300 200, 1500 100" stroke="#E1EBD5" strokeWidth="1.5" fill="none" strokeDasharray="4 6" opacity="0.6" />
           <path d="M100 800 C 400 650, 600 850, 1000 700 C 1300 580, 1400 750, 1550 720" stroke="#E1EBD5" strokeWidth="1.5" fill="none" opacity="0.5" />
@@ -46,7 +46,7 @@ export default function CountriesWeServeSection() {
         </svg>
       </div>
 
-      <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-[4vw] relative z-10 w-full">
+      <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:pl-[4.5vw] lg:pr-[2vw] relative z-10 w-full">
         
         {/* Main 2-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-10 lg:gap-0">
@@ -57,7 +57,7 @@ export default function CountriesWeServeSection() {
             {/* Eyebrow */}
             <div className="flex items-center gap-2 sm:gap-2.5 lg:gap-[0.5vw] mb-1.5 lg:mb-[0.4vw]">
               <span className="w-5 sm:w-6 lg:w-[1.6vw] h-[2px] lg:h-[0.16vw] bg-[#CF9A16]" />
-              <span className="text-[11px] sm:text-xs lg:text-[0.78vw] font-bold tracking-[0.24em] text-[#CF9A16] uppercase font-manrope">
+              <span className="text-[11px] sm:text-xs lg:text-[0.75vw] font-bold tracking-[0.24em] text-[#CF9A16] uppercase font-manrope">
                 FROM OUR FARM TO THE WORLD
               </span>
             </div>
@@ -65,26 +65,29 @@ export default function CountriesWeServeSection() {
             {/* Main Title */}
             <h2 className="font-extrabold font-barlow-condensed tracking-normal leading-[0.92] text-5xl sm:text-6xl lg:text-[4.6vw]">
               <span className="text-[#1F5A3C] block">FRESHNESS</span>
-              <span className="text-[#F58408] block uppercase">ACROSS THE WORLD</span>
+              <span className="block uppercase">
+                <span className="text-[#F58408]">ACROSS </span>
+                <span className="text-[#1F5A3C]">THE WORLD</span>
+              </span>
             </h2>
 
             {/* Subtitle description */}
-            <p className="text-[#2D2D2D] font-medium leading-snug mt-2.5 lg:mt-[0.6vw] text-sm sm:text-base lg:text-[1.12vw] max-w-sm sm:max-w-md lg:max-w-[28vw]">
+            <p className="text-[#2D2D2D] font-medium leading-snug mt-2.5 lg:mt-[0.6vw] text-sm sm:text-base lg:text-[1.12vw] max-w-sm sm:max-w-md lg:max-w-[26vw]">
               Trusted in 18+ Countries, Serving Healthy Chicken to Families Around the Globe.
             </p>
 
             {/* Small decorative line #8DC541 */}
-            <div className="w-9 sm:w-11 lg:w-[3vw] h-[3px] lg:h-[0.22vw] bg-[#8DC541] rounded-full mt-3 lg:mt-[0.8vw] mb-6 lg:mb-[1.8vw]" />
+            <div className="w-9 sm:w-11 lg:w-[3vw] h-[3px] lg:h-[0.22vw] bg-[#8DC541] rounded-full mt-3 lg:mt-[0.8vw] mb-5 lg:mb-[1.4vw]" />
 
-            {/* Countries Flag Holding Card (#EAF8D0) */}
+            {/* Countries Flag Holding Card (#EAF8D0) - Enlarged */}
             <div 
               style={{
                 backgroundColor: '#EAF8D0',
-                boxShadow: '0px 4px 18px rgba(0, 0, 0, 0.05)',
+                boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.06)',
               }}
-              className="rounded-2xl sm:rounded-3xl lg:rounded-[1.2vw] p-4 sm:p-6 lg:p-[1.4vw] max-w-xl lg:max-w-[34vw]"
+              className="rounded-2xl sm:rounded-3xl lg:rounded-[1.6vw] p-5 sm:p-7 lg:p-[1.8vw] max-w-xl lg:max-w-[43.5vw]"
             >
-              <div className="grid grid-cols-6 gap-x-2 sm:gap-x-3 lg:gap-x-[0.6vw] gap-y-3 sm:gap-y-4 lg:gap-y-[0.8vw] items-center justify-items-center">
+              <div className="grid grid-cols-6 gap-x-3 sm:gap-x-5 lg:gap-x-[1vw] gap-y-4 sm:gap-y-5 lg:gap-y-[1.15vw] items-center justify-items-center">
                 {COUNTRIES.map((country, idx) => (
                   <motion.div
                     key={country.name}
@@ -94,8 +97,8 @@ export default function CountriesWeServeSection() {
                     transition={{ duration: 0.3, delay: idx * 0.02 }}
                     className="flex flex-col items-center justify-center text-center group cursor-pointer"
                   >
-                    {/* Flag Image */}
-                    <div className="relative w-9 h-6 sm:w-11 sm:h-7 lg:w-[2.7vw] lg:h-[1.7vw] rounded-md sm:rounded-lg lg:rounded-[0.35vw] overflow-hidden shadow-[0_2px_6px_rgba(0,0,0,0.12)] border border-black/5 group-hover:scale-110 transition-transform duration-200">
+                    {/* Flag Image - Enlarged */}
+                    <div className="relative w-11 h-7.5 sm:w-14 sm:h-9 lg:w-[3.8vw] lg:h-[2.4vw] rounded-md sm:rounded-lg lg:rounded-[0.5vw] overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.12)] border border-black/5 group-hover:scale-110 transition-transform duration-200">
                       <Image
                         src={country.flag}
                         alt={country.name}
@@ -104,7 +107,7 @@ export default function CountriesWeServeSection() {
                       />
                     </div>
                     {/* Country Name */}
-                    <span className="text-[9px] sm:text-[10px] lg:text-[0.65vw] font-bold text-[#2D2D2D] mt-1 lg:mt-[0.3vw] leading-tight tracking-tight">
+                    <span className="text-[10px] sm:text-[12px] lg:text-[0.85vw] font-bold text-[#2D2D2D] mt-1.5 lg:mt-[0.4vw] leading-tight tracking-tight">
                       {country.name}
                     </span>
                   </motion.div>
@@ -113,7 +116,7 @@ export default function CountriesWeServeSection() {
             </div>
 
             {/* 3 Bottom Highlights Row: High Quality | Trusted Globally | Healthy Families */}
-            <div className="flex items-center gap-4 sm:gap-6 lg:gap-[1.8vw] mt-6 sm:mt-8 lg:mt-[2vw]">
+            <div className="flex items-center gap-4 sm:gap-6 lg:gap-[1.8vw] mt-5 sm:mt-7 lg:mt-[1.6vw]">
               
               {/* Highlight 1: High Quality */}
               <div className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw]">
@@ -158,48 +161,32 @@ export default function CountriesWeServeSection() {
 
           </div>
 
-          {/* RIGHT COLUMN: Globe Background, Airplane Flight Path & Packed Products in Foreground */}
-          <div className="lg:col-span-6 xl:col-span-6 relative flex flex-col items-center justify-center min-h-[380px] sm:min-h-[480px] lg:min-h-[38vw]">
+          {/* RIGHT COLUMN: Globe Background, Airplane Flight Path & Packed Products in Foreground - Centered Horizontally */}
+          <div className="lg:col-span-6 xl:col-span-6 relative flex flex-col items-center justify-center min-h-[360px] sm:min-h-[440px] lg:min-h-[36vw]">
             
-            {/* Dotted Flight Path Curve with Airplane */}
-            <div className="absolute -top-4 sm:-top-8 lg:-top-[2vw] left-0 sm:left-4 lg:-left-[1vw] z-30 pointer-events-none">
-              <motion.div
-                initial={{ opacity: 0, x: -30, y: 20 }}
-                whileInView={{ opacity: 1, x: 0, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-                className="relative flex items-center"
-              >
-                {/* Airplane Image */}
-                <div className="relative w-14 h-10 sm:w-20 sm:h-14 lg:w-[5.2vw] lg:h-[3.6vw] drop-shadow-md">
-                  <Image
-                    src="/AboutUs/countries-serve/airplane-image.webp"
-                    alt="MEATiN Global Airplane"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              </motion.div>
-            </div>
+            {/* Globe Map with Location Marker Pins (Centered) */}
+            <div className="relative w-[320px] sm:w-[420px] md:w-[460px] lg:w-[35vw] aspect-square flex items-center justify-center z-10 mt-2 lg:mt-0">
+              
+              {/* Airplane Image (Further enlarged and anchored near top-left of the globe) */}
+              <div className="absolute top-[0%] sm:top-[1%] lg:top-[0.5%] -left-[18%] sm:-left-[16%] lg:-left-[15%] z-30 pointer-events-none">
+                <motion.div
+                  initial={{ opacity: 0, x: -25, y: 15 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                  className="relative flex items-center"
+                >
+                  <div className="relative w-28 h-18 sm:w-40 sm:h-26 lg:w-[13vw] lg:h-[8.2vw] drop-shadow-md">
+                    <Image
+                      src="/AboutUs/countries-serve/airplane-image.webp"
+                      alt="MEATiN Global Airplane"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </motion.div>
+              </div>
 
-            {/* Svg Flight Path Dashed Line arching to the globe */}
-            <svg 
-              className="absolute top-2 sm:top-4 lg:top-[1vw] left-6 sm:left-12 lg:left-[2.5vw] w-[260px] sm:w-[380px] lg:w-[28vw] h-[80px] sm:h-[120px] lg:h-[9vw] pointer-events-none z-20"
-              viewBox="0 0 400 120" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path 
-                d="M 10 100 C 120 10, 260 20, 390 110" 
-                stroke="#064823" 
-                strokeWidth="2" 
-                strokeDasharray="4 6" 
-                opacity="0.75" 
-              />
-            </svg>
-
-            {/* Globe Map with Location Marker Pins */}
-            <div className="relative w-[340px] sm:w-[480px] md:w-[540px] lg:w-[38vw] aspect-square flex items-center justify-center z-10">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -214,25 +201,25 @@ export default function CountriesWeServeSection() {
                   className="object-contain"
                 />
               </motion.div>
-            </div>
 
-            {/* Foreground Packed Chicken Products Stack (Docked at bottom center-right) */}
-            <motion.div
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="absolute -bottom-4 sm:-bottom-6 lg:-bottom-[1vw] right-0 sm:right-4 lg:right-[1vw] w-[320px] sm:w-[450px] md:w-[500px] lg:w-[36vw] z-20 pointer-events-none"
-            >
-              <Image
-                src="/AboutUs/countries-serve/packed-product.webp"
-                alt="MEATiN I'm Your Chicken Packed Products"
-                width={800}
-                height={550}
-                priority
-                className="w-full h-auto object-contain drop-shadow-2xl block"
-              />
-            </motion.div>
+              {/* Foreground Packed Chicken Products Stack (Docked at bottom overlapping globe) */}
+              <motion.div
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="absolute -bottom-2 sm:-bottom-4 lg:-bottom-[0.8vw] -right-[5%] sm:-right-[4%] lg:-right-[3%] w-[300px] sm:w-[420px] md:w-[460px] lg:w-[33.5vw] z-20 pointer-events-none"
+              >
+                <Image
+                  src="/AboutUs/countries-serve/packed-product.webp"
+                  alt="MEATiN I'm Your Chicken Packed Products"
+                  width={800}
+                  height={550}
+                  priority
+                  className="w-full h-auto object-contain drop-shadow-2xl block"
+                />
+              </motion.div>
+            </div>
 
           </div>
 
