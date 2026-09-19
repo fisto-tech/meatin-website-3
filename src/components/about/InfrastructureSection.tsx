@@ -87,7 +87,13 @@ export default function InfrastructureSection() {
           <div className="lg:col-span-5 pb-6 sm:pb-10 lg:pb-[2.8vw] z-10">
             
             {/* Eyebrow & Main Headings */}
-            <div className="mb-3.5 sm:mb-5 lg:mb-[1.5vw]">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-3.5 sm:mb-5 lg:mb-[1.5vw]"
+            >
               {/* Eyebrow label with left line */}
               <div className="flex items-center gap-2 sm:gap-2.5 lg:gap-[0.5vw] mb-1.5 lg:mb-[0.4vw]">
                 <span className="w-4 sm:w-6 lg:w-[1.4vw] h-[2px] lg:h-[0.16vw] bg-[#D4A437]" />
@@ -106,24 +112,24 @@ export default function InfrastructureSection() {
               <p className="text-slate-800 font-medium leading-snug mt-2 lg:mt-[0.55vw] text-sm sm:text-base lg:text-[1.12vw] max-w-sm sm:max-w-md lg:max-w-[24vw]">
                 An integrated ecosystem designed for safe, scalable and sustainable meat production.
               </p>
-            </div>
+            </motion.div>
 
             {/* 9 Component Capsule Pills - Extends right to gracefully tuck behind worker's blue crate */}
             <div className="space-y-2 sm:space-y-2.5 lg:space-y-[0.55vw] max-w-lg lg:max-w-none lg:w-[37.5vw] relative z-10">
               {COMPONENTS.map((item, idx) => (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -35 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: idx * 0.035 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 0.45, delay: 0.1 + idx * 0.04, ease: [0.22, 1, 0.36, 1] }}
                   style={{
                     backgroundColor: '#F9FCF7',
                     border: '1.21768px solid #EEF4EE',
                     boxShadow: '0px 2px 6.7px rgba(0, 0, 0, 0.25)',
                     borderRadius: '164.387px',
                   }}
-                  className="w-full py-1.5 sm:py-2 lg:py-[0.44vw] pl-3.5 sm:pl-4 lg:pl-[1.1vw] pr-4 sm:pr-6 lg:pr-[2.5vw] flex items-center gap-3 sm:gap-3.5 lg:gap-[0.9vw] transition-all duration-200 group cursor-default"
+                  className="w-full py-1.5 sm:py-2 lg:py-[0.44vw] pl-3.5 sm:pl-4 lg:pl-[1.1vw] pr-4 sm:pr-6 lg:pr-[2.5vw] flex items-center gap-3 sm:gap-3.5 lg:gap-[0.9vw] transition-all duration-200 group cursor-default hover:shadow-lg hover:border-[#1F5A3C]/30"
                 >
                   {/* Dark Green Icon with #063D26 */}
                   <div className="w-4 h-4 sm:w-5 sm:h-5 lg:w-[1.25vw] lg:h-[1.25vw] flex items-center justify-center shrink-0 text-[#063D26] group-hover:scale-110 transition-transform duration-200">

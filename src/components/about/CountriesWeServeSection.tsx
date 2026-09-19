@@ -54,33 +54,45 @@ export default function CountriesWeServeSection() {
           {/* LEFT COLUMN: Headings, Flags Grid Card & Bottom 3 Highlights */}
           <div className="lg:col-span-6 xl:col-span-6 z-20">
             
-            {/* Eyebrow */}
-            <div className="flex items-center gap-2 sm:gap-2.5 lg:gap-[0.5vw] mb-1.5 lg:mb-[0.4vw]">
-              <span className="w-5 sm:w-6 lg:w-[1.6vw] h-[2px] lg:h-[0.16vw] bg-[#CF9A16]" />
-              <span className="text-[11px] sm:text-xs lg:text-[0.75vw] font-bold tracking-[0.24em] text-[#CF9A16] uppercase font-manrope">
-                FROM OUR FARM TO THE WORLD
-              </span>
-            </div>
+            {/* Eyebrow and Headings with scroll entrance */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {/* Eyebrow */}
+              <div className="flex items-center gap-2 sm:gap-2.5 lg:gap-[0.5vw] mb-1.5 lg:mb-[0.4vw]">
+                <span className="w-5 sm:w-6 lg:w-[1.6vw] h-[2px] lg:h-[0.16vw] bg-[#CF9A16]" />
+                <span className="text-[11px] sm:text-xs lg:text-[0.75vw] font-bold tracking-[0.24em] text-[#CF9A16] uppercase font-manrope">
+                  FROM OUR FARM TO THE WORLD
+                </span>
+              </div>
 
-            {/* Main Title */}
-            <h2 className="font-extrabold font-barlow-condensed tracking-normal leading-[0.92] text-5xl sm:text-6xl lg:text-[4.6vw]">
-              <span className="text-[#1F5A3C] block">FRESHNESS</span>
-              <span className="block uppercase">
-                <span className="text-[#F58408]">ACROSS </span>
-                <span className="text-[#1F5A3C]">THE WORLD</span>
-              </span>
-            </h2>
+              {/* Main Title */}
+              <h2 className="font-extrabold font-barlow-condensed tracking-normal leading-[0.92] text-5xl sm:text-6xl lg:text-[4.6vw]">
+                <span className="text-[#1F5A3C] block">FRESHNESS</span>
+                <span className="block uppercase">
+                  <span className="text-[#F58408]">ACROSS </span>
+                  <span className="text-[#1F5A3C]">THE WORLD</span>
+                </span>
+              </h2>
 
-            {/* Subtitle description */}
-            <p className="text-[#2D2D2D] font-medium leading-snug mt-2.5 lg:mt-[0.6vw] text-sm sm:text-base lg:text-[1.12vw] max-w-sm sm:max-w-md lg:max-w-[26vw]">
-              Trusted in 18+ Countries, Serving Healthy Chicken to Families Around the Globe.
-            </p>
+              {/* Subtitle description */}
+              <p className="text-[#2D2D2D] font-medium leading-snug mt-2.5 lg:mt-[0.6vw] text-sm sm:text-base lg:text-[1.12vw] max-w-sm sm:max-w-md lg:max-w-[26vw]">
+                Trusted in 18+ Countries, Serving Healthy Chicken to Families Around the Globe.
+              </p>
 
-            {/* Small decorative line #8DC541 */}
-            <div className="w-9 sm:w-11 lg:w-[3vw] h-[3px] lg:h-[0.22vw] bg-[#8DC541] rounded-full mt-3 lg:mt-[0.8vw] mb-5 lg:mb-[1.4vw]" />
+              {/* Small decorative line #8DC541 */}
+              <div className="w-9 sm:w-11 lg:w-[3vw] h-[3px] lg:h-[0.22vw] bg-[#8DC541] rounded-full mt-3 lg:mt-[0.8vw] mb-5 lg:mb-[1.4vw]" />
+            </motion.div>
 
-            {/* Countries Flag Holding Card (#EAF8D0) - Enlarged */}
-            <div 
+            {/* Countries Flag Holding Card (#EAF8D0) - Enlarged with scroll reveal */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.96, y: 25 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               style={{
                 backgroundColor: '#EAF8D0',
                 boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.06)',
@@ -91,10 +103,10 @@ export default function CountriesWeServeSection() {
                 {COUNTRIES.map((country, idx) => (
                   <motion.div
                     key={country.name}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: idx * 0.02 }}
+                    transition={{ duration: 0.35, delay: 0.2 + idx * 0.025, ease: 'easeOut' }}
                     className="flex flex-col items-center justify-center text-center group cursor-pointer"
                   >
                     {/* Flag Image - Enlarged */}
@@ -113,10 +125,16 @@ export default function CountriesWeServeSection() {
                   </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* 3 Bottom Highlights Row: High Quality | Trusted Globally | Healthy Families */}
-            <div className="flex items-center gap-4 sm:gap-6 lg:gap-[1.8vw] mt-5 sm:mt-7 lg:mt-[1.6vw]">
+            {/* 3 Bottom Highlights Row: High Quality | Trusted Globally | Healthy Families with scroll animation */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+              className="flex items-center gap-4 sm:gap-6 lg:gap-[1.8vw] mt-5 sm:mt-7 lg:mt-[1.6vw]"
+            >
               
               {/* Highlight 1: High Quality */}
               <div className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw]">
@@ -157,7 +175,7 @@ export default function CountriesWeServeSection() {
                 </div>
               </div>
 
-            </div>
+            </motion.div>
 
           </div>
 
