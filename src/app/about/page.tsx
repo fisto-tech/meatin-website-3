@@ -21,6 +21,7 @@ import {
 import TrustedQualityBanner from '@/components/layout/TrustedQualityBanner';
 import EcosystemCircle from '@/components/EcosystemCircle';
 import InfrastructureSection from '@/components/about/InfrastructureSection';
+import CountriesWeServeSection from '@/components/about/CountriesWeServeSection';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -695,6 +696,9 @@ export default function AboutUsPage() {
 
       {/* 6. MEATiN INFRASTRUCTURE COMPONENTS SECTION */}
       <InfrastructureSection />
+
+      {/* 7. COUNTRIES WE SERVE SECTION */}
+      <CountriesWeServeSection />
 
       {/* Global Trusted Quality Banner */}
       <TrustedQualityBanner />
