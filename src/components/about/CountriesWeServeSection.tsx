@@ -56,61 +56,95 @@ export default function CountriesWeServeSection() {
             
             {/* Eyebrow and Headings with scroll entrance */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Eyebrow */}
               <div className="flex items-center gap-2 sm:gap-2.5 lg:gap-[0.5vw] mb-1.5 lg:mb-[0.4vw]">
-                <span className="w-5 sm:w-6 lg:w-[1.6vw] h-[2px] lg:h-[0.16vw] bg-[#CF9A16]" />
+                <motion.span
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: false }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  style={{ originX: 0 }}
+                  className="w-5 sm:w-6 lg:w-[1.6vw] h-[2px] lg:h-[0.16vw] bg-[#CF9A16]"
+                />
                 <span className="text-[11px] sm:text-xs lg:text-[0.75vw] font-bold tracking-[0.24em] text-[#CF9A16] uppercase font-manrope">
                   FROM OUR FARM TO THE WORLD
                 </span>
               </div>
 
-              {/* Main Title */}
-              <h2 className="font-extrabold font-barlow-condensed tracking-normal leading-[0.92] text-5xl sm:text-6xl lg:text-[4.6vw]">
-                <span className="text-[#1F5A3C] block">FRESHNESS</span>
-                <span className="block uppercase">
-                  <span className="text-[#F58408]">ACROSS </span>
-                  <span className="text-[#1F5A3C]">THE WORLD</span>
-                </span>
-              </h2>
+              {/* Main Title with masked slide up */}
+              <div className="overflow-hidden">
+                <motion.h2
+                  initial={{ y: 50, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: false, amount: 0.3 }}
+                  transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-extrabold font-barlow-condensed tracking-normal leading-[0.92] text-5xl sm:text-6xl lg:text-[4.6vw]"
+                >
+                  <span className="text-[#1F5A3C] block">FRESHNESS</span>
+                  <span className="block uppercase">
+                    <span className="text-[#F58408]">ACROSS </span>
+                    <span className="text-[#1F5A3C]">THE WORLD</span>
+                  </span>
+                </motion.h2>
+              </div>
 
               {/* Subtitle description */}
-              <p className="text-[#2D2D2D] font-medium leading-snug mt-2.5 lg:mt-[0.6vw] text-sm sm:text-base lg:text-[1.12vw] max-w-sm sm:max-w-md lg:max-w-[26vw]">
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-[#2D2D2D] font-medium leading-snug mt-2.5 lg:mt-[0.6vw] text-sm sm:text-base lg:text-[1.12vw] max-w-sm sm:max-w-md lg:max-w-[26vw]"
+              >
                 Trusted in 18+ Countries, Serving Healthy Chicken to Families Around the Globe.
-              </p>
+              </motion.p>
 
-              {/* Small decorative line #8DC541 */}
-              <div className="w-9 sm:w-11 lg:w-[3vw] h-[3px] lg:h-[0.22vw] bg-[#8DC541] rounded-full mt-3 lg:mt-[0.8vw] mb-5 lg:mb-[1.4vw]" />
+              {/* Small decorative line #8DC541 with stretch expand */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                style={{ originX: 0 }}
+                className="w-9 sm:w-11 lg:w-[3vw] h-[3px] lg:h-[0.22vw] bg-[#8DC541] rounded-full mt-3 lg:mt-[0.8vw] mb-5 lg:mb-[1.4vw]"
+              />
             </motion.div>
 
-            {/* Countries Flag Holding Card (#EAF8D0) - Enlarged with scroll reveal */}
+            {/* Countries Flag Holding Card (#EAF8D0) - Enlarged with 3D perspective scroll reveal */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.96, y: 25 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, scale: 0.92, y: 35, rotateX: 8 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+              viewport={{ once: false, amount: 0.15 }}
+              transition={{ duration: 0.75, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 backgroundColor: '#EAF8D0',
-                boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.06)',
+                boxShadow: '0px 12px 36px rgba(31, 90, 60, 0.08)',
+                perspective: 1000,
               }}
-              className="rounded-2xl sm:rounded-3xl lg:rounded-[1.6vw] p-5 sm:p-7 lg:p-[1.8vw] max-w-xl lg:max-w-[43.5vw]"
+              className="rounded-2xl sm:rounded-3xl lg:rounded-[1.6vw] p-5 sm:p-7 lg:p-[1.8vw] max-w-xl lg:max-w-[43.5vw] border border-white/60"
             >
               <div className="grid grid-cols-6 gap-x-3 sm:gap-x-5 lg:gap-x-[1vw] gap-y-4 sm:gap-y-5 lg:gap-y-[1.15vw] items-center justify-items-center">
                 {COUNTRIES.map((country, idx) => (
                   <motion.div
                     key={country.name}
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.35, delay: 0.2 + idx * 0.025, ease: 'easeOut' }}
+                    initial={{ opacity: 0, scale: 0.7, y: 15 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: false }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 150,
+                      damping: 14,
+                      delay: 0.15 + (idx % 6) * 0.04 + Math.floor(idx / 6) * 0.08,
+                    }}
                     className="flex flex-col items-center justify-center text-center group cursor-pointer"
                   >
-                    {/* Flag Image - Enlarged */}
-                    <div className="relative w-11 h-7.5 sm:w-14 sm:h-9 lg:w-[3.8vw] lg:h-[2.4vw] rounded-md sm:rounded-lg lg:rounded-[0.5vw] overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.12)] border border-black/5 group-hover:scale-110 transition-transform duration-200">
+                    {/* Flag Image - Enlarged with 3D tilt hover */}
+                    <div className="relative w-11 h-7.5 sm:w-14 sm:h-9 lg:w-[3.8vw] lg:h-[2.4vw] rounded-md sm:rounded-lg lg:rounded-[0.5vw] overflow-hidden shadow-[0_3px_10px_rgba(0,0,0,0.12)] border border-black/5 group-hover:scale-115 group-hover:-translate-y-1 transition-all duration-300">
                       <Image
                         src={country.flag}
                         alt={country.name}
@@ -119,7 +153,7 @@ export default function CountriesWeServeSection() {
                       />
                     </div>
                     {/* Country Name */}
-                    <span className="text-[10px] sm:text-[12px] lg:text-[0.85vw] font-bold text-[#2D2D2D] mt-1.5 lg:mt-[0.4vw] leading-tight tracking-tight">
+                    <span className="text-[10px] sm:text-[12px] lg:text-[0.85vw] font-bold text-[#2D2D2D] group-hover:text-[#1F5A3C] mt-1.5 lg:mt-[0.4vw] leading-tight tracking-tight transition-colors">
                       {country.name}
                     </span>
                   </motion.div>
@@ -127,53 +161,71 @@ export default function CountriesWeServeSection() {
               </div>
             </motion.div>
 
-            {/* 3 Bottom Highlights Row: High Quality | Trusted Globally | Healthy Families with scroll animation */}
+            {/* 3 Bottom Highlights Row: High Quality | Trusted Globally | Healthy Families with staggered badge pop */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="flex items-center gap-4 sm:gap-6 lg:gap-[1.8vw] mt-5 sm:mt-7 lg:mt-[1.6vw]"
             >
               
               {/* Highlight 1: High Quality */}
-              <div className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw]">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] flex items-center justify-center shrink-0 shadow-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: false }}
+                transition={{ type: "spring", stiffness: 120, damping: 12, delay: 0.4 }}
+                className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw] group"
+              >
+                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
                   <Icon icon="bxs:leaf" className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[1.4vw] lg:h-[1.4vw] text-[#01511C]" />
                 </div>
                 <div className="flex flex-col leading-tight">
                   <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">High</span>
                   <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">Quality</span>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Vertical divider */}
               <div className="w-[1.2px] h-8 sm:h-9 lg:h-[2vw] bg-[#2D2D2D]/15" />
 
               {/* Highlight 2: Trusted Globally */}
-              <div className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw]">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] flex items-center justify-center shrink-0 shadow-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: false }}
+                transition={{ type: "spring", stiffness: 120, damping: 12, delay: 0.48 }}
+                className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw] group"
+              >
+                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
                   <Icon icon="icon-park-solid:protect" className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[1.4vw] lg:h-[1.4vw] text-[#01511C]" />
                 </div>
                 <div className="flex flex-col leading-tight">
                   <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">Trusted</span>
                   <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">Globally</span>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Vertical divider */}
               <div className="w-[1.2px] h-8 sm:h-9 lg:h-[2vw] bg-[#2D2D2D]/15" />
 
               {/* Highlight 3: Healthy Families */}
-              <div className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw]">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] flex items-center justify-center shrink-0 shadow-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: false }}
+                transition={{ type: "spring", stiffness: 120, damping: 12, delay: 0.56 }}
+                className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw] group"
+              >
+                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
                   <Icon icon="famicons:people" className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[1.4vw] lg:h-[1.4vw] text-[#01511C]" />
                 </div>
                 <div className="flex flex-col leading-tight">
                   <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">Healthy</span>
                   <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">Families</span>
                 </div>
-              </div>
+              </motion.div>
 
             </motion.div>
 
@@ -185,16 +237,16 @@ export default function CountriesWeServeSection() {
             {/* Globe Map with Location Marker Pins (Centered) */}
             <div className="relative w-[320px] sm:w-[420px] md:w-[460px] lg:w-[35vw] aspect-square flex items-center justify-center z-10 mt-2 lg:mt-0">
               
-              {/* Airplane Image (Further enlarged and anchored near top-left of the globe) */}
+              {/* Airplane Image: Dynamic Swoop-in and gentle floating flight glide */}
               <div className="absolute top-[0%] sm:top-[1%] lg:top-[0.5%] -left-[18%] sm:-left-[16%] lg:-left-[15%] z-30 pointer-events-none">
                 <motion.div
-                  initial={{ opacity: 0, x: -25, y: 15 }}
-                  whileInView={{ opacity: 1, x: 0, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                  initial={{ opacity: 0, x: -70, y: 50, scale: 0.7, rotate: -15 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                  transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
                   className="relative flex items-center"
                 >
-                  <div className="relative w-28 h-18 sm:w-40 sm:h-26 lg:w-[13vw] lg:h-[8.2vw] drop-shadow-md">
+                  <div className="relative w-28 h-18 sm:w-40 sm:h-26 lg:w-[13vw] lg:h-[8.2vw] drop-shadow-xl">
                     <Image
                       src="/AboutUs/countries-serve/airplane-image.webp"
                       alt="MEATiN Global Airplane"
@@ -205,11 +257,12 @@ export default function CountriesWeServeSection() {
                 </motion.div>
               </div>
 
+              {/* Globe with 3D scale-up and subtle float */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
+                initial={{ opacity: 0, scale: 0.85, rotate: -8 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 className="relative w-full h-full"
               >
                 <Image
@@ -220,12 +273,12 @@ export default function CountriesWeServeSection() {
                 />
               </motion.div>
 
-              {/* Foreground Packed Chicken Products Stack (Docked at bottom overlapping globe) */}
+              {/* Foreground Packed Chicken Products Stack (Docked at bottom overlapping globe) - 3D Pop entrance */}
               <motion.div
-                initial={{ opacity: 0, y: 35 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                initial={{ opacity: 0, y: 60, scale: 0.88 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ type: "spring", stiffness: 90, damping: 14, delay: 0.35 }}
                 className="absolute -bottom-2 sm:-bottom-4 lg:-bottom-[0.8vw] -right-[5%] sm:-right-[4%] lg:-right-[3%] w-[300px] sm:w-[420px] md:w-[460px] lg:w-[33.5vw] z-20 pointer-events-none"
               >
                 <Image
@@ -234,7 +287,7 @@ export default function CountriesWeServeSection() {
                   width={800}
                   height={550}
                   priority
-                  className="w-full h-auto object-contain drop-shadow-2xl block"
+                  className="w-full h-auto object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.22)] block"
                 />
               </motion.div>
             </div>

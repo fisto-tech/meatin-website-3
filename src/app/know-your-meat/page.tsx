@@ -3730,85 +3730,121 @@ export default function KnowYourMeatPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
             {/* Left Content Column */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              viewport={{ once: false, amount: 0.25 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-6 xl:col-span-5 flex flex-col justify-center"
             >
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.6rem] xl:text-[4.2rem] 2xl:text-[4.6rem] font-black font-manrope tracking-tight uppercase leading-[0.92] sm:leading-[0.90] select-none">
-                <span className="block text-[#1B5235]">REWRITING</span>
-                <span className="block mt-1">
-                  <span className="text-[#EA7200]">QUALITY</span>{" "}
-                  <span className="text-[#1B5235]">IN</span>
-                </span>
-                <span className="block text-[#1B5235] mt-1">
-                  MEAT PRODUCTION
-                </span>
-              </h2>
+              <div className="overflow-hidden">
+                <motion.h2
+                  initial={{ y: 50, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: false, amount: 0.3 }}
+                  transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.6rem] xl:text-[4.2rem] 2xl:text-[4.6rem] font-black font-manrope tracking-tight uppercase leading-[0.92] sm:leading-[0.90] select-none"
+                >
+                  <span className="block text-[#1B5235]">REWRITING</span>
+                  <span className="block mt-1">
+                    <span className="text-[#EA7200]">QUALITY</span>{" "}
+                    <span className="text-[#1B5235]">IN</span>
+                  </span>
+                  <span className="block text-[#1B5235] mt-1">
+                    MEAT PRODUCTION
+                  </span>
+                </motion.h2>
+              </div>
 
               {/* Lime Accent Pill Bar */}
-              <div className="w-14 sm:w-16 h-1.5 sm:h-2 bg-[#8DC541] rounded-full mt-4 sm:mt-5 mb-5 sm:mb-6" />
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: false, amount: 0.25 }}
+                transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                style={{ originX: 0 }}
+                className="w-14 sm:w-16 h-1.5 sm:h-2 bg-[#8DC541] rounded-full mt-4 sm:mt-5 mb-5 sm:mb-6 shadow-sm"
+              />
 
               {/* Description Paragraph */}
-              <p className="text-[#334139] text-base sm:text-[1.0625rem] lg:text-[1.125rem] xl:text-[1.25rem] font-medium leading-relaxed font-manrope max-w-xl">
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-[#334139] text-base sm:text-[1.0625rem] lg:text-[1.125rem] xl:text-[1.25rem] font-medium leading-relaxed font-manrope max-w-xl"
+              >
                 Meatin is a vision born from the concern over India&apos;s unhealthy
                 slaughtering practices. India&apos;s meat industry has huge potential. We
                 channel this growing opportunity toward a healthy &amp; efficient meat habit.
                 Localising global standards through most advanced machinery and expert
                 manpower.
-              </p>
+              </motion.p>
             </motion.div>
 
-            {/* Right Facility Image Column */}
+            {/* Right Facility Image Column - 3D Perspective Card Entrance */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.12 }}
+              initial={{ opacity: 0, scale: 0.9, y: 40, rotateY: -10 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0, rotateY: 0 }}
+              viewport={{ once: false, amount: 0.25 }}
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+              style={{ perspective: 1000 }}
               className="lg:col-span-6 xl:col-span-7 flex justify-center lg:justify-end"
             >
-              <div className="relative w-full rounded-2xl sm:rounded-[24px] overflow-hidden border-1 sm:border-[3px] border-white/90 bg-white">
+              <div className="relative w-full rounded-2xl sm:rounded-[24px] overflow-hidden border-2 sm:border-[3px] border-white/90 bg-white shadow-[0_20px_45px_rgba(27,82,53,0.1)] group">
                 <Image
                   src="/Product/rewriting-quality.webp"
                   alt="MEATiN Production and Quality Facility"
                   width={960}
                   height={540}
-                  className="w-full h-auto object-cover block rounded-xl sm:rounded-[21px]"
+                  className="w-full h-auto object-cover block rounded-xl sm:rounded-[21px] transition-transform duration-700 ease-out group-hover:scale-105"
                   priority
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
             </motion.div>
           </div>
 
           {/* Bottom Floating 8-Icon Capability Bar */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-            className="mt-8 sm:mt-12 lg:mt-14 bg-[#F1F7EE] rounded-2xl sm:rounded-[24px] p-5 sm:p-6 lg:py-7 lg:px-4 shadow-[0_6px_30px_rgba(0,0,0,0.04)] border border-slate-200/80"
+            initial={{ opacity: 0, y: 45, scale: 0.96 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="mt-8 sm:mt-12 lg:mt-14 bg-[#F1F7EE] rounded-2xl sm:rounded-[24px] p-5 sm:p-6 lg:py-7 lg:px-4 shadow-[0_12px_36px_rgba(0,0,0,0.06)] border border-slate-200/80"
           >
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-y-6 sm:gap-y-6 gap-x-3 sm:gap-x-4 lg:gap-x-0 lg:divide-x lg:divide-slate-200/90 items-start">
               {PRODUCTION_PILLARS.map((pillar, idx) => (
-                <div
+                <motion.div
                   key={idx}
-                  className="flex flex-col items-center text-center px-2 lg:px-2.5 group"
+                  initial={{ opacity: 0, y: 25, scale: 0.8 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: false, amount: 0.15 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 12,
+                    delay: 0.1 + idx * 0.05,
+                  }}
+                  className="flex flex-col items-center text-center px-2 lg:px-2.5 group cursor-default"
                 >
-                  {/* Circular Icon Container */}
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-full bg-[#E6F1E0] flex items-center justify-center mb-2.5 sm:mb-3 shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#E0EFE5]">
+                  {/* Circular Icon Container with spring pop */}
+                  <motion.div
+                    whileHover={{ scale: 1.15, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-full bg-[#E6F1E0] flex items-center justify-center mb-2.5 sm:mb-3 shrink-0 shadow-sm group-hover:bg-[#D5EACD] group-hover:shadow-md transition-colors duration-300"
+                  >
                     <Icon
                       icon={pillar.icon}
                       className="w-9 h-9 sm:w-10 sm:h-10 lg:w-11 lg:h-11 text-[#1E5638] transition-colors duration-300 group-hover:text-[#134229]"
                     />
-                  </div>
+                  </motion.div>
 
                   {/* 2-line Label */}
-                  <span className="text-[13px] sm:text-sm lg:text-[14.5px] font-semibold text-[#1E3A2B] leading-[1.25] max-w-[130px]">
+                  <span className="text-[13px] sm:text-sm lg:text-[14.5px] font-semibold text-[#1E3A2B] group-hover:text-[#124b2b] transition-colors leading-[1.25] max-w-[130px]">
                     <span className="block">{pillar.line1}</span>
                     <span className="block">{pillar.line2}</span>
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>

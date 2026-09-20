@@ -112,22 +112,34 @@ export default function EcosystemCircle() {
       {/* MAIN 2-COLUMN SECTION: Left Docked Visual (stretching to full height) + Right Content */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-stretch pr-5 sm:pr-8 lg:pr-12 xl:pr-16">
         
-        {/* LEFT: Single Meat Board Image Filling Height to Match Right Content */}
-        <div className="lg:col-span-6 xl:col-span-6 w-full pl-5 sm:pl-8 lg:pl-0 flex flex-col">
-          <div className="relative w-full h-[400px] sm:h-[480px] lg:h-full min-h-[400px] lg:min-h-[620px] rounded-[24px] sm:rounded-[28px] lg:rounded-l-none lg:rounded-r-[36px] xl:rounded-r-[42px] overflow-hidden shadow-[0_14px_36px_rgba(0,0,0,0.08)] border border-slate-200/80 bg-slate-100 group">
+        {/* LEFT: Single Meat Board Image Filling Height to Match Right Content - 3D Perspective Reveal */}
+        <motion.div
+          initial={{ opacity: 0, x: -70, rotateY: 14, scale: 0.92 }}
+          whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          style={{ perspective: 1200 }}
+          className="lg:col-span-6 xl:col-span-6 w-full pl-5 sm:pl-8 lg:pl-0 flex flex-col"
+        >
+          <div className="relative w-full h-[400px] sm:h-[480px] lg:h-full min-h-[400px] lg:min-h-[620px] rounded-[24px] sm:rounded-[28px] lg:rounded-l-none lg:rounded-r-[36px] xl:rounded-r-[42px] overflow-hidden shadow-[0_20px_50px_rgba(14,71,38,0.12)] border border-slate-200/80 bg-slate-100 group">
             {/* The Single Meat Board Image */}
             <Image
               src="/Product/we-are-meatin-image.webp"
               alt="MEATiN - Fresh Premium Meats"
               fill
               priority
-              className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-106"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
-        </div>
+        </motion.div>
 
         {/* RIGHT: Heading + Timeline Accordion List */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-6 xl:col-span-6 w-full pl-5 sm:pl-8 lg:pl-0 flex flex-col justify-center"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -142,18 +154,40 @@ export default function EcosystemCircle() {
 
           <div className="relative space-y-2 sm:space-y-2.5">
             {/* Continuous Vertical Timeline Line - Center mathematically locked at half of w-8/w-10 */}
-            <div className="absolute left-4 sm:left-5 top-5 bottom-5 w-[2px] -translate-x-1/2 bg-[#D8E4D3] pointer-events-none" />
+            <motion.div
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+              style={{ originY: 0 }}
+              className="absolute left-4 sm:left-5 top-5 bottom-5 w-[2px] -translate-x-1/2 bg-[#D8E4D3] pointer-events-none"
+            />
 
             {ECOSYSTEM_PILLARS.map((item, index) => {
               const isActive = index === activeIndex;
 
               return (
-                <div key={item.id} className="relative flex items-center gap-3 sm:gap-4.5">
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, x: 30, scale: 0.95 }}
+                  whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                  viewport={{ once: false, amount: 0.15 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 110,
+                    damping: 14,
+                    delay: 0.05 + index * 0.04,
+                  }}
+                  className="relative flex items-center gap-3 sm:gap-4.5"
+                >
                   {/* Dedicated Timeline Column - Centers every dot directly on the vertical line */}
                   <div className="relative w-8 sm:w-10 shrink-0 flex items-center justify-center z-10">
                     {isActive ? (
                       /* Active Dot on the line with glowing ring */
-                      <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#8DC541] ring-4 ring-[#8DC541]/30 ring-offset-2 ring-offset-[#FBFBF8] transition-all duration-300" />
+                      <div className="relative flex items-center justify-center">
+                        <div className="absolute w-6 h-6 rounded-full bg-[#8DC541]/25 animate-ping" />
+                        <div className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#8DC541] ring-4 ring-[#8DC541]/30 ring-offset-2 ring-offset-[#FBFBF8] transition-all duration-300 relative z-10" />
+                      </div>
                     ) : (
                       /* Inactive Dot on the line */
                       <div
@@ -223,11 +257,11 @@ export default function EcosystemCircle() {
                       </button>
                     )}
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
