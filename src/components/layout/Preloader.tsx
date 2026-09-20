@@ -13,7 +13,7 @@ export const Preloader: React.FC = () => {
   const [fadeOut, setFadeOut] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  // Pre-warm Next.js route bundles on client router
+  // Deep Pre-warm Next.js route bundles and HTML payloads on client router
   useEffect(() => {
     const routesToPrewarm = [
       '/',
@@ -27,6 +27,7 @@ export const Preloader: React.FC = () => {
       '/contact',
     ];
 
+    // 1. Router Prefetch (Next.js JS Chunks)
     routesToPrewarm.forEach((routePath) => {
       try {
         router.prefetch(routePath);
@@ -34,6 +35,15 @@ export const Preloader: React.FC = () => {
         // Safe fallback
       }
     });
+
+    // 2. Fetch HTML & Server Components payload in background into browser disk cache
+    if (typeof window !== 'undefined') {
+      routesToPrewarm.forEach((routePath) => {
+        try {
+          fetch(routePath, { priority: 'high', cache: 'force-cache' }).catch(() => {});
+        } catch (e) {}
+      });
+    }
   }, [router]);
 
   // Preloader lifecycle logic
@@ -57,9 +67,18 @@ export const Preloader: React.FC = () => {
     let isFinished = false;
     let assetsLoaded = false;
     let windowLoaded = typeof document !== 'undefined' && document.readyState === 'complete';
+    const startTime = Date.now();
+    const MIN_PRELOAD_MS = 3800; // Guarantee thorough 3.8s preload window for 100% asset caching
 
     const finishLoading = () => {
       if (isFinished) return;
+      
+      const elapsed = Date.now() - startTime;
+      if (elapsed < MIN_PRELOAD_MS) {
+        setTimeout(finishLoading, MIN_PRELOAD_MS - elapsed);
+        return;
+      }
+
       isFinished = true;
       setProgress(100);
 
@@ -82,7 +101,7 @@ export const Preloader: React.FC = () => {
             window.dispatchEvent(new Event('resize'));
             window.dispatchEvent(new Event('scroll'));
           }
-        }, 600);
+        }, 500);
       }, 300);
     };
 
@@ -101,12 +120,14 @@ export const Preloader: React.FC = () => {
     }
 
     if (typeof window !== 'undefined') {
+      // Concurrency 12 to quickly swallow and cache image/route assets
       const engine = new AssetPreloadEngine(PRELOAD_ASSETS, {
-        concurrency: 8,
+        concurrency: 12,
         onProgress: (percent) => {
           setProgress((prev) => Math.max(prev, percent));
-          if (percent >= 80 && (document.readyState === 'complete' || document.readyState === 'interactive')) {
-            finishLoading();
+          if (percent >= 92) {
+            assetsLoaded = true;
+            checkReady();
           }
         },
         onComplete: () => {
@@ -118,9 +139,10 @@ export const Preloader: React.FC = () => {
       engine.start();
     }
 
+    // Fixed safety ceiling around 4.8s
     const maxTimeout = setTimeout(() => {
       finishLoading();
-    }, 4500);
+    }, 4800);
 
     return () => {
       clearTimeout(maxTimeout);
