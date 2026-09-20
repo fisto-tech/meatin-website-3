@@ -67,7 +67,7 @@ const CATEGORIES: PortfolioCategory[] = [
   },
   {
     title: 'Value-Added Products',
-    desc: 'Ready-to-cook & processed products including burger patties, nuggets, sausages, and specialty cuts.',
+    desc: 'Ready-to-cook & processed products like burger patties, nuggets & sausages.',
     icon: 'streamline-plump:burger',
     iconBg: '#648E32',
     cardBg: '#DCECCD',
@@ -256,7 +256,7 @@ export default function ProductPortfolioSection() {
                     borderColor: 'var(--card-border)',
                   } as React.CSSProperties
                 }
-                className="group relative flex flex-col justify-between h-full min-h-[290px] sm:min-h-[310px] lg:min-h-[17.5vw] rounded-2xl sm:rounded-3xl lg:rounded-[1.3vw] p-4 sm:p-5 lg:p-[1.2vw] border-2 shadow-[0_6px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_22px_44px_rgba(0,0,0,0.15)] overflow-hidden cursor-pointer hover:![background-color:var(--card-hover-bg)] hover:![border-color:var(--card-hover-border)]"
+                className="group relative flex flex-col justify-center h-auto rounded-2xl sm:rounded-3xl lg:rounded-[1.3vw] p-4 sm:p-5 lg:p-[1.2vw] border-2 shadow-[0_6px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_22px_44px_rgba(0,0,0,0.15)] overflow-hidden cursor-pointer hover:![background-color:var(--card-hover-bg)] hover:![border-color:var(--card-hover-border)]"
               >
                 {/* Top: Icon + Title + Description */}
                 <div>

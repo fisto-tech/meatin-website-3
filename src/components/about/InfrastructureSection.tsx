@@ -20,7 +20,7 @@ const COMPONENTS: ComponentItem[] = [
   {
     id: '02',
     name: 'Small animal slaughterhouse',
-    icon: 'openmoji:goat',
+    icon: 'game-icons:goat',
   },
   {
     id: '03',
@@ -141,7 +141,7 @@ export default function InfrastructureSection() {
               </motion.p>
             </motion.div>
 
-            {/* 9 Component Capsule Pills - Staggered wave slide with spring & 3D tilt */}
+            {/* 9 Component Capsule Pills - Dynamic Interactive Hover Effects */}
             <div className="space-y-2 sm:space-y-2.5 lg:space-y-[0.55vw] max-w-lg lg:max-w-none lg:w-[37.5vw] relative z-10">
               {COMPONENTS.map((item, idx) => (
                 <motion.div
@@ -155,32 +155,41 @@ export default function InfrastructureSection() {
                     damping: 14,
                     delay: 0.08 + idx * 0.045,
                   }}
+                  whileHover={{ 
+                    x: 10,
+                    scale: 1.02,
+                    backgroundColor: '#F0F9EC',
+                    borderColor: '#8DC541',
+                    boxShadow: '0px 10px 24px rgba(31, 90, 60, 0.15)',
+                  }}
+                  whileTap={{ scale: 0.98 }}
                   style={{
                     backgroundColor: '#F9FCF7',
-                    border: '1.21768px solid #EEF4EE',
-                    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.12)',
+                    border: '1.5px solid #EEF4EE',
+                    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
                     borderRadius: '164.387px',
                   }}
-                  className="w-full py-1.5 sm:py-2 lg:py-[0.44vw] pl-3.5 sm:pl-4 lg:pl-[1.1vw] pr-4 sm:pr-6 lg:pr-[2.5vw] flex items-center gap-3 sm:gap-3.5 lg:gap-[0.9vw] transition-all duration-300 group cursor-default hover:shadow-xl hover:border-[#1F5A3C]/40 hover:translate-x-2"
+                  className="w-full py-2 sm:py-2.5 lg:py-[0.5vw] pl-3.5 sm:pl-4 lg:pl-[1.1vw] pr-4 sm:pr-6 lg:pr-[2.5vw] flex items-center justify-between gap-3 sm:gap-3.5 lg:gap-[0.9vw] transition-all duration-300 group cursor-pointer"
                 >
-                  {/* Dark Green Icon with dynamic pop */}
-                  <motion.div
-                    initial={{ scale: 0, rotate: -20 }}
-                    whileInView={{ scale: 1, rotate: 0 }}
-                    viewport={{ once: false }}
-                    transition={{ type: "spring", stiffness: 140, damping: 12, delay: 0.15 + idx * 0.045 }}
-                    className="w-4 h-4 sm:w-5 sm:h-5 lg:w-[1.25vw] lg:h-[1.25vw] flex items-center justify-center shrink-0 text-[#063D26] group-hover:scale-120 group-hover:text-[#1F5A3C] transition-all duration-300"
-                  >
-                    <Icon
-                      icon={item.icon}
-                      className="w-full h-full object-contain"
-                    />
-                  </motion.div>
+                  <div className="flex items-center gap-3 sm:gap-3.5 lg:gap-[0.9vw]">
+                    {/* Dark Green Icon with dynamic pop & spin on hover */}
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-[1.6vw] lg:h-[1.6vw] rounded-full bg-[#E5F5E4] group-hover:bg-[#1F5A3C] flex items-center justify-center shrink-0 text-[#063D26] group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 shadow-sm">
+                      <Icon
+                        icon={item.icon}
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-[0.95vw] lg:h-[0.95vw] object-contain transition-colors"
+                      />
+                    </div>
 
-                  {/* Component Title */}
-                  <span className="text-[14px] sm:text-[15.5px] lg:text-[1.1vw] font-medium text-slate-800 group-hover:text-[#1F5A3C] tracking-normal leading-none whitespace-nowrap transition-colors duration-200">
-                    {item.name}
-                  </span>
+                    {/* Component Title */}
+                    <span className="text-[14px] sm:text-[15.5px] lg:text-[1.1vw] font-semibold text-slate-800 group-hover:text-[#1F5A3C] tracking-normal leading-none whitespace-nowrap transition-colors duration-200">
+                      {item.name}
+                    </span>
+                  </div>
+
+                  {/* Micro Arrow indicator on hover */}
+                  <div className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-[#8DC541]">
+                    <Icon icon="lucide:arrow-right" className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-[1vw] lg:h-[1vw]" />
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -208,7 +217,7 @@ export default function InfrastructureSection() {
               />
             </motion.div>
 
-            {/* Far-Right: 2 Stacked Rounded Photo Cards with 3D perspective pop-in */}
+            {/* Far-Right: 2 Stacked Rounded Photo Cards with Rich 3D Hover Depth */}
             <div className="hidden md:flex flex-col gap-3.5 sm:gap-4 lg:gap-[1.3vw] absolute right-0 top-[45%] lg:top-[53%] -translate-y-1/2 z-30 pointer-events-auto">
               
               {/* Card 1: Processing Line with Workers */}
@@ -217,15 +226,25 @@ export default function InfrastructureSection() {
                 whileInView={{ opacity: 1, x: 0, scale: 1, rotate: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ type: "spring", stiffness: 90, damping: 14, delay: 0.25 }}
-                className="relative w-[180px] sm:w-[210px] lg:w-[15.5vw] aspect-[16/10] rounded-2xl sm:rounded-3xl lg:rounded-[1.5vw] overflow-hidden shadow-2xl border-[3px] lg:border-[0.22vw] border-white group bg-slate-100 hover:rotate-1 transition-transform duration-300"
+                whileHover={{ 
+                  scale: 1.08, 
+                  rotate: 0, 
+                  y: -6,
+                  boxShadow: '0 25px 50px -12px rgba(6, 61, 38, 0.35)'
+                }}
+                className="relative w-[180px] sm:w-[210px] lg:w-[15.5vw] aspect-[16/10] rounded-2xl sm:rounded-3xl lg:rounded-[1.5vw] overflow-hidden shadow-2xl border-[3px] lg:border-[0.22vw] border-white group bg-slate-100 cursor-pointer transition-all duration-300"
               >
                 <Image
                   src="/AboutUs/infrastructure/infrastructure-card-1.webp"
                   alt="MEATiN Processing Facility"
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover transition-transform duration-700 group-hover:scale-115"
                 />
-                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                  <span className="text-white text-[11px] sm:text-xs lg:text-[0.75vw] font-bold tracking-wider uppercase font-manrope drop-shadow-md">
+                    Processing Plant
+                  </span>
+                </div>
               </motion.div>
 
               {/* Card 2: Cold Storage Warehouse Racks */}
@@ -234,15 +253,25 @@ export default function InfrastructureSection() {
                 whileInView={{ opacity: 1, x: 0, scale: 1, rotate: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ type: "spring", stiffness: 90, damping: 14, delay: 0.38 }}
-                className="relative w-[180px] sm:w-[210px] lg:w-[15.5vw] aspect-[16/10] rounded-2xl sm:rounded-3xl lg:rounded-[1.5vw] overflow-hidden shadow-2xl border-[3px] lg:border-[0.22vw] border-white group bg-slate-100 hover:-rotate-1 transition-transform duration-300"
+                whileHover={{ 
+                  scale: 1.08, 
+                  rotate: 0, 
+                  y: -6,
+                  boxShadow: '0 25px 50px -12px rgba(6, 61, 38, 0.35)'
+                }}
+                className="relative w-[180px] sm:w-[210px] lg:w-[15.5vw] aspect-[16/10] rounded-2xl sm:rounded-3xl lg:rounded-[1.5vw] overflow-hidden shadow-2xl border-[3px] lg:border-[0.22vw] border-white group bg-slate-100 cursor-pointer transition-all duration-300"
               >
                 <Image
                   src="/AboutUs/infrastructure/infrastructure-card-2.webp"
                   alt="MEATiN Cold Storage Units"
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover transition-transform duration-700 group-hover:scale-115"
                 />
-                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                  <span className="text-white text-[11px] sm:text-xs lg:text-[0.75vw] font-bold tracking-wider uppercase font-manrope drop-shadow-md">
+                    Cold-Chain Storage
+                  </span>
+                </div>
               </motion.div>
 
             </div>

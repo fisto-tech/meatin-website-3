@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Icon } from '@iconify/react';
@@ -32,6 +32,15 @@ const COUNTRIES: CountryItem[] = [
 ];
 
 export default function CountriesWeServeSection() {
+  // Continuous one-by-one sequential flag highlight cycle
+  const [activeFlagIdx, setActiveFlagIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveFlagIdx((prev) => (prev + 1) % COUNTRIES.length);
+    }, 1600);
+    return () => clearInterval(timer);
+  }, []);
   return (
     <section className="relative w-full bg-[#FBFDF8] pt-8 sm:pt-12 lg:pt-[3.8vw] pb-10 sm:pb-14 lg:pb-[4.2vw] overflow-hidden select-none">
       
@@ -115,7 +124,7 @@ export default function CountriesWeServeSection() {
               />
             </motion.div>
 
-            {/* Countries Flag Holding Card (#EAF8D0) - Enlarged with 3D perspective scroll reveal */}
+            {/* Countries Flag Holding Card (#EAF8D0) - With Rich Hover Dynamics */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.92, y: 35, rotateX: 8 }}
               whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
@@ -126,48 +135,64 @@ export default function CountriesWeServeSection() {
                 boxShadow: '0px 12px 36px rgba(31, 90, 60, 0.08)',
                 perspective: 1000,
               }}
-              className="rounded-2xl sm:rounded-3xl lg:rounded-[1.6vw] p-5 sm:p-7 lg:p-[1.8vw] max-w-xl lg:max-w-[43.5vw] border border-white/60"
+              className="rounded-2xl sm:rounded-3xl lg:rounded-[1.6vw] p-5 sm:p-7 lg:p-[1.8vw] max-w-xl lg:max-w-[43.5vw] border-2 border-white/80 hover:border-[#8DC541]/50 hover:shadow-[0_20px_45px_rgba(31,90,60,0.14)] transition-all duration-500 relative"
             >
               <div className="grid grid-cols-6 gap-x-3 sm:gap-x-5 lg:gap-x-[1vw] gap-y-4 sm:gap-y-5 lg:gap-y-[1.15vw] items-center justify-items-center">
-                {COUNTRIES.map((country, idx) => (
-                  <motion.div
-                    key={country.name}
-                    initial={{ opacity: 0, scale: 0.7, y: 15 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                    viewport={{ once: false }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 150,
-                      damping: 14,
-                      delay: 0.15 + (idx % 6) * 0.04 + Math.floor(idx / 6) * 0.08,
-                    }}
-                    className="flex flex-col items-center justify-center text-center group cursor-pointer"
-                  >
-                    {/* Flag Image - Enlarged with 3D tilt hover */}
-                    <div className="relative w-11 h-7.5 sm:w-14 sm:h-9 lg:w-[3.8vw] lg:h-[2.4vw] rounded-md sm:rounded-lg lg:rounded-[0.5vw] overflow-hidden shadow-[0_3px_10px_rgba(0,0,0,0.12)] border border-black/5 group-hover:scale-115 group-hover:-translate-y-1 transition-all duration-300">
-                      <Image
-                        src={country.flag}
-                        alt={country.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    {/* Country Name */}
-                    <span className="text-[10px] sm:text-[12px] lg:text-[0.85vw] font-bold text-[#2D2D2D] group-hover:text-[#1F5A3C] mt-1.5 lg:mt-[0.4vw] leading-tight tracking-tight transition-colors">
-                      {country.name}
-                    </span>
-                  </motion.div>
-                ))}
+                {COUNTRIES.map((country, idx) => {
+                  const isAutoActive = activeFlagIdx === idx;
+                  return (
+                    <motion.div
+                      key={country.name}
+                      initial={{ opacity: 0, scale: 0.7, y: 15 }}
+                      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                      viewport={{ once: false }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 150,
+                        damping: 14,
+                        delay: 0.15 + (idx % 6) * 0.04 + Math.floor(idx / 6) * 0.08,
+                      }}
+                      whileHover={{ scale: 1.18, y: -5 }}
+                      whileTap={{ scale: 0.95 }}
+                      animate={isAutoActive ? { scale: 1.12, y: -3 } : { scale: 1, y: 0 }}
+                      className="flex flex-col items-center justify-center text-center group cursor-pointer relative"
+                    >
+                      {/* Flag Image - 3D Pop, Auto Wave Glow & Hover Border */}
+                      <div className={`relative w-11 h-7.5 sm:w-14 sm:h-9 lg:w-[3.8vw] lg:h-[2.4vw] rounded-md sm:rounded-lg lg:rounded-[0.5vw] overflow-hidden transition-all duration-300 ${
+                        isAutoActive 
+                          ? 'border-2 border-[#1F5A3C] shadow-[0_8px_22px_rgba(31,90,60,0.32)] ring-2 ring-[#8DC541]/40' 
+                          : 'border border-black/10 shadow-[0_3px_10px_rgba(0,0,0,0.12)] group-hover:border-[#1F5A3C] group-hover:shadow-[0_8px_20px_rgba(31,90,60,0.25)]'
+                      }`}>
+                        <Image
+                          src={country.flag}
+                          alt={country.name}
+                          fill
+                          className={`object-cover transition-transform duration-500 ${
+                            isAutoActive ? 'scale-105' : 'group-hover:scale-110'
+                          }`}
+                        />
+                      </div>
+                      {/* Country Name with Color Fill & Active Accent */}
+                      <span className={`text-[10px] sm:text-[12px] lg:text-[0.85vw] font-bold mt-1.5 lg:mt-[0.4vw] leading-tight tracking-tight transition-colors duration-200 ${
+                        isAutoActive 
+                          ? 'text-[#1F5A3C]' 
+                          : 'text-[#2D2D2D] group-hover:text-[#1F5A3C]'
+                      }`}>
+                        {country.name}
+                      </span>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
 
-            {/* 3 Bottom Highlights Row: High Quality | Trusted Globally | Healthy Families with staggered badge pop */}
+            {/* 3 Bottom Highlights Row: High Quality | Trusted Globally | Healthy Families with Interactive Hover Glow */}
             <motion.div 
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center gap-4 sm:gap-6 lg:gap-[1.8vw] mt-5 sm:mt-7 lg:mt-[1.6vw]"
+              className="flex items-center gap-3 sm:gap-6 lg:gap-[1.8vw] mt-5 sm:mt-7 lg:mt-[1.6vw]"
             >
               
               {/* Highlight 1: High Quality */}
@@ -176,14 +201,15 @@ export default function CountriesWeServeSection() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: false }}
                 transition={{ type: "spring", stiffness: 120, damping: 12, delay: 0.4 }}
-                className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw] group"
+                whileHover={{ scale: 1.06, y: -2 }}
+                className="flex items-center gap-2 sm:gap-3 lg:gap-[0.6vw] group cursor-pointer p-1.5 sm:p-2 rounded-xl transition-colors hover:bg-[#EAF8D0]/60"
               >
-                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
-                  <Icon icon="bxs:leaf" className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[1.4vw] lg:h-[1.4vw] text-[#01511C]" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] group-hover:bg-[#01511C] flex items-center justify-center shrink-0 shadow-sm transition-all duration-300 group-hover:rotate-12 group-hover:shadow-[0_4px_12px_rgba(1,81,28,0.3)]">
+                  <Icon icon="bxs:leaf" className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[1.4vw] lg:h-[1.4vw] text-[#01511C] group-hover:text-white transition-colors duration-300" />
                 </div>
                 <div className="flex flex-col leading-tight">
-                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">High</span>
-                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">Quality</span>
+                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D] group-hover:text-[#01511C] transition-colors">High</span>
+                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D] group-hover:text-[#01511C] transition-colors">Quality</span>
                 </div>
               </motion.div>
 
@@ -196,14 +222,15 @@ export default function CountriesWeServeSection() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: false }}
                 transition={{ type: "spring", stiffness: 120, damping: 12, delay: 0.48 }}
-                className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw] group"
+                whileHover={{ scale: 1.06, y: -2 }}
+                className="flex items-center gap-2 sm:gap-3 lg:gap-[0.6vw] group cursor-pointer p-1.5 sm:p-2 rounded-xl transition-colors hover:bg-[#EAF8D0]/60"
               >
-                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
-                  <Icon icon="icon-park-solid:protect" className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[1.4vw] lg:h-[1.4vw] text-[#01511C]" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] group-hover:bg-[#01511C] flex items-center justify-center shrink-0 shadow-sm transition-all duration-300 group-hover:rotate-12 group-hover:shadow-[0_4px_12px_rgba(1,81,28,0.3)]">
+                  <Icon icon="icon-park-solid:protect" className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[1.4vw] lg:h-[1.4vw] text-[#01511C] group-hover:text-white transition-colors duration-300" />
                 </div>
                 <div className="flex flex-col leading-tight">
-                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">Trusted</span>
-                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">Globally</span>
+                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D] group-hover:text-[#01511C] transition-colors">Trusted</span>
+                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D] group-hover:text-[#01511C] transition-colors">Globally</span>
                 </div>
               </motion.div>
 
@@ -216,14 +243,15 @@ export default function CountriesWeServeSection() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: false }}
                 transition={{ type: "spring", stiffness: 120, damping: 12, delay: 0.56 }}
-                className="flex items-center gap-2.5 sm:gap-3 lg:gap-[0.6vw] group"
+                whileHover={{ scale: 1.06, y: -2 }}
+                className="flex items-center gap-2 sm:gap-3 lg:gap-[0.6vw] group cursor-pointer p-1.5 sm:p-2 rounded-xl transition-colors hover:bg-[#EAF8D0]/60"
               >
-                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
-                  <Icon icon="famicons:people" className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[1.4vw] lg:h-[1.4vw] text-[#01511C]" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full bg-[#D4FFE3] group-hover:bg-[#01511C] flex items-center justify-center shrink-0 shadow-sm transition-all duration-300 group-hover:rotate-12 group-hover:shadow-[0_4px_12px_rgba(1,81,28,0.3)]">
+                  <Icon icon="famicons:people" className="w-5 h-5 sm:w-6 sm:h-6 lg:w-[1.4vw] lg:h-[1.4vw] text-[#01511C] group-hover:text-white transition-colors duration-300" />
                 </div>
                 <div className="flex flex-col leading-tight">
-                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">Healthy</span>
-                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D]">Families</span>
+                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D] group-hover:text-[#01511C] transition-colors">Healthy</span>
+                  <span className="text-xs sm:text-sm lg:text-[0.9vw] font-bold text-[#1D1D1D] group-hover:text-[#01511C] transition-colors">Families</span>
                 </div>
               </motion.div>
 
@@ -244,6 +272,7 @@ export default function CountriesWeServeSection() {
                   whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }}
                   viewport={{ once: false, amount: 0.2 }}
                   transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                  whileHover={{ scale: 1.08, rotate: 3 }}
                   className="relative flex items-center"
                 >
                   <div className="relative w-28 h-18 sm:w-40 sm:h-26 lg:w-[13vw] lg:h-[8.2vw] drop-shadow-xl">
@@ -273,13 +302,14 @@ export default function CountriesWeServeSection() {
                 />
               </motion.div>
 
-              {/* Foreground Packed Chicken Products Stack (Docked at bottom overlapping globe) - 3D Pop entrance */}
+              {/* Foreground Packed Chicken Products Stack (Docked at bottom overlapping globe) - 3D Pop entrance & Hover lift */}
               <motion.div
                 initial={{ opacity: 0, y: 60, scale: 0.88 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ type: "spring", stiffness: 90, damping: 14, delay: 0.35 }}
-                className="absolute -bottom-2 sm:-bottom-4 lg:-bottom-[0.8vw] -right-[5%] sm:-right-[4%] lg:-right-[3%] w-[300px] sm:w-[420px] md:w-[460px] lg:w-[33.5vw] z-20 pointer-events-none"
+                whileHover={{ scale: 1.04, y: -6 }}
+                className="absolute -bottom-2 sm:-bottom-4 lg:-bottom-[0.8vw] -right-[5%] sm:-right-[4%] lg:-right-[3%] w-[300px] sm:w-[420px] md:w-[460px] lg:w-[33.5vw] z-20 pointer-events-auto cursor-pointer"
               >
                 <Image
                   src="/AboutUs/countries-serve/packed-product.webp"
@@ -287,7 +317,7 @@ export default function CountriesWeServeSection() {
                   width={800}
                   height={550}
                   priority
-                  className="w-full h-auto object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.22)] block"
+                  className="w-full h-auto object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.22)] block transition-transform duration-500 hover:brightness-105"
                 />
               </motion.div>
             </div>

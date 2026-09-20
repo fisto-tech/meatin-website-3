@@ -3715,7 +3715,7 @@ export default function KnowYourMeatPage() {
       <EcosystemCircle />
 
       {/* 2.5 Rewriting Quality in Meat Production Section */}
-      <section className="relative w-full bg-[#F5F4EE] py-8 sm:py-12 md:py-12 lg:py-18 overflow-hidden z-20">
+      <section className="relative w-full bg-[#F5F4EE] pt-8 sm:pt-12 md:pt-12 lg:pt-14 pb-6 sm:pb-8 md:pb-8 lg:pb-10 overflow-hidden z-20">
         {/* Subtle Background Doodle Pattern Overlay */}
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.07] bg-repeat z-0"
@@ -3742,7 +3742,7 @@ export default function KnowYourMeatPage() {
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: false, amount: 0.3 }}
                   transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.6rem] xl:text-[4.2rem] 2xl:text-[4.6rem] font-black font-manrope tracking-tight uppercase leading-[0.92] sm:leading-[0.90] select-none"
+                  className="text-[1.75rem] sm:text-4xl md:text-5xl lg:text-[3.1rem] xl:text-[3.6rem] 2xl:text-[3.9rem] font-black font-manrope tracking-tight uppercase leading-[0.92] sm:leading-[0.90] select-none"
                 >
                   <span className="block text-[#1B5235]">REWRITING</span>
                   <span className="block mt-1">
@@ -3755,14 +3755,14 @@ export default function KnowYourMeatPage() {
                 </motion.h2>
               </div>
 
-              {/* Lime Accent Pill Bar */}
+              {/* Lime Accent Pill Bar (~10% width) */}
               <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: false, amount: 0.25 }}
                 transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 style={{ originX: 0 }}
-                className="w-14 sm:w-16 h-1.5 sm:h-2 bg-[#8DC541] rounded-full mt-4 sm:mt-5 mb-5 sm:mb-6 shadow-sm"
+                className="w-[10%] min-w-[36px] max-w-[48px] h-1 sm:h-1.5 bg-[#8DC541] rounded-full mt-3.5 sm:mt-4 mb-4 sm:mb-5 shadow-sm"
               />
 
               {/* Description Paragraph */}
@@ -3771,7 +3771,7 @@ export default function KnowYourMeatPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-[#334139] text-base sm:text-[1.0625rem] lg:text-[1.125rem] xl:text-[1.25rem] font-medium leading-relaxed font-manrope max-w-xl"
+                className="text-[#334139] text-[0.9375rem] sm:text-[1rem] lg:text-[1.0625rem] xl:text-[1.15rem] font-medium leading-relaxed font-manrope max-w-xl"
               >
                 Meatin is a vision born from the concern over India&apos;s unhealthy
                 slaughtering practices. India&apos;s meat industry has huge potential. We
@@ -3810,7 +3810,7 @@ export default function KnowYourMeatPage() {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: false, amount: 0.15 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="mt-8 sm:mt-12 lg:mt-14 bg-[#F1F7EE] rounded-2xl sm:rounded-[24px] p-5 sm:p-6 lg:py-7 lg:px-4 shadow-[0_12px_36px_rgba(0,0,0,0.06)] border border-slate-200/80"
+            className="mt-3 sm:mt-4 lg:mt-5 bg-[#F1F7EE] rounded-2xl sm:rounded-[24px] p-4 sm:p-5 lg:py-5 lg:px-4 shadow-[0_12px_36px_rgba(0,0,0,0.06)] border border-slate-200/80"
           >
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-y-6 sm:gap-y-6 gap-x-3 sm:gap-x-4 lg:gap-x-0 lg:divide-x lg:divide-slate-200/90 items-start">
               {PRODUCTION_PILLARS.map((pillar, idx) => (
@@ -3825,22 +3825,22 @@ export default function KnowYourMeatPage() {
                     damping: 12,
                     delay: 0.1 + idx * 0.05,
                   }}
-                  className="flex flex-col items-center text-center px-2 lg:px-2.5 group cursor-default"
+                  className="flex flex-col items-center text-center px-1.5 lg:px-2 group cursor-default"
                 >
                   {/* Circular Icon Container with spring pop */}
                   <motion.div
                     whileHover={{ scale: 1.15, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                    className="w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-full bg-[#E6F1E0] flex items-center justify-center mb-2.5 sm:mb-3 shrink-0 shadow-sm group-hover:bg-[#D5EACD] group-hover:shadow-md transition-colors duration-300"
+                    className="w-13 h-13 sm:w-15 sm:h-15 lg:w-[63px] lg:h-[63px] rounded-full bg-[#E6F1E0] flex items-center justify-center mb-2 sm:mb-2.5 shrink-0 shadow-sm group-hover:bg-[#D5EACD] group-hover:shadow-md transition-colors duration-300"
                   >
                     <Icon
                       icon={pillar.icon}
-                      className="w-9 h-9 sm:w-10 sm:h-10 lg:w-11 lg:h-11 text-[#1E5638] transition-colors duration-300 group-hover:text-[#134229]"
+                      className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-[#1E5638] transition-colors duration-300 group-hover:text-[#134229]"
                     />
                   </motion.div>
 
                   {/* 2-line Label */}
-                  <span className="text-[13px] sm:text-sm lg:text-[14.5px] font-semibold text-[#1E3A2B] group-hover:text-[#124b2b] transition-colors leading-[1.25] max-w-[130px]">
+                  <span className="text-[12px] sm:text-[13px] lg:text-[13.5px] font-semibold text-[#1E3A2B] group-hover:text-[#124b2b] transition-colors leading-[1.22] max-w-[125px]">
                     <span className="block">{pillar.line1}</span>
                     <span className="block">{pillar.line2}</span>
                   </span>

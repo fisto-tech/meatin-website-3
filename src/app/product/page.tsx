@@ -1256,14 +1256,14 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
           </div>
 
           {/* Recipes Grid (4 Cards matching 1:1 reference screenshot) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-2 max-[480px]:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-[1550px] mx-auto">
             {partRecipes.map((recipe, idx) => (
               <Link
                 href={`/recipes?part=${currentPart.name.toLowerCase()}&recipeId=${currentPart.name.toLowerCase()}-${idx + 1}&title=${encodeURIComponent(recipe.title)}`}
                 key={idx}
                 className="block cursor-pointer group"
               >
-                <div className="w-full bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.14)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col select-none border border-slate-200/90 ring-1 ring-black/[0.04]">
+                <div className="w-full bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_35px_-5px_rgba(0,0,0,0.25)] hover:-translate-y-2 transition-all duration-300 flex flex-col select-none border border-slate-200/90 ring-1 ring-black/[0.04]">
                   {/* Compact 16:9.5 Image Header */}
                   <div className="relative aspect-[16/9.5] w-full overflow-hidden bg-slate-100">
                     <Image
@@ -1279,19 +1279,19 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
                   </div>
 
                   {/* Distinct Elevated White Card Body */}
-                  <div className="p-3.5 pt-2 sm:p-4 sm:pt-2.5 flex-1 flex flex-col justify-between space-y-2 font-inter bg-white">
-                    <div className="space-y-1">
+                  <div className="p-3.5 pt-1.5 sm:p-4 sm:pt-2 flex-1 flex flex-col justify-between space-y-1.5 font-inter bg-white">
+                    <div className="space-y-0">
                       <h3
-                        className="text-sm sm:text-base font-bold text-black tracking-wide uppercase leading-normal group-hover:text-[#064823] transition-colors line-clamp-2 min-h-[2.5rem] flex items-center"
+                        className="text-md sm:text-base font-bold text-black tracking-wide uppercase leading-normal group-hover:text-[#064823] transition-colors line-clamp-2 h-[2.5rem] flex items-center"
                         title={recipe.title}
                       >
                         {recipe.title}
                       </h3>
 
                       {/* Spec Row (Difficulty, Cooking Time, Servings) */}
-                      <div className="flex items-center justify-between gap-1 text-[11px] font-semibold text-slate-900 font-manrope pt-2 border-t border-slate-200">
+                      <div className="flex items-center justify-between gap-1 text-[13.5px] font-semibold text-slate-900 font-manrope pt-2 border-t border-slate-200">
                         <div className="flex items-center gap-1.5">
-                          <div className="relative w-3.5 h-3.5 shrink-0">
+                          <div className="relative w-4 h-4 shrink-0">
                             <img
                               src="/Product/recipies/easy.svg"
                               alt="Difficulty"
@@ -1302,7 +1302,7 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
                         </div>
 
                         <div className="flex items-center gap-1.5">
-                          <div className="relative w-3.5 h-3.5 shrink-0">
+                          <div className="relative w-4.25 h-4.25 shrink-0">
                             <img
                               src="/Product/recipies/time.svg"
                               alt="Time"
@@ -1313,7 +1313,7 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
                         </div>
 
                         <div className="flex items-center gap-1.5">
-                          <div className="relative w-3.5 h-3.5 shrink-0">
+                          <div className="relative w-5 h-5 shrink-0">
                             <Image
                               src="/Product/recipies/servings.png"
                               alt="Servings"
@@ -1327,7 +1327,7 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
                     </div>
 
                     {/* Action Button */}
-                    <div className="w-full bg-[#F7840F] group-hover:bg-[#e0730b] text-white text-[11px] font-bold py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 uppercase tracking-wider transition-colors cursor-pointer font-inter shadow-sm group-hover:shadow mt-1">
+                    <div className="w-full bg-[#F7840F] group-hover:bg-[#e0730b] text-white text-[12.5px] font-bold py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 uppercase tracking-wider transition-colors cursor-pointer font-inter shadow-sm group-hover:shadow !mt-3">
                       <span>VIEW RECIPE &amp; STEPS &rarr;</span>
                     </div>
                   </div>
