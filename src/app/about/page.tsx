@@ -233,29 +233,31 @@ export default function AboutUsPage() {
     <div className="min-h-screen bg-[#F3F3F3] font-manrope overflow-x-clip">
 
       {/* 1. HERO HEADER BANNER SECTION */}
-      <section className="relative w-full h-[600px] sm:h-[680px] md:h-[750px] lg:h-[88vh] xl:h-[92vh] min-h-[580px] lg:min-h-[680px] xl:min-h-[720px] bg-[#E8EDE7] pt-24 sm:pt-28 lg:pt-24 pb-10 sm:pb-12 overflow-hidden flex items-center">
-        {/* Hero Background Image - clean and crisp without full-screen overlays */}
-        <div className="absolute inset-0 z-0">
+      {/* Mobile: stacked layout with text block at top and crisp hero image below */}
+      {/* Desktop/Tablet (md+): full-bleed side-by-side backdrop layout */}
+      <section className="relative w-full bg-[#E8EDE7] pt-24 sm:pt-28 lg:pt-24 pb-6 sm:pb-12 md:h-[750px] lg:h-[88vh] xl:h-[92vh] md:flex md:items-center overflow-hidden">
+        {/* Desktop/Tablet Background Image */}
+        <div className="absolute inset-0 z-0 hidden md:block">
           <Image
             src="/AboutUs/hero-image.webp"
             alt="MEATiN Scientific Meat Processing Facility"
             fill
             priority
-            className="object-cover object-[78%_center] sm:object-[72%_center] md:object-[68%_center] lg:object-[center_right]"
+            className="object-cover object-[68%_center] lg:object-[center_right]"
           />
         </div>
 
-        {/* Content Area: Left Typography matching reference mockup with local white overlay only around text */}
+        {/* Content Area */}
         <div className="w-full mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 relative z-20">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative max-w-2xl lg:max-w-3xl p-6 sm:p-8 lg:p-10"
+            className="relative max-w-2xl lg:max-w-3xl pt-2 pb-5 sm:p-8 lg:p-10"
           >
-            {/* Custom radial gradient with blur filter applied specifically behind the text area */}
+            {/* Custom radial gradient for tablet & desktop */}
             <div
-              className="absolute -inset-4 sm:-inset-6 lg:-inset-8 -z-10 pointer-events-none rounded-[60px] lg:-translate-x-8"
+              className="absolute -inset-4 sm:-inset-6 lg:-inset-8 -z-10 pointer-events-none rounded-[60px] lg:-translate-x-8 hidden sm:block"
               style={{
                 background: 'radial-gradient(71.28% 67.51% at 47.21% 50%, #EFEFEF 0%, #FFFFFF 100%)',
                 filter: 'blur(131.23px)',
@@ -263,29 +265,43 @@ export default function AboutUsPage() {
             />
 
             {/* Eyebrow Label */}
-            <div className="flex items-center gap-3 sm:gap-3.5 mb-3 sm:mb-4">
-              <span className="h-[2px] w-7 sm:w-9 bg-[#CCA33D] rounded-full shrink-0" />
-              <span className="text-xs sm:text-sm md:text-[15px] font-bold tracking-[0.22em] text-[#1B3E2C] uppercase font-manrope">
+            <div className="flex items-center gap-2.5 sm:gap-3.5 mb-2.5 sm:mb-4">
+              <span className="h-[2.5px] w-6 sm:w-9 bg-[#CCA33D] rounded-full shrink-0" />
+              <span className="text-xs sm:text-sm md:text-[15px] font-bold tracking-[0.2em] text-[#1B3E2C] uppercase font-manrope">
                 WHAT IS MEATIN?
               </span>
             </div>
 
             {/* Main Headline matching reference image */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[5em] xl:text-[5.7rem] font-medium font-bree tracking-normal uppercase leading-[0.91] sm:leading-[0.89] mb-1">
+            <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-[5em] xl:text-[5.7rem] font-medium font-bree tracking-normal uppercase leading-[0.93] sm:leading-[0.89] mb-1">
               <span className="block text-[#1E5638]">WE ENGINEER</span>
               <span className="block text-[#E86D00]">QUALITY INTO</span>
               <span className="block text-[#1E5638]">EVERY CUT.</span>
             </h1>
 
             {/* Subtle Horizontal Divider Line */}
-            <div className="w-full max-w-[480px] sm:max-w-[580px] md:max-w-[640px] h-[1.5px] bg-[#1E5638]/25 my-5 sm:my-6 md:my-7" />
+            <div className="w-full max-w-[320px] xs:max-w-[420px] sm:max-w-[580px] md:max-w-[640px] h-[1.5px] bg-[#1E5638]/25 my-3.5 sm:my-6 md:my-7" />
 
-            {/* Subtitle Paragraph matching reference line-break and typography */}
+            {/* Subtitle Paragraph */}
             <p className="text-[#1A2E26] text-base sm:text-lg md:text-xl lg:text-[1.35rem] font-semibold leading-snug sm:leading-relaxed font-manrope max-w-xl">
-              Integrated farming, scientific processing, and<br className="hidden sm:inline" />
+              Integrated farming, scientific processing, and{' '}
+              <br className="hidden sm:inline" />
               cold-chain distribution.
             </p>
           </motion.div>
+        </div>
+
+        {/* Mobile-only crisp Image below the text */}
+        <div className="md:hidden relative w-full h-[270px] xs:h-[320px] sm:h-[380px] mt-2 px-4">
+          <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-md">
+            <Image
+              src="/AboutUs/hero-image.webp"
+              alt="MEATiN Scientific Meat Processing Facility"
+              fill
+              priority
+              className="object-cover object-[80%_center]"
+            />
+          </div>
         </div>
       </section>
 
@@ -304,15 +320,14 @@ export default function AboutUsPage() {
                 <motion.div
                   key={idx}
                   variants={springScale}
-                  className={`flex flex-col items-center text-center px-3 sm:px-5 lg:px-6 xl:px-8 ${
-                    idx === 4 ? 'col-span-2 sm:col-span-1' : ''
-                  }`}
+                  className={`flex flex-col items-center text-center px-3 sm:px-5 lg:px-6 xl:px-8 ${idx === 4 ? 'col-span-2 sm:col-span-1' : ''
+                    }`}
                 >
-                  {/* Green Circle Icon Badge */}
-                  <div className="w-13 h-13 sm:w-14 sm:h-14 lg:w-15 lg:h-15 xl:w-16 xl:h-16 rounded-full bg-[#0E6838] flex items-center justify-center shrink-0 shadow-sm mb-3 text-white">
+                  {/* Green Circle Icon Badge - balanced size on mobile, enlarged on desktop */}
+                  <div className="w-11 h-11 xs:w-12 xs:h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full bg-[#0E6838] flex items-center justify-center shrink-0 shadow-sm mb-2.5 sm:mb-3 text-white">
                     <Icon
                       icon={stat.icon}
-                      className="w-7 h-7 sm:w-8 sm:h-8 xl:w-9 xl:h-9 text-white"
+                      className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
                     />
                   </div>
 
@@ -543,21 +558,22 @@ export default function AboutUsPage() {
             />
             {/* Full-height yellow-green overlay on mobile/tablet (1024px and below) for text contrast, and top-only (h-[65%]) overlay on desktop */}
             <div className="absolute inset-0 lg:bottom-auto lg:h-[120%] bg-[linear-gradient(180deg,#8DC541_0%,rgba(163,208,102,0.807715)_35.2%,rgba(255,255,255,0)_62.27%)] z-0 pointer-events-none" />
-            
-            <motion.div 
+
+            <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, margin: "-50px" }}
               className="relative z-10 space-y-3.5 lg:space-y-4"
             >
-              <motion.div variants={slideInLeft} className="relative w-52 sm:w-60 lg:w-[245px] xl:w-[280px] 2xl:w-[320px] h-15 sm:h-18 lg:h-[90px] xl:h-[102px] 2xl:h-[118px]">
+              <motion.div variants={slideInLeft} className="relative w-56 xs:w-64 sm:w-72 md:w-80 lg:w-[245px] xl:w-[280px] 2xl:w-[320px] h-20 xs:h-24 sm:h-28 lg:h-[90px] xl:h-[102px] 2xl:h-[118px]">
                 <Image
                   src="/AboutUs/mission-vision/mission-text.svg"
                   alt="Our Mission"
                   fill
                   className="object-contain object-left"
                   priority
+                  unoptimized
                 />
               </motion.div>
               <motion.p
@@ -611,21 +627,22 @@ export default function AboutUsPage() {
             />
             {/* Full-height vertical spruce green overlay on mobile/tablet, and left-to-right spruce green gradient on desktop to keep right workers sharp */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#081a11]/95 via-[#081a11]/75 to-[#081a11]/45 lg:bg-gradient-to-r lg:from-[#081a11]/90 lg:via-[#081a11]/60 lg:to-transparent z-0 pointer-events-none" />
-            
-            <motion.div 
+
+            <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, margin: "-50px" }}
               className="relative z-10 space-y-3.5 lg:space-y-4"
             >
-              <motion.div variants={slideInRight} className="relative w-52 sm:w-60 lg:w-[245px] xl:w-[280px] 2xl:w-[320px] h-15 sm:h-18 lg:h-[90px] xl:h-[102px] 2xl:h-[118px]">
+              <motion.div variants={slideInRight} className="relative w-56 xs:w-64 sm:w-72 md:w-80 lg:w-[245px] xl:w-[280px] 2xl:w-[320px] h-20 xs:h-24 sm:h-28 lg:h-[90px] xl:h-[102px] 2xl:h-[118px]">
                 <Image
                   src="/AboutUs/mission-vision/vision-text.svg"
                   alt="Our Vision"
                   fill
                   className="object-contain object-left"
                   priority
+                  unoptimized
                 />
               </motion.div>
               <motion.p
@@ -664,9 +681,8 @@ export default function AboutUsPage() {
                   <motion.div
                     key={idx}
                     variants={springPop}
-                    className={`flex flex-col items-center text-center px-2 sm:px-3 lg:px-4 pt-2 min-[400px]:pt-3 md:pt-0 ${
-                      idx >= 2 ? 'min-[400px]:border-t min-[400px]:border-[#8DC541]/30 md:border-t-0' : ''
-                    }`}
+                    className={`flex flex-col items-center text-center px-2 sm:px-3 lg:px-4 pt-2 min-[400px]:pt-3 md:pt-0 ${idx >= 2 ? 'min-[400px]:border-t min-[400px]:border-[#8DC541]/30 md:border-t-0' : ''
+                      }`}
                   >
                     {/* SVG Vector Icon */}
                     <div className="relative w-7 h-7 sm:w-8 sm:h-8 lg:w-8 lg:h-8 xl:w-9 xl:h-9 mb-1">

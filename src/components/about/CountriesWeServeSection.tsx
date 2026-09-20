@@ -135,11 +135,17 @@ export default function CountriesWeServeSection() {
                 boxShadow: '0px 12px 36px rgba(31, 90, 60, 0.08)',
                 perspective: 1000,
               }}
-              className="rounded-2xl sm:rounded-3xl lg:rounded-[1.6vw] p-5 sm:p-7 lg:p-[1.8vw] max-w-xl lg:max-w-[43.5vw] border-2 border-white/80 hover:border-[#8DC541]/50 hover:shadow-[0_20px_45px_rgba(31,90,60,0.14)] transition-all duration-500 relative"
+              className="rounded-2xl sm:rounded-3xl lg:rounded-[1.6vw] p-5 sm:p-6 md:p-8 lg:p-[1.8vw] w-full sm:max-w-[540px] md:max-w-[620px] lg:max-w-[43.5vw] border-2 border-white/80 hover:border-[#8DC541]/50 hover:shadow-[0_20px_45px_rgba(31,90,60,0.14)] transition-all duration-500 relative"
             >
-              <div className="grid grid-cols-6 gap-x-3 sm:gap-x-5 lg:gap-x-[1vw] gap-y-4 sm:gap-y-5 lg:gap-y-[1.15vw] items-center justify-items-center">
+              <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-x-3 sm:gap-x-5 md:gap-x-7 lg:gap-x-[1vw] gap-y-3.5 sm:gap-y-4 md:gap-y-5 lg:gap-y-[1.15vw] items-center justify-items-center">
                 {COUNTRIES.map((country, idx) => {
                   const isAutoActive = activeFlagIdx === idx;
+                  // For 18 items in 4 columns: 4 * 4 = 16 items in first 4 full rows.
+                  // Remaining 2 items are index 16 & 17 (Iran & Uzbekistan).
+                  // Centering them horizontally on tablet (sm to lg):
+                  // Index 16 shifts to col-start-2, placing items at cols 2 and 3 of the 4 columns.
+                  const tabletCenterClass = idx === 16 ? 'sm:col-start-2 lg:col-start-auto' : '';
+
                   return (
                     <motion.div
                       key={country.name}
@@ -155,10 +161,10 @@ export default function CountriesWeServeSection() {
                       whileHover={{ scale: 1.18, y: -5 }}
                       whileTap={{ scale: 0.95 }}
                       animate={isAutoActive ? { scale: 1.12, y: -3 } : { scale: 1, y: 0 }}
-                      className="flex flex-col items-center justify-center text-center group cursor-pointer relative"
+                      className={`flex flex-col items-center justify-center text-center group cursor-pointer relative w-full ${tabletCenterClass}`}
                     >
                       {/* Flag Image - 3D Pop, Auto Wave Glow & Hover Border */}
-                      <div className={`relative w-11 h-7.5 sm:w-14 sm:h-9 lg:w-[3.8vw] lg:h-[2.4vw] rounded-md sm:rounded-lg lg:rounded-[0.5vw] overflow-hidden transition-all duration-300 ${
+                      <div className={`relative w-[48px] h-[32px] sm:w-[68px] sm:h-[44px] md:w-[76px] md:h-[48px] lg:w-[3.8vw] lg:h-[2.4vw] rounded-md sm:rounded-lg lg:rounded-[0.5vw] overflow-hidden transition-all duration-300 ${
                         isAutoActive 
                           ? 'border-2 border-[#1F5A3C] shadow-[0_8px_22px_rgba(31,90,60,0.32)] ring-2 ring-[#8DC541]/40' 
                           : 'border border-black/10 shadow-[0_3px_10px_rgba(0,0,0,0.12)] group-hover:border-[#1F5A3C] group-hover:shadow-[0_8px_20px_rgba(31,90,60,0.25)]'
@@ -167,13 +173,15 @@ export default function CountriesWeServeSection() {
                           src={country.flag}
                           alt={country.name}
                           fill
+                          sizes="(max-width: 640px) 50px, (max-width: 1024px) 85px, 80px"
+                          unoptimized
                           className={`object-cover transition-transform duration-500 ${
                             isAutoActive ? 'scale-105' : 'group-hover:scale-110'
                           }`}
                         />
                       </div>
                       {/* Country Name with Color Fill & Active Accent */}
-                      <span className={`text-[10px] sm:text-[12px] lg:text-[0.85vw] font-bold mt-1.5 lg:mt-[0.4vw] leading-tight tracking-tight transition-colors duration-200 ${
+                      <span className={`text-[10px] sm:text-[13px] md:text-[14px] lg:text-[0.85vw] font-bold mt-1.5 lg:mt-[0.4vw] leading-tight tracking-tight transition-colors duration-200 ${
                         isAutoActive 
                           ? 'text-[#1F5A3C]' 
                           : 'text-[#2D2D2D] group-hover:text-[#1F5A3C]'

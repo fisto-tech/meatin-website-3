@@ -155,38 +155,18 @@ export default function ProductPortfolioSection() {
       <div className="max-w-[1720px] mx-auto px-4 sm:px-6 md:px-10 lg:px-[4.5vw] relative z-10 w-full">
         
         {/* TOP SECTION: Left Hero Image Card & Right Headings */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center mb-10 sm:mb-12 lg:mb-[3vw]">
+        {/* On mobile: Heading first -> Image -> Description & CTA with tight, balanced gaps */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-12 xl:gap-16 items-center mb-8 sm:mb-12 lg:mb-[3vw]">
           
-          {/* Left Column: Hero Meat Board Image with deep 3D perspective pop */}
-          <motion.div
-            initial={{ opacity: 0, x: -60, rotateY: 10, scale: 0.92 }}
-            whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-            style={{ perspective: 1200 }}
-            className="lg:col-span-6 xl:col-span-6"
-          >
-            <div className="relative w-full aspect-[16/8.8] rounded-2xl sm:rounded-3xl lg:rounded-[1.8vw] overflow-hidden shadow-[0_20px_50px_rgba(27,82,53,0.12)] border-[3px] border-white group bg-[#F5F8F2] transition-shadow duration-500 hover:shadow-[0_25px_60px_rgba(27,82,53,0.2)]">
-              <Image
-                src="/AboutUs/portfolio/product-portfolio.webp"
-                alt="MEATiN Product Portfolio - Fresh Chicken Cuts"
-                fill
-                priority
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
-          </motion.div>
-
-          {/* Right Column: Heading, Subtitle & CTA Button */}
+          {/* Right Column (Headings & CTA): on mobile order-1 for heading, on desktop col-span-6 */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center items-start lg:pl-2 xl:pl-6"
+            className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center items-start lg:pl-2 xl:pl-6 order-2 lg:order-2"
           >
-            <div className="overflow-hidden">
+            <div className="overflow-hidden hidden lg:block">
               <motion.h2
                 initial={{ y: 60, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
@@ -204,9 +184,9 @@ export default function ProductPortfolioSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="mt-3.5 sm:mt-4 lg:mt-[1.1vw] text-slate-700 text-sm sm:text-base lg:text-[1.02vw] leading-relaxed max-w-xl font-medium"
+              className="mt-1 sm:mt-4 lg:mt-[1.1vw] text-slate-700 text-sm sm:text-base lg:text-[1.02vw] leading-relaxed max-w-xl font-medium"
             >
-              Quality meat products, processed and packed with care to ensure freshness, safety and grate taste.
+              Quality meat products, processed and packed with care to ensure freshness, safety and great taste.
             </motion.p>
 
             <motion.div
@@ -217,12 +197,41 @@ export default function ProductPortfolioSection() {
             >
               <Link
                 href="/know-your-meat"
-                className="mt-6 sm:mt-7 lg:mt-[1.6vw] inline-flex items-center gap-2.5 px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#163823] hover:bg-[#0B4D26] text-white text-xs sm:text-sm font-semibold tracking-wide shadow-[0_6px_20px_rgba(22,56,35,0.25)] hover:shadow-[0_10px_25px_rgba(22,56,35,0.4)] transition-all duration-300 hover:gap-3.5 group cursor-pointer hover:scale-105 active:scale-95"
+                className="mt-4 sm:mt-7 lg:mt-[1.6vw] inline-flex items-center gap-2.5 px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#163823] hover:bg-[#0B4D26] text-white text-xs sm:text-sm font-semibold tracking-wide shadow-[0_6px_20px_rgba(22,56,35,0.25)] hover:shadow-[0_10px_25px_rgba(22,56,35,0.4)] transition-all duration-300 hover:gap-3.5 group cursor-pointer hover:scale-105 active:scale-95"
               >
                 <span>Explore our products</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </motion.div>
+          </motion.div>
+
+          {/* Left Column: Hero Meat Board Image */}
+          <motion.div
+            initial={{ opacity: 0, x: -60, rotateY: 10, scale: 0.92 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+            style={{ perspective: 1200 }}
+            className="lg:col-span-6 xl:col-span-6 order-1 lg:order-1"
+          >
+            {/* Mobile-only header above image */}
+            <div className="overflow-hidden lg:hidden mb-3">
+              <h2 className="font-barlow font-black uppercase tracking-tight text-3xl sm:text-5xl leading-[0.98]">
+                <span className="text-[#0B4D26] inline">PRODUCT </span>
+                <span className="text-[#F37321] inline">PORTFOLIO</span>
+              </h2>
+            </div>
+
+            <div className="relative w-full aspect-[16/9] sm:aspect-[16/8.8] rounded-2xl sm:rounded-3xl lg:rounded-[1.8vw] overflow-hidden shadow-[0_12px_30px_rgba(27,82,53,0.12)] border-2 sm:border-[3px] border-white group bg-[#F5F8F2] transition-shadow duration-500 hover:shadow-[0_25px_60px_rgba(27,82,53,0.2)]">
+              <Image
+                src="/AboutUs/portfolio/product-portfolio.webp"
+                alt="MEATiN Product Portfolio - Fresh Chicken Cuts"
+                fill
+                priority
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
           </motion.div>
 
         </div>
