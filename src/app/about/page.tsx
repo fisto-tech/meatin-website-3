@@ -266,7 +266,7 @@ export default function AboutUsPage() {
 
             {/* Eyebrow Label */}
             <div className="flex items-center gap-2.5 sm:gap-3.5 mb-2.5 sm:mb-4">
-              <span className="text-xs sm:text-sm md:text-lg font-semibold tracking-[0.2em] text-[#1B3E2C] uppercase font-manrope">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold tracking-[0.2em] text-[#1B3E2C] font-manrope">
                 WHAT IS MEATiN?
               </span>
             </div>
