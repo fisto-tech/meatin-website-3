@@ -233,76 +233,74 @@ export default function AboutUsPage() {
     <div className="min-h-screen bg-[#F3F3F3] font-manrope overflow-x-clip">
 
       {/* 1. HERO HEADER BANNER SECTION */}
-      {/* Split layout: Left content with refined styling, Right image fully docked flush */}
-      <section className="relative w-full bg-[#EAEFE8] pt-24 sm:pt-28 md:pt-0 overflow-hidden">
-        <div className="w-full min-h-[580px] md:min-h-[660px] lg:min-h-[86vh] xl:min-h-[88vh] flex flex-col md:flex-row items-stretch">
-          
-          {/* Left Column: Text & Content (approx 42-45%) */}
-          <div className="w-full md:w-[45%] lg:w-[42%] xl:w-[40%] flex items-center px-6 sm:px-12 md:pl-12 md:pr-6 lg:pl-16 lg:pr-8 xl:pl-24 xl:pr-12 py-10 md:py-24 z-10 relative">
-            <motion.div
-              initial={{ opacity: 0, x: -25 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-xl"
-            >
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1E5638]/10 border border-[#1E5638]/15 w-fit mb-5">
-                <span className="w-2 h-2 rounded-full bg-[#1E5638] animate-pulse" />
-                <span className="text-xs sm:text-sm font-bold tracking-[0.18em] text-[#1E5638] uppercase font-manrope">
-                  WHAT IS MEATiN?
-                </span>
-              </div>
+      {/* Mobile: stacked layout with text block at top and crisp hero image below */}
+      {/* Desktop/Tablet (md+): full-bleed side-by-side backdrop layout with true vertical centering accounting for navbar */}
+      <section className="relative w-full bg-[#E8EDE7] pt-24 sm:pt-28 md:pt-24 lg:pt-28 pb-6 sm:pb-12 md:pb-0 md:h-[780px] lg:h-[90vh] xl:h-[94vh] md:flex md:flex-col md:justify-center overflow-hidden">
+        {/* Desktop/Tablet Background Image */}
+        <div className="absolute inset-0 z-0 hidden md:block">
+          <Image
+            src="/AboutUs/hero-image.webp"
+            alt="MEATiN Scientific Meat Processing Facility"
+            fill
+            priority
+            className="object-cover object-[68%_center] lg:object-[center_right]"
+          />
+        </div>
 
-              {/* Main Headline */}
-              <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold font-bree tracking-tight uppercase leading-[0.98] sm:leading-[0.94] text-[#1E5638] mb-1">
-                WE ENGINEER <br />
-                <span className="text-[#E86D00]">QUALITY INTO</span> <br />
-                EVERY CUT.
-              </h1>
+        {/* Content Area */}
+        <div className="w-full mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 relative z-20 flex justify-center md:justify-start my-auto">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-full max-w-xl md:max-w-[48%] lg:max-w-[45%] xl:max-w-[42%] pt-2 pb-5 sm:p-6 lg:p-8 flex flex-col items-center text-center"
+          >
+            {/* Custom radial gradient for tablet & desktop */}
+            <div
+              className="absolute -inset-6 sm:-inset-8 lg:-inset-12 -z-10 pointer-events-none rounded-[60px] hidden sm:block"
+              style={{
+                background: 'radial-gradient(71.28% 67.51% at 50% 50%, #EFEFEF 0%, #FFFFFF 100%)',
+                filter: 'blur(131.23px)',
+              }}
+            />
 
-              {/* Stylish Accent Bar */}
-              <div className="flex items-center gap-2 my-5 sm:my-6">
-                <span className="w-14 sm:w-16 h-[3.5px] bg-[#E86D00] rounded-full" />
-                <span className="w-3.5 h-[3.5px] bg-[#1E5638] rounded-full" />
-              </div>
+            {/* Eyebrow Label */}
+            <div className="flex items-center justify-center gap-2.5 sm:gap-3.5 mb-2.5 sm:mb-4">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold tracking-[0.2em] text-[#1B3E2C] font-manrope">
+                WHAT IS MEATiN?
+              </span>
+            </div>
 
-              {/* Subtitle Paragraph */}
-              <p className="text-[#244234] text-base sm:text-lg md:text-base lg:text-lg xl:text-xl font-normal leading-relaxed max-w-lg mb-8">
-                Integrated farming, scientific processing, and temperature-monitored cold-chain distribution across the nation.
-              </p>
+            {/* Main Headline matching reference image */}
+            <h1 className="text-4xl xs:text-5xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[5.5vw] font-medium font-bree tracking-normal uppercase leading-[0.93] sm:leading-[0.89] mb-1">
+              <span className="block text-[#1E5638]">WE ENGINEER</span>
+              <span className="block text-[#E86D00]">QUALITY INTO</span>
+              <span className="block text-[#1E5638]">EVERY CUT.</span>
+            </h1>
 
-              {/* Key Highlights Pill Row */}
-              <div className="grid grid-cols-2 gap-3 max-w-md">
-                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/70 border border-[#1E5638]/10 shadow-xs backdrop-blur-sm">
-                  <div className="w-2 h-2 rounded-full bg-[#1E5638]" />
-                  <span className="text-xs sm:text-sm font-semibold text-[#1A3828]">100% Halal Certified</span>
-                </div>
-                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/70 border border-[#1E5638]/10 shadow-xs backdrop-blur-sm">
-                  <div className="w-2 h-2 rounded-full bg-[#E86D00]" />
-                  <span className="text-xs sm:text-sm font-semibold text-[#1A3828]">Scientific Cold-Chain</span>
-                </div>
-              </div>
-            </motion.div>
+            {/* Subtle Horizontal Divider Line */}
+            <div className="w-full max-w-[140px] sm:max-w-[180px] md:max-w-[200px] h-[2.5px] bg-[#F45D04] my-3.5 sm:my-6 md:my-7 rounded-full" />
+
+            {/* Subtitle Paragraph */}
+            <p className="text-[#032F22] text-base sm:text-lg md:text-xl lg:text-[1.35rem] font-normal leading-snug sm:leading-relaxed font-manrope max-w-xl mx-auto">
+              Integrated farming, scientific processing, and{' '}
+              <br className="hidden sm:inline" />
+              cold-chain distribution.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Mobile-only crisp Image below the text */}
+        <div className="md:hidden relative w-full h-[270px] xs:h-[320px] sm:h-[380px] mt-2 px-4">
+          <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-md">
+            <Image
+              src="/AboutUs/hero-image.webp"
+              alt="MEATiN Scientific Meat Processing Facility"
+              fill
+              priority
+              className="object-cover object-[80%_center]"
+            />
           </div>
-
-          {/* Right Column: Image fully docked flush to all right/top/bottom edges */}
-          <div className="w-full md:w-[55%] lg:w-[58%] xl:w-[60%] relative min-h-[340px] xs:min-h-[400px] md:min-h-full">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full h-full min-h-[340px] xs:min-h-[400px] md:min-h-full"
-            >
-              <Image
-                src="/AboutUs/hero-image.webp"
-                alt="MEATiN Scientific Meat Processing Facility"
-                fill
-                priority
-                className="object-cover object-center md:object-[65%_center]"
-              />
-            </motion.div>
-          </div>
-
         </div>
       </section>
 
@@ -409,7 +407,7 @@ export default function AboutUsPage() {
 
               <div className="space-y-3">
                 <h3 className="text-lg sm:text-xl lg:text-xl xl:text-2xl font-bold text-[#064823]">Building a better meat ecosystem.</h3>
-                <p className="text-xs sm:text-sm lg:text-[13px] xl:text-sm 2xl:text-base text-slate-700 font-medium leading-relaxed max-w-[600px]">
+                <p className="text-xs sm:text-sm lg:text-[14px] xl:text-sm 2xl:text-base text-slate-700 font-medium leading-relaxed max-w-[600px]">
                   MEATiN delivers safe, hygienic meat through scientific processing and controlled cold-chain systems. Built on quality, safety, and Halal-certified standards, our integrated approach ensures reliable production and distribution. From responsible sourcing to advanced infrastructure, we are building a better meat ecosystem.
                 </p>
               </div>
