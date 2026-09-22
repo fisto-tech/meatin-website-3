@@ -246,25 +246,22 @@ export const Preloader: React.FC = () => {
           <span className="h-[1px] w-6 bg-[#D4A437]/60" />
         </div>
 
-        {/* 3. Polished Mascot Stage with Circular Pedestal Aura */}
+        {/* 3. Polished Mascot Stage with Circular Pedestal */}
         <div className="relative flex flex-col items-center justify-center my-1 sm:my-2">
-          {/* Subtle Circular Highlight Aura behind mascot */}
-          <div className="absolute w-36 h-36 sm:w-40 sm:h-40 rounded-full bg-white/75 border border-[#8DC541]/20 shadow-[0_10px_25px_rgba(6,72,35,0.06)] -z-10" />
-
-          {/* Running Mascot */}
-          <div className="mascot-animated relative w-32 h-28 sm:w-36 sm:h-32">
-            <Image
-              src="/preloader-running-clean.gif"
-              alt="MEATiN Mascot Running"
-              fill
-              className="object-contain object-center drop-shadow-[0_6px_12px_rgba(0,0,0,0.08)]"
-              priority
-              unoptimized
-            />
+          {/* Circular Pedestal: Clean circular badge */}
+          <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-white border-2 border-[#8DC541]/30 shadow-[0_10px_25px_rgba(6,72,35,0.08)] overflow-hidden flex items-center justify-center">
+            {/* Running Mascot */}
+            <div className="mascot-animated relative w-32 h-28 sm:w-36 sm:h-32">
+              <Image
+                src="/preloader-running-clean.gif"
+                alt="MEATiN Mascot Running"
+                fill
+                className="object-contain object-center mix-blend-multiply"
+                priority
+                unoptimized
+              />
+            </div>
           </div>
-
-          {/* Dynamic Ground Shadow Synced With Step Bounce */}
-          <div className="shadow-synced w-24 sm:w-28 h-2.5 bg-[#064823] rounded-full blur-[3px] -mt-1.5" />
         </div>
 
         {/* 4. Sleek Progress Bar & Dynamic Status */}

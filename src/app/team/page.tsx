@@ -404,7 +404,7 @@ export default function TeamPage() {
                 OUR PEOPLE. OUR STRENGTH.
               </h2>
 
-              <h1 className="text-2xl sm:text-4xl lg:text-4xl xl:text-5xl font-extrabold font-bree tracking-normal leading-none uppercase mb-3 text-left">
+              <h1 className="text-2xl sm:text-4xl lg:text-4xl xl:text-5xl font-extrabold font-anek tracking-normal leading-none uppercase mb-3 text-left">
                 <span className="text-[#064823] mr-2">MEET</span>
                 <span className="text-[#F7840F]">THE TEAM</span>
               </h1>

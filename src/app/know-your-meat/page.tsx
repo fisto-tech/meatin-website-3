@@ -1410,20 +1410,20 @@ export default function KnowYourMeatPage() {
                 {activeMeatType === "chicken" ? (
                   activeStage === "skin" ? (
                     <>
-                      WITH <span className="text-[#8DC541]">SKIN</span>
+                      WITH <span className="text-[#FF7805]">SKIN</span>
                     </>
                   ) : activeStage === "skinless" ? (
                     <>
-                      WITHOUT <span className="text-[#8DC541]">SKIN</span>
+                      WITHOUT <span className="text-[#FF7805]">SKIN</span>
                     </>
                   ) : (
                     <>
-                      WHOLE <span className="text-[#8DC541]">CHICKEN</span>
+                      WHOLE <span className="text-[#FF7805]">CHICKEN</span>
                     </>
                   )
                 ) : (
                   <>
-                    WITH <span className="text-[#8DC541]">SKIN</span>
+                    WITH <span className="text-[#FF7805]">SKIN</span>
                   </>
                 )}
               </motion.h2>

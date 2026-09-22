@@ -27,17 +27,16 @@ import {
   ChickenPartData 
 } from '@/data/knowYourMeatData';
 
-type ProductCategory = 'all' | 'chicken' | 'mutton' | 'beef' | 'specialty';
-
-interface ProductItem {
+export interface ChickenProductItem {
   id: string;
   name: string;
-  category: 'chicken' | 'mutton' | 'beef' | 'specialty';
-  categoryLabel: string;
-  badge?: string;
+  title: string;
+  badge: string;
   weight: string;
+  iconImg: string;
   pouchImg: string;
-  platterImg?: string;
+  platterImg: string;
+  rawImg: string;
   desc: string;
   detailedDesc: string;
   cookingMethods: string[];
@@ -51,19 +50,19 @@ interface ProductItem {
   idealFor: string;
 }
 
-// 18 Products from the original created product catalog
-const PRODUCTS: ProductItem[] = [
-  // CHICKEN CUTS
+// 10 Pure Chicken Products matching 1:1 the 10 cuts in Know Your Meat
+const CHICKEN_PRODUCTS: ChickenProductItem[] = [
   {
-    id: 'chicken-breast',
-    name: 'Fresh Chicken Breast',
-    category: 'chicken',
-    categoryLabel: 'Fresh Chicken',
+    id: 'breast',
+    name: 'Breast',
+    title: 'Fresh Chicken Breast',
     badge: 'High Protein',
     weight: '500g',
+    iconImg: '/Product/Chicken/ChickenParts/brest.webp',
     pouchImg: '/Product/Chicken/packed-meat/breast.webp',
     platterImg: '/Product/Chicken/Platters/breast.webp',
-    desc: 'Lean, skinless & boneless fillets. The healthiest cut packed with high quality natural protein.',
+    rawImg: '/Product/Chicken/raw-meat/brest.webp',
+    desc: 'Lean and protein-rich boneless chicken breast fillets. Extremely versatile and perfect for healthy salads, grilling, and baking.',
     detailedDesc: 'Tender, juicy, and 100% trimmed chicken breast fillets without skin or bone. Sourced from antibiotic-free poultry and vacuum-chilled to lock in fresh moisture and essential amino acids.',
     cookingMethods: ['Grilling', 'Pan Searing', 'Salads', 'Diet Meal Prep'],
     nutrition: { protein: '23.0 g', calories: '165 kcal', fat: '3.6 g', carbs: '0 g' },
@@ -71,15 +70,16 @@ const PRODUCTS: ProductItem[] = [
     idealFor: 'Fitness diets, grilled fillets, continental salads and stir-fries.',
   },
   {
-    id: 'chicken-drumstick',
-    name: 'Juicy Chicken Drumsticks',
-    category: 'chicken',
-    categoryLabel: 'Fresh Chicken',
+    id: 'drumstick',
+    name: 'Drumstick',
+    title: 'Juicy Chicken Drumsticks',
     badge: 'Best Seller',
     weight: '500g',
+    iconImg: '/Product/Chicken/ChickenParts/drumstick.webp',
     pouchImg: '/Product/Chicken/packed-meat/drumstick.webp',
     platterImg: '/Product/Chicken/Platters/drumstick.webp',
-    desc: 'Tender and flavorful bone-in drumsticks. Naturally juicy and rich in flavor for roasting and curries.',
+    rawImg: '/Product/Chicken/raw-meat/drumstick.webp',
+    desc: 'Tender and juicy drumsticks, perfectly cut and hygienically packed to retain natural freshness and rich taste in every bite.',
     detailedDesc: 'Expertly butchered drumsticks with bone-in succulent meat that stays exceptionally moist and juicy when cooked. Ideal for marination, crispy frying, and slow-simmered rich curries.',
     cookingMethods: ['Tandoor / Roast', 'Deep Frying', 'Kerala Curry', 'Biryani'],
     nutrition: { protein: '20.4 g', calories: '160 kcal', fat: '7.0 g', carbs: '0 g' },
@@ -87,15 +87,16 @@ const PRODUCTS: ProductItem[] = [
     idealFor: 'Tandoori chicken, biryani pieces, and spicy South Indian fry.',
   },
   {
-    id: 'chicken-thigh',
-    name: 'Prime Chicken Thighs',
-    category: 'chicken',
-    categoryLabel: 'Fresh Chicken',
+    id: 'thigh',
+    name: 'Thigh',
+    title: 'Prime Chicken Thighs',
     badge: 'Tender & Moist',
     weight: '500g',
+    iconImg: '/Product/Chicken/ChickenParts/thig.webp',
     pouchImg: '/Product/Chicken/packed-meat/thigh.webp',
     platterImg: '/Product/Chicken/Platters/thigh.webp',
-    desc: 'Flavorful bone-in chicken thighs that hold deep moisture and deliver unbeatable aroma.',
+    rawImg: '/Product/Chicken/raw-meat/thigh.webp',
+    desc: 'Flavorful and tender chicken thighs, bone-in and skin-on. Holds moisture perfectly for slow cooking and roasts.',
     detailedDesc: 'Chicken thighs are revered by chefs for their generous fat-to-meat ratio and tender texture that never dries out during cooking. Perfect for stews, curries, and oven bakes.',
     cookingMethods: ['Slow Curry', 'Oven Bake', 'Biryani', 'BBQ Grill'],
     nutrition: { protein: '18.0 g', calories: '209 kcal', fat: '15.0 g', carbs: '0 g' },
@@ -103,15 +104,16 @@ const PRODUCTS: ProductItem[] = [
     idealFor: 'Dum Biryani, slow-cooked gravies, and braised chicken delicacies.',
   },
   {
-    id: 'chicken-wings',
-    name: 'Crispy Chicken Wings',
-    category: 'chicken',
-    categoryLabel: 'Fresh Chicken',
-    badge: 'Party Starter',
+    id: 'wing',
+    name: 'Wing',
+    title: 'Crispy Chicken Wings',
+    badge: 'Party Favorite',
     weight: '500g',
+    iconImg: '/Product/Chicken/ChickenParts/wing.webp',
     pouchImg: '/Product/Chicken/packed-meat/wings.webp',
     platterImg: '/Product/Chicken/Platters/wings.webp',
-    desc: 'Plump and clean wingettes with skin, crafted for crispy appetizers and spicy glazed party snacks.',
+    rawImg: '/Product/Chicken/raw-meat/wing.webp',
+    desc: 'Crispy and delicious chicken wings, perfect for deep frying, barbecue, or baking with your favorite glaze.',
     detailedDesc: 'Carefully trimmed whole wing sections ready to take on dry rubs, marinades, or fiery glazes. Crisp up beautifully on the grill, oven, or air fryer.',
     cookingMethods: ['Air Fry', 'Deep Fry', 'Barbecue', 'Glazed Bake'],
     nutrition: { protein: '18.5 g', calories: '203 kcal', fat: '14.0 g', carbs: '0 g' },
@@ -119,47 +121,16 @@ const PRODUCTS: ProductItem[] = [
     idealFor: 'Hot buffalo wings, honey chili wings, and game day snacks.',
   },
   {
-    id: 'whole-chicken-skin',
-    name: 'Whole Chicken (With Skin)',
-    category: 'chicken',
-    categoryLabel: 'Fresh Chicken',
-    badge: 'Classic Roast',
-    weight: '1.0 kg - 1.2 kg',
-    pouchImg: '/Product/Chicken/FullChicken/withskin.webp',
-    platterImg: '/Product/Chicken/FullChicken/withskin.webp',
-    desc: 'Completely dressed whole bird with skin intact. Golden crisp roast skin and succulent inner meat.',
-    detailedDesc: 'Hygienically dressed and cleaned broiler chicken with clean skin retained. The skin insulates the meat while cooking, rendering its natural juices to ensure extreme succulence.',
-    cookingMethods: ['Whole Roast', 'Rotisserie', 'Barbecue', 'Broth Base'],
-    nutrition: { protein: '19.5 g', calories: '215 kcal', fat: '14.5 g', carbs: '0 g' },
-    storage: 'Store between 0°C to 4°C. Cook within 48 hours or freeze.',
-    idealFor: 'Sunday whole chicken roast, rotisserie, and tandoori whole bird.',
-  },
-  {
-    id: 'whole-chicken-skinless',
-    name: 'Whole Chicken (Skinless)',
-    category: 'chicken',
-    categoryLabel: 'Fresh Chicken',
-    badge: 'Lean & Clean',
-    weight: '900g - 1.1 kg',
-    pouchImg: '/Product/Chicken/FullChicken/withoutskin.webp',
-    platterImg: '/Product/Chicken/FullChicken/withoutskin.webp',
-    desc: 'Cleanly skinned and dressed whole chicken, ideal for family curries and custom kitchen butchery.',
-    detailedDesc: 'Thoroughly gutted, cleaned, and deskin-processed under strict sanitary conditions. Cut it into curry pieces at home or cook whole for a lower-calorie flavorful meal.',
-    cookingMethods: ['Home Butchery', 'Traditional Curry', 'Soup Stew', 'Roasting'],
-    nutrition: { protein: '21.0 g', calories: '175 kcal', fat: '8.0 g', carbs: '0 g' },
-    storage: 'Store between 0°C to 4°C. Cook within 48 hours or freeze.',
-    idealFor: 'Traditional South Indian curry cuts, pepper chicken, and stews.',
-  },
-  {
-    id: 'chicken-drumette',
-    name: 'Chicken Drumettes',
-    category: 'chicken',
-    categoryLabel: 'Fresh Chicken',
-    badge: 'Snack Favorite',
+    id: 'drumette',
+    name: 'Drumette',
+    title: 'Meaty Chicken Drumettes',
+    badge: 'Snack Special',
     weight: '500g',
+    iconImg: '/Product/Chicken/ChickenParts/drumette.webp',
     pouchImg: '/Product/Chicken/packed-meat/drumette.webp',
     platterImg: '/Product/Chicken/Platters/drumette.webp',
-    desc: 'Meaty upper wing cuts shaped like mini drumsticks. Highly popular for lollipop & finger food.',
+    rawImg: '/Product/Chicken/raw-meat/drumette.webp',
+    desc: 'Juicy and meaty drumettes, the perfect party starter. Great for spicy buffalo wings or crispy batter fry.',
     detailedDesc: 'The meatiest part of the wing, offering pure tender chicken on a convenient small bone. Great for lollipop preparations, glazed skewers, and finger snacks.',
     cookingMethods: ['Chicken Lollipop', 'Deep Fry', 'Air Fry', 'Pan Roast'],
     nutrition: { protein: '19.0 g', calories: '170 kcal', fat: '9.5 g', carbs: '0 g' },
@@ -167,47 +138,16 @@ const PRODUCTS: ProductItem[] = [
     idealFor: 'Chicken lollipops, starters, and kid-friendly crispy bites.',
   },
   {
-    id: 'chicken-liver',
-    name: 'Nutrient Chicken Liver',
-    category: 'specialty',
-    categoryLabel: 'Specialty Cuts',
-    badge: 'Iron & Vitamins',
-    weight: '500g',
-    pouchImg: '/Product/Chicken/packed-meat/liver.webp',
-    platterImg: '/Product/Chicken/Platters/liver.webp',
-    desc: 'Silky smooth, iron-rich chicken liver cuts. Delicate texture with earthy, authentic gourmet richness.',
-    detailedDesc: 'Carefully trimmed and washed chicken liver, exceptionally high in iron, vitamin A, and B vitamins. Cooks quickly to a tender, melt-in-the-mouth texture.',
-    cookingMethods: ['Pepper Fry', 'Dry Roast', 'Masala Gravy', 'Pâté'],
-    nutrition: { protein: '17.2 g', calories: '119 kcal', fat: '4.8 g', carbs: '0 g' },
-    storage: 'Store between 0°C to 4°C. Cook within 24-48 hours.',
-    idealFor: 'Spicy Kerala liver roast, pepper fry, and iron-boosting curries.',
-  },
-  {
-    id: 'chicken-gizzard',
-    name: 'Fresh Chicken Gizzard',
-    category: 'specialty',
-    categoryLabel: 'Specialty Cuts',
-    badge: 'Firm Texture',
-    weight: '500g',
-    pouchImg: '/Product/Chicken/packed-meat/gizzard.webp',
-    platterImg: '/Product/Chicken/Platters/gizzard.webp',
-    desc: 'Clean, firm and muscular gizzard cuts. Becomes meltingly tender and rich with slow braising.',
-    detailedDesc: 'Thoroughly sanitized and trimmed gizzards for traditional connoisseurs. Dense muscular texture that develops rich depth of flavor during slow cooking.',
-    cookingMethods: ['Slow Braise', 'Pressure Cook Curry', 'Dry Fry', 'Pickle'],
-    nutrition: { protein: '18.0 g', calories: '94 kcal', fat: '2.0 g', carbs: '0 g' },
-    storage: 'Store between 0°C to 4°C. Cook within 48 hours or freeze.',
-    idealFor: 'Spicy gizzard masala, bar bites, and traditional country gravies.',
-  },
-  {
-    id: 'chicken-back',
-    name: 'Chicken Back & Broth Cuts',
-    category: 'specialty',
-    categoryLabel: 'Specialty Cuts',
+    id: 'back',
+    name: 'Back',
+    title: 'Chicken Back & Broth Cuts',
     badge: 'Rich Collagen',
     weight: '500g',
+    iconImg: '/Product/Chicken/ChickenParts/bact.webp',
     pouchImg: '/Product/Chicken/packed-meat/back.webp',
     platterImg: '/Product/Chicken/Platters/back.webp',
-    desc: 'Clean-cut chicken backs loaded with marrow and gelatin. The gold standard for bone broths.',
+    rawImg: '/Product/Chicken/raw-meat/back.webp',
+    desc: 'Clean-cut chicken backs, rich in marrow and collagen. The ultimate choice for deep, flavorful bone broths and stocks.',
     detailedDesc: 'Rich in bone marrow, collagen, and healthy fats. Simmer for hours with aromatics to produce golden, gut-healing chicken bone broth and silky ramen soups.',
     cookingMethods: ['Bone Broth', 'Soup Stock', 'Pressure Stew', 'Base Gravy'],
     nutrition: { protein: '15.0 g', calories: '220 kcal', fat: '17.0 g', carbs: '0 g' },
@@ -215,136 +155,72 @@ const PRODUCTS: ProductItem[] = [
     idealFor: 'Nutritious chicken bone broth, medicinal soups, and rich stocks.',
   },
   {
-    id: 'chicken-heart',
-    name: 'Tender Chicken Hearts',
-    category: 'specialty',
-    categoryLabel: 'Specialty Cuts',
-    badge: 'Lean Superfood',
+    id: 'liver',
+    name: 'Liver',
+    title: 'Nutrient Chicken Liver',
+    badge: 'Iron & Vitamins',
     weight: '500g',
-    pouchImg: '/Product/Chicken/packed-meat/heart.webp',
-    platterImg: '/Product/Chicken/Platters/heart.webp',
-    desc: 'Firm, clean chicken hearts. High in CoQ10 and lean protein, superb for skewers and stir-fries.',
-    detailedDesc: 'Trimmed hearts with excess fat removed. Naturally firm texture with rich mineral profile. A culinary favorite for flame-grilled yakitori and sautéed appetizers.',
-    cookingMethods: ['Flame Skewers', 'Stir Fry', 'Pepper Sauté', 'Braising'],
-    nutrition: { protein: '16.0 g', calories: '150 kcal', fat: '9.0 g', carbs: '0 g' },
-    storage: 'Store between 0°C to 4°C. Cook within 48 hours or freeze.',
-    idealFor: 'Yakitori style skewers, garlic pepper roast, and hearty stir fries.',
+    iconImg: '/Product/Chicken/ChickenParts/liver.webp',
+    pouchImg: '/Product/Chicken/packed-meat/liver.webp',
+    platterImg: '/Product/Chicken/Platters/liver.webp',
+    rawImg: '/Product/Chicken/raw-meat/liver.webp',
+    desc: 'Fresh and nutrient-dense chicken liver, rich in iron, vitamin A, and essential vitamins. Soft texture and rich taste.',
+    detailedDesc: 'Carefully trimmed and washed chicken liver, exceptionally high in iron, vitamin A, and B vitamins. Cooks quickly to a tender, melt-in-the-mouth texture.',
+    cookingMethods: ['Pepper Fry', 'Dry Roast', 'Masala Gravy', 'Pâté'],
+    nutrition: { protein: '17.2 g', calories: '119 kcal', fat: '4.8 g', carbs: '0 g' },
+    storage: 'Store between 0°C to 4°C. Cook within 24-48 hours.',
+    idealFor: 'Spicy Kerala liver roast, pepper fry, and iron-boosting curries.',
   },
   {
-    id: 'chicken-neck',
-    name: 'Chicken Neck Pieces',
-    category: 'specialty',
-    categoryLabel: 'Specialty Cuts',
+    id: 'gizzard',
+    name: 'Gizzard',
+    title: 'Fresh Chicken Gizzard',
+    badge: 'Firm Texture',
+    weight: '500g',
+    iconImg: '/Product/Chicken/ChickenParts/gizzard.webp',
+    pouchImg: '/Product/Chicken/packed-meat/gizzard.webp',
+    platterImg: '/Product/Chicken/Platters/gizzard.webp',
+    rawImg: '/Product/Chicken/raw-meat/gizzard.webp',
+    desc: 'Tough and highly flavorful chicken gizzards. Firm texture that becomes beautifully tender when braised or slow-cooked.',
+    detailedDesc: 'Thoroughly sanitized and trimmed gizzards for traditional connoisseurs. Dense muscular texture that develops rich depth of flavor during slow cooking.',
+    cookingMethods: ['Slow Braise', 'Pressure Cook Curry', 'Dry Fry', 'Pickle'],
+    nutrition: { protein: '18.0 g', calories: '94 kcal', fat: '2.0 g', carbs: '0 g' },
+    storage: 'Store between 0°C to 4°C. Cook within 48 hours or freeze.',
+    idealFor: 'Spicy gizzard masala, bar bites, and traditional country gravies.',
+  },
+  {
+    id: 'neck',
+    name: 'Neck',
+    title: 'Chicken Neck Pieces',
     badge: 'Deep Flavor',
     weight: '500g',
+    iconImg: '/Product/Chicken/ChickenParts/neck.webp',
     pouchImg: '/Product/Chicken/packed-meat/neck.webp',
     platterImg: '/Product/Chicken/Platters/neck.webp',
-    desc: 'Bone-in cuts that infuse deep natural chicken essence into homestyle gravies and stocks.',
+    rawImg: '/Product/Chicken/raw-meat/neck.webp',
+    desc: 'Rich bone-in chicken necks, perfect for preparing highly nutritious stocks, soups, and slow-cooked gravies.',
     detailedDesc: 'Trimmed neck portions that release rich natural gelatin while cooking. Highly sought-after for thickening and enhancing traditional home curries.',
     cookingMethods: ['Slow Curry', 'Bone Soup', 'Village Masala', 'Stock'],
     nutrition: { protein: '16.0 g', calories: '180 kcal', fat: '12.0 g', carbs: '0 g' },
     storage: 'Store between 0°C to 4°C. Cook within 48 hours or freeze.',
     idealFor: 'Spicy homestyle gravies, soup bases, and slow simmering.',
   },
-
-  // MUTTON & GOAT
   {
-    id: 'goat-curry-cut',
-    name: 'Premium Goat Curry Cut',
-    category: 'mutton',
-    categoryLabel: 'Mutton & Goat',
-    badge: 'Chef Choice',
-    weight: '500g / 1kg',
-    pouchImg: '/Product/GoatBeef/goat.webp',
-    platterImg: '/Product/GoatBeef/goat.webp',
-    desc: 'Tender bone-in & boneless goat cubes. Raised on natural pastures for gentle, sweet meat texture.',
-    detailedDesc: 'Carefully butchered from young, healthy pasture-raised goats. Balanced mix of meat-to-bone pieces that soften to perfection under slow cooking, imparting unforgettable aroma.',
-    cookingMethods: ['Slow Handi Curry', 'Kerala Mutton Roast', 'Rogan Josh', 'Korma'],
-    nutrition: { protein: '20.6 g', calories: '143 kcal', fat: '3.0 g', carbs: '0 g' },
-    storage: 'Store chilled at 0°C to 4°C. Cook within 48 hours or freeze.',
-    idealFor: 'Traditional Mutton Curry, Nadan Mutton Roast, and festive meals.',
-  },
-  {
-    id: 'goat-biryani-cut',
-    name: 'Tender Goat Biryani Cut',
-    category: 'mutton',
-    categoryLabel: 'Mutton & Goat',
-    badge: 'Biryani Special',
-    weight: '1.0 kg',
-    pouchImg: '/Product/GoatBeef/goat-image.webp',
-    platterImg: '/Product/GoatBeef/goat-image.webp',
-    desc: 'Larger, succulently marbled goat cuts created specifically for authentic slow dum biryani.',
-    detailedDesc: 'Selected prime cuts including shoulder, leg, and rib pieces sized generously so they remain ultra-juicy and melt in your mouth through 60+ minutes of authentic dum cooking.',
-    cookingMethods: ['Dum Biryani', 'Kuzhimanthi', 'Slow Stew', 'Yakhni Pulao'],
-    nutrition: { protein: '21.2 g', calories: '155 kcal', fat: '4.2 g', carbs: '0 g' },
-    storage: 'Store chilled at 0°C to 4°C. Cook within 48 hours or freeze.',
-    idealFor: 'Thalassery Biryani, Hyderabadi Dum Biryani, and ceremonial feasts.',
-  },
-  {
-    id: 'goat-ribs-chops',
-    name: 'Goat Ribs & Tender Chops',
-    category: 'mutton',
-    categoryLabel: 'Mutton & Goat',
-    badge: 'Prime Cut',
+    id: 'heart',
+    name: 'Heart',
+    title: 'Tender Chicken Hearts',
+    badge: 'Lean Superfood',
     weight: '500g',
-    pouchImg: '/Product/GoatBeef/goat-img.webp',
-    platterImg: '/Product/GoatBeef/goat-img.webp',
-    desc: 'Succulent goat chops with rich bone marrow and tender ribbon meat. Magnificent on the grill.',
-    detailedDesc: 'Exquisite rib chops hand-cut by master butchers. The surrounding bone and marrow infuse incredible depth while roasting or pan-searing with rosemary and black pepper.',
-    cookingMethods: ['Pan Sear', 'Charcoal Grill', 'Chops Masala', 'Oven Roast'],
-    nutrition: { protein: '19.8 g', calories: '168 kcal', fat: '6.5 g', carbs: '0 g' },
-    storage: 'Store chilled at 0°C to 4°C. Cook within 48 hours or freeze.',
-    idealFor: 'Mutton chops fry, tawa chops, and barbecue grill feasts.',
-  },
-
-  // BEEF & BUFFALO
-  {
-    id: 'beef-curry-cut',
-    name: 'Prime Beef Curry Cut',
-    category: 'beef',
-    categoryLabel: 'Prime Beef',
-    badge: 'Kerala Favorite',
-    weight: '500g / 1kg',
-    pouchImg: '/Product/GoatBeef/beef.webp',
-    platterImg: '/Product/GoatBeef/beef.webp',
-    desc: 'Rich, bold beef cubes with the perfect meat-to-fat balance for authentic Kerala beef roast.',
-    detailedDesc: 'Derived from certified healthy cattle reared on natural forage. Cleaned and cut into neat bite-sized pieces that soak up spices and caramelize into iconic dark beef fry.',
-    cookingMethods: ['Beef Fry (Ularthiyathu)', 'Pepper Roast', 'Chili Beef', 'Curry'],
-    nutrition: { protein: '26.1 g', calories: '185 kcal', fat: '7.5 g', carbs: '0 g' },
-    storage: 'Store chilled at 0°C to 4°C. Cook within 48 hours or freeze.',
-    idealFor: 'Kerala Beef Roast (Ularthiyathu), Beef Varutharacha Curry, and chili beef.',
-  },
-  {
-    id: 'beef-boneless-steak',
-    name: 'Prime Beef Boneless Cut',
-    category: 'beef',
-    categoryLabel: 'Prime Beef',
-    badge: '100% Boneless',
-    weight: '500g / 1kg',
-    pouchImg: '/Product/GoatBeef/beef-image.webp',
-    platterImg: '/Product/GoatBeef/beef-image.webp',
-    desc: 'Lean, tender boneless beef steaks. High protein density with zero bone waste.',
-    detailedDesc: 'Ultra-clean boneless muscle cuts trimmed of tough silver skin. Offers unmatched tenderness for pan steaks, strips, beef dry fry, or mincing for homemade smash burgers.',
-    cookingMethods: ['Steak Searing', 'Stir Fry Strips', 'Smash Burgers', 'Stew'],
-    nutrition: { protein: '28.0 g', calories: '172 kcal', fat: '5.2 g', carbs: '0 g' },
-    storage: 'Store chilled at 0°C to 4°C. Cook within 48 hours or freeze.',
-    idealFor: 'Steaks, beef strips stir fry, and lean high-protein meals.',
-  },
-  {
-    id: 'buffalo-prime-cut',
-    name: 'Tender Buffalo Specialty Cut',
-    category: 'beef',
-    categoryLabel: 'Prime Beef',
-    badge: 'Low Fat / High Iron',
-    weight: '500g / 1kg',
-    pouchImg: '/Product/GoatBeef/buffalo-img.webp',
-    platterImg: '/Product/GoatBeef/buffalo-img.webp',
-    desc: 'Naturally lean and mineral-dense buffalo meat. Lower in cholesterol and packed with natural iron.',
-    detailedDesc: 'Premium water-buffalo cuts processed under world-class cold chain regulations. Remarkable nutritional profile: lower in fat and cholesterol than traditional red meats.',
-    cookingMethods: ['Slow Stewing', 'Traditional Roast', 'Broth', 'Pressure Curry'],
-    nutrition: { protein: '24.2 g', calories: '143 kcal', fat: '2.4 g', carbs: '0 g' },
-    storage: 'Store chilled at 0°C to 4°C. Cook within 48 hours or freeze.',
-    idealFor: 'Healthy red meat curries, iron-packed roasts, and hearty stews.',
+    iconImg: '/Product/Chicken/ChickenParts/heart.webp',
+    pouchImg: '/Product/Chicken/packed-meat/heart.webp',
+    platterImg: '/Product/Chicken/Platters/heart.webp',
+    rawImg: '/Product/Chicken/raw-meat/heart.webp',
+    desc: 'Clean and trimmed chicken hearts. High in protein and iron with a firm, chewy texture, excellent for skewers and stir-fries.',
+    detailedDesc: 'Trimmed hearts with excess fat removed. Naturally firm texture with rich mineral profile. A culinary favorite for flame-grilled yakitori and sautéed appetizers.',
+    cookingMethods: ['Flame Skewers', 'Stir Fry', 'Pepper Sauté', 'Braising'],
+    nutrition: { protein: '16.0 g', calories: '150 kcal', fat: '9.0 g', carbs: '0 g' },
+    storage: 'Store between 0°C to 4°C. Cook within 48 hours or freeze.',
+    idealFor: 'Yakitori style skewers, garlic pepper roast, and hearty stir fries.',
   },
 ];
 
@@ -666,11 +542,21 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
           </div>
 
           {/* Top Center Title Header */}
-          <div className="text-center w-full max-w-[90%] sm:max-w-[80%] lg:max-w-[42vw] mx-auto z-20 pt-1 lg:pt-[0.2vw] mt-0 lg:mt-1">
+          <div className="text-center w-full max-w-[90%] sm:max-w-[80%] lg:max-w-[42vw] mx-auto z-20 pt-1 lg:pt-[0.2vw] mt-0 lg:mt-1 flex flex-col items-center">
+            {/* Back to All Products Button */}
+            <button
+              type="button"
+              onClick={() => router.push('/product')}
+              className="mb-2 sm:mb-2.5 inline-flex items-center gap-1.5 bg-white/95 hover:bg-white text-[#064823] hover:text-[#d52828] border border-black/15 text-[11px] sm:text-xs font-extrabold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm hover:shadow-md transition-all cursor-pointer group select-none"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform text-[#d52828]" />
+              <span>Back to All Products</span>
+            </button>
+
             <h4 className="text-xs sm:text-sm lg:text-[1vw] font-medium text-[#d52828] tracking-widest uppercase leading-none">
               FRESH PREMIUM CHICKEN
             </h4>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.4vw] font-bold text-[#17442d] tracking-normal uppercase leading-none mt-1 lg:mt-[0.3vw] drop-shadow-sm font-bree">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.4vw] font-bold text-[#17442d] tracking-normal uppercase leading-none mt-1 lg:mt-[0.3vw] drop-shadow-sm font-anek">
               {currentPart.name}
             </h2>
             <p className="text-xs sm:text-sm lg:text-[0.82vw] font-semibold text-slate-900 leading-relaxed max-w-[92%] sm:max-w-[80%] lg:max-w-[38vw] mx-auto mt-2 lg:mt-[0.5vw]">
@@ -1342,357 +1228,339 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
 }
 
 /* =========================================================================
-   ORIGINAL PRODUCT CATALOG VIEW (When directly accessed without ?part=)
+   RECIPES-HOMEPAGE-INSPIRED CHICKEN PRODUCTS CATALOG VIEW
    ========================================================================= */
 function ProductCatalogView() {
-  const [selectedCategory, setSelectedCategory] = useState<ProductCategory>('all');
+  const router = useRouter();
+  const [activeFilter, setActiveFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState<'pack' | 'raw'>('pack');
-  const [activeModalProduct, setActiveModalProduct] = useState<ProductItem | null>(null);
 
-  // Filter products based on search and category
+  // Filter products based on search
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((item) => {
-      const matchesCategory =
-        selectedCategory === 'all' || item.category === selectedCategory;
-      const matchesSearch =
-        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.idealFor.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
+    const query = searchQuery.toLowerCase().trim();
+    return CHICKEN_PRODUCTS.filter((item) => {
+      return (
+        !query ||
+        item.name.toLowerCase().includes(query) ||
+        item.title.toLowerCase().includes(query) ||
+        item.desc.toLowerCase().includes(query) ||
+        item.badge.toLowerCase().includes(query)
+      );
     });
-  }, [selectedCategory, searchQuery]);
+  }, [searchQuery]);
 
-  const categoriesList: { key: ProductCategory; label: string; count: number }[] = [
-    { key: 'all', label: 'All Products', count: PRODUCTS.length },
-    { key: 'chicken', label: 'Fresh Chicken', count: PRODUCTS.filter((p) => p.category === 'chicken').length },
-    { key: 'mutton', label: 'Mutton & Goat', count: PRODUCTS.filter((p) => p.category === 'mutton').length },
-    { key: 'beef', label: 'Prime Beef', count: PRODUCTS.filter((p) => p.category === 'beef').length },
-    { key: 'specialty', label: 'Specialty Cuts', count: PRODUCTS.filter((p) => p.category === 'specialty').length },
-  ];
+  const handleProductClick = (partId: string) => {
+    router.push(`/product?part=${encodeURIComponent(partId)}`);
+  };
 
   return (
-    <div className="min-h-screen bg-[#FBFBF9] font-anek relative overflow-hidden">
-      {/* Background Doodle Pattern Overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none bg-repeat z-0 opacity-40"
+    <div className="relative min-h-screen bg-gray-50 antialiased flex flex-col selection:bg-[#8DC541] selection:text-white overflow-x-clip pt-0 font-anek">
+      {/* 1. HERO HEADER BANNER SECTION */}
+      <section
         style={{
-          backgroundImage: 'url("/Product/Chicken/doodle.webp")',
-          backgroundSize: '900px',
-          filter: 'brightness(0)',
+          background: "radial-gradient(circle at center, #488E40 0%, #064823 100%)",
         }}
-      />
-
-      {/* 1. HERO BANNER SECTION */}
-      <section 
-        className="relative z-10 w-full pt-[120px] pb-16 md:pt-[150px] md:pb-24 overflow-hidden text-white shadow-lg"
-        style={{
-          background: 'radial-gradient(circle at 50% 20%, #1c683b 0%, #064823 85%, #032b14 100%)',
-        }}
+        className="relative w-full text-white pt-20 sm:pt-24 md:pt-28 pb-4 sm:pb-6 px-4 sm:px-8 lg:px-12 rounded-b-[30px] md:rounded-b-[40px] overflow-hidden select-none shadow-xl min-h-[290px] sm:min-h-[320px] md:min-h-[340px] flex flex-col justify-center"
       >
-        {/* Background Tiled Doodle with Blend */}
+        {/* Background Tiled Doodle with Blend (Matching Recipes Page) */}
         <div
-          className="absolute inset-0 pointer-events-none bg-repeat z-0 opacity-60 mix-blend-overlay"
+          className="absolute inset-0 pointer-events-none bg-repeat z-0 opacity-80"
           style={{
             backgroundImage: 'url("/Product/Chicken/doodle.webp")',
-            backgroundSize: '750px',
+            backgroundSize: "800px",
           }}
         />
 
-        {/* Ambient Glows */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#8DC541]/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F7840F]/15 rounded-full blur-3xl pointer-events-none" />
+        {/* Hero Content Row */}
+        <div className="relative z-20 w-full flex items-center justify-between gap-4 md:gap-6 my-auto">
+          {/* Left: Titles & Tagline */}
+          <div className="space-y-2 sm:space-y-3 text-left max-w-sm sm:max-w-md lg:max-w-lg shrink-0">
+            <motion.div
+              initial={{ opacity: 0, x: -35 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+              className="flex items-center gap-2.5"
+            >
+              <span className="w-7 h-[2.5px] bg-[#8DC541]" />
+              <span className="text-xs sm:text-sm font-extrabold text-[#8DC541] tracking-widest uppercase font-manrope">
+                PRODUCTS
+              </span>
+            </motion.div>
 
-        <div className="relative z-10 w-full max-w-[1400px] lg:max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] xl:text-[52px] font-bold font-anek tracking-wide uppercase leading-none text-white whitespace-nowrap"
+            >
+              CHICKEN <span className="text-[#8DC541]">PRODUCTS</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="text-white/85 text-xs sm:text-xs md:text-sm font-medium leading-relaxed font-manrope max-w-xs sm:max-w-sm"
+            >
+              Explore 100% Halal farm-fresh chicken cuts, scientifically vacuum-chilled and butcher-trimmed for pure natural taste.
+            </motion.p>
+          </div>
+
+          {/* Center: Dynamic Retail Packed Packs Showcase */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-4 max-w-3xl"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.25, ease: 'easeOut' }}
+            className="hidden md:flex flex-1 items-center justify-center relative min-w-0 max-w-xl mx-auto h-[160px] lg:h-[190px]"
           >
-            {/* Pill Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#8DC541] text-xs font-bold uppercase tracking-widest shadow-inner">
-              <span className="w-2 h-2 rounded-full bg-[#8DC541] animate-pulse" />
-              100% Halal & Hygienic Processing
+            <div className="relative w-full h-full flex items-center justify-center">
+              {/* Backing glow effect */}
+              <div className="absolute inset-0 bg-[#8DC541]/15 rounded-full blur-2xl pointer-events-none" />
+
+              {/* Pack 1: Thigh (Tilted Left) */}
+              <motion.div
+                whileHover={{ y: -6, scale: 1.05 }}
+                className="relative w-[120px] lg:w-[150px] xl:w-[165px] h-[130px] lg:h-[155px] xl:h-[170px] -mr-8 lg:-mr-12 -rotate-12 transition-transform duration-300 drop-shadow-xl z-10"
+              >
+                <Image
+                  src="/Product/Chicken/packed-meat/thigh.webp"
+                  alt="Packed Chicken Thigh"
+                  fill
+                  className="object-contain"
+                />
+              </motion.div>
+
+              {/* Pack 2: Breast (Center Elevated Standout) */}
+              <motion.div
+                whileHover={{ y: -8, scale: 1.05 }}
+                className="relative w-[135px] lg:w-[170px] xl:w-[185px] h-[145px] lg:h-[175px] xl:h-[190px] -rotate-2 transition-transform duration-300 drop-shadow-2xl z-20"
+              >
+                <Image
+                  src="/Product/Chicken/packed-meat/breast.webp"
+                  alt="Packed Chicken Breast"
+                  fill
+                  className="object-contain"
+                />
+              </motion.div>
+
+              {/* Pack 3: Drumstick (Tilted Right) */}
+              <motion.div
+                whileHover={{ y: -6, scale: 1.05 }}
+                className="relative w-[120px] lg:w-[150px] xl:w-[165px] h-[130px] lg:h-[155px] xl:h-[170px] -ml-8 lg:-ml-12 rotate-12 transition-transform duration-300 drop-shadow-xl z-10"
+              >
+                <Image
+                  src="/Product/Chicken/packed-meat/drumstick.webp"
+                  alt="Packed Chicken Drumstick"
+                  fill
+                  className="object-contain"
+                />
+              </motion.div>
+
+              {/* Pack 4: Wings (Offset outer right) */}
+              <motion.div
+                whileHover={{ y: -6, scale: 1.05 }}
+                className="hidden xl:block relative w-[110px] xl:w-[140px] h-[120px] xl:h-[150px] -ml-8 rotate-18 transition-transform duration-300 drop-shadow-lg z-0 opacity-95"
+              >
+                <Image
+                  src="/Product/Chicken/packed-meat/wings.webp"
+                  alt="Packed Chicken Wings"
+                  fill
+                  className="object-contain"
+                />
+              </motion.div>
             </div>
-
-            {/* Hero Main Heading with font-bree */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold font-bree tracking-normal uppercase leading-[1.05] text-white drop-shadow-sm">
-              FARM-FRESH <span className="text-[#8DC541]">CUTS</span> &amp;{' '}
-              <span className="text-[#F7840F]">PACKS</span>
-            </h1>
-
-            {/* Hero Subtitle */}
-            <p className="text-slate-200 text-xs sm:text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed">
-              Experience unprocessed purity with zero chemical additives. Handpicked, scientifically vacuum-chilled, and packed under sterile 0°C–4°C standards daily.
-            </p>
           </motion.div>
 
-          {/* Quick Assurance Badges */}
+          {/* Right Header Visual: Chicken Chef Mascot */}
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-8 w-full max-w-4xl"
+            initial={{ opacity: 0, x: 30, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+            className="hidden sm:flex shrink-0 w-[95px] sm:w-[115px] md:w-[130px] lg:w-[150px] xl:w-[170px] relative items-end justify-center pointer-events-none"
           >
-            {[
-              { icon: ShieldCheck, title: '100% Halal Certified', sub: 'Strict ritual slaughter' },
-              { icon: ThermometerSnowflake, title: '0°C - 4°C Cold Chain', sub: 'Chilled, never frozen' },
-              { icon: Sparkles, title: '0% Antibiotic Residue', sub: 'No added hormones' },
-              { icon: Flame, title: 'Farm-to-Fork Daily', sub: 'Fresh cuts every morning' },
-            ].map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-3 sm:p-4 text-left flex items-center gap-3 transition-transform hover:-translate-y-1 duration-300"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-[#8DC541]/20 flex items-center justify-center shrink-0 text-[#8DC541]">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs sm:text-sm font-bold text-white leading-tight truncate">{item.title}</p>
-                    <p className="text-[10px] sm:text-xs text-slate-300 mt-0.5 truncate">{item.sub}</p>
-                  </div>
-                </div>
-              );
-            })}
+            <div className="relative w-full h-[160px] sm:h-[190px] md:h-[220px] lg:h-[240px] xl:h-[260px]">
+              <Image
+                src="/Recipies/header/chicken-character-image.webp"
+                alt="MEATiN Chicken Chef Mascot"
+                fill
+                priority
+                className="object-contain object-bottom drop-shadow-2xl"
+              />
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* 2. MAIN CATALOG FILTER & INTERACTIVE TOOLBAR */}
-      <section className="relative z-20 w-full max-w-[1400px] lg:max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
-        <div className="bg-white rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.06)] border border-slate-100 p-4 sm:p-6 space-y-4">
-          {/* Top Row: Search + View Toggle */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-            {/* Search Bar */}
-            <div className="relative flex-1 max-w-md">
+      {/* 2. MAIN PRODUCTS SECTION */}
+      <main className="relative z-20 flex-1 w-full px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-16 overflow-hidden">
+        {/* Background Doodle Pattern Overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none bg-repeat z-0 opacity-40 filter brightness-0"
+          style={{
+            backgroundImage: 'url("/Product/Chicken/doodle.webp")',
+            backgroundSize: '800px',
+          }}
+        />
+
+        {/* Section Label Header + Search Bar (Clean and Framed like Recipes) */}
+        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 sm:pb-8 w-full border-b border-slate-200/80">
+          {/* Left: Section Title & Subtitle */}
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="w-5 h-[2px] bg-[#8DC541]" />
+              <span className="text-xs sm:text-sm font-extrabold text-[#064823] tracking-widest uppercase font-manrope">
+                100% FARM-FRESH CHICKEN
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold font-barlow-condensed uppercase text-[#064823] tracking-wide">
+              ALL CHICKEN CUTS ({filteredProducts.length} PRODUCTS)
+            </h2>
+            <p className="text-xs sm:text-sm font-medium text-slate-600 font-manrope">
+              Click on any cut to view full details, interactive 3D model, raw cut plate, retail pack &amp; curated recipes.
+            </p>
+          </div>
+
+          {/* Right: Search Input with increased text size */}
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <div className="relative w-full sm:w-80">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search cuts (e.g. Breast, Drumstick, Mutton, Biryani)..."
-                className="w-full pl-10 pr-10 py-2.5 sm:py-3 border border-slate-200 rounded-xl text-xs sm:text-sm outline-none transition-all placeholder:text-slate-400 focus:border-[#064823] focus:ring-1 focus:ring-[#064823]/20"
+                placeholder="Search cuts (e.g. Breast)..."
+                className="w-full pl-10 pr-9 py-2.5 bg-white border border-slate-200/90 rounded-xl text-sm sm:text-[15px] font-medium text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:border-[#064823] focus:ring-2 focus:ring-[#064823]/15 shadow-sm"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
                   aria-label="Clear Search"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
                 >
                   <X className="w-4 h-4" />
                 </button>
               )}
             </div>
 
-            {/* Pack vs Raw Platter View Mode Toggle */}
-            <div className="flex items-center gap-2 self-end sm:self-auto bg-[#F1F6EE] p-1 rounded-xl border border-[#D5E8CD]">
-              <span className="text-[11px] font-bold text-[#064823] pl-2.5 pr-1 hidden sm:inline">
-                Display:
-              </span>
-              <button
-                onClick={() => setViewMode('pack')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  viewMode === 'pack'
-                    ? 'bg-[#064823] text-white shadow-sm'
-                    : 'text-slate-600 hover:text-[#064823]'
-                }`}
-              >
-                Retail Pack
-              </button>
-              <button
-                onClick={() => setViewMode('raw')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  viewMode === 'raw'
-                    ? 'bg-[#064823] text-white shadow-sm'
-                    : 'text-slate-600 hover:text-[#064823]'
-                }`}
-              >
-                Fresh Cut Platter
-              </button>
-            </div>
-          </div>
-
-          {/* Bottom Row: Category Chips */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar pt-1 border-t border-slate-100">
-            {categoriesList.map((cat) => {
-              const active = selectedCategory === cat.key;
-              return (
-                <button
-                  key={cat.key}
-                  onClick={() => setSelectedCategory(cat.key)}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 ${
-                    active
-                      ? 'bg-[#064823] text-white shadow-md shadow-[#064823]/20 scale-100'
-                      : 'bg-slate-50 hover:bg-[#EEF6E8] text-slate-700 hover:text-[#064823] border border-slate-200/80'
-                  }`}
-                >
-                  <span>{cat.label}</span>
-                  <span
-                    className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${
-                      active ? 'bg-[#8DC541] text-[#064823]' : 'bg-slate-200 text-slate-600'
-                    }`}
-                  >
-                    {cat.count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. PRODUCT GRID SECTION */}
-      <section className="relative z-10 w-full max-w-[1400px] lg:max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
-        {/* Active filtering feedback indicator */}
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-xs sm:text-sm font-bold text-slate-600">
-            Showing <span className="text-[#064823] font-extrabold">{filteredProducts.length}</span> premium cuts
+            {/* Reset Button */}
             {searchQuery && (
-              <span> matching &ldquo;<span className="text-[#F7840F]">{searchQuery}</span>&rdquo;</span>
+              <button
+                onClick={() => setSearchQuery('')}
+                className="text-xs sm:text-sm font-bold text-[#d62828] hover:underline whitespace-nowrap px-1"
+              >
+                Reset
+              </button>
             )}
-          </p>
-          {(searchQuery || selectedCategory !== 'all') && (
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('all');
-              }}
-              className="text-xs font-bold text-[#D62828] hover:underline"
-            >
-              Reset Filters
-            </button>
-          )}
+          </div>
         </div>
 
+        {/* 3. PRODUCTS GRID */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map((product) => {
-              const displayImage =
-                viewMode === 'raw' && product.platterImg
-                  ? product.platterImg
-                  : product.pouchImg;
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 w-full">
+            {filteredProducts.map((product, idx) => {
+              const displayImage = product.platterImg;
 
               return (
                 <motion.div
                   key={product.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  className="group bg-white rounded-2xl border border-slate-150 shadow-[0_6px_25px_rgba(0,0,0,0.035)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col justify-between overflow-hidden hover:-translate-y-1"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.4, delay: idx * 0.05 }}
+                  whileHover={{
+                    y: -8,
+                    boxShadow: '0 20px 35px -5px rgba(0, 0, 0, 0.25)',
+                  }}
+                  onClick={() => handleProductClick(product.id)}
+                  className="w-full bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.14)] transition-all duration-300 group flex flex-col select-none cursor-pointer border border-slate-200/90 ring-1 ring-black/[0.04]"
                 >
-                  {/* Top Image Showcase Area */}
-                  <div className="relative w-full pt-[85%] bg-gradient-to-b from-[#F8FAF7] to-[#F1F6EE] overflow-hidden flex items-center justify-center p-4">
-                    {/* Badge top-left */}
-                    {product.badge && (
-                      <span className="absolute top-3 left-3 z-10 bg-[#064823] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
-                        {product.badge}
-                      </span>
-                    )}
-
-                    {/* Weight tag top-right */}
-                    <span className="absolute top-3 right-3 z-10 bg-white/90 backdrop-blur-sm border border-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded-md shadow-xs">
-                      {product.weight}
+                  {/* Compact 16:9.5 Image Header */}
+                  <div className="relative aspect-[16/9.5] w-full overflow-hidden bg-gradient-to-b from-[#F8FAF7] to-[#F1F6EE] flex items-center justify-center p-3">
+                    {/* Top-Left Category Badge Pill */}
+                    <span className="absolute top-2.5 left-2.5 z-10 bg-[#d62828] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider shadow-sm pointer-events-none">
+                      {product.badge}
                     </span>
 
                     {/* Product Image */}
-                    <div className="absolute inset-4 flex items-center justify-center">
+                    <div className="relative w-full h-full flex items-center justify-center">
                       <Image
                         src={displayImage}
-                        alt={product.name}
+                        alt={product.title}
                         fill
-                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out"
+                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out drop-shadow-md"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       />
                     </div>
-
-                    {/* Quick View Floating Button on Hover */}
-                    <button
-                      onClick={() => setActiveModalProduct(product)}
-                      className="absolute bottom-3 right-3 z-10 opacity-0 group-hover:opacity-100 bg-[#064823] hover:bg-[#0a5e30] text-white p-2.5 rounded-full shadow-lg transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
-                      title="Quick View Details"
-                    >
-                      <Eye className="w-4 h-4" />
-                    </button>
                   </div>
 
-                  {/* Body Content */}
-                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <div className="flex items-center justify-between text-[11px] font-bold text-[#8DC541] uppercase tracking-wider mb-1">
-                        <span>{product.categoryLabel}</span>
-                        <span className="text-slate-400 font-medium">100% Halal</span>
-                      </div>
-                      <h3 className="text-base sm:text-lg font-extrabold text-[#064823] leading-snug group-hover:text-[#F7840F] transition-colors">
-                        {product.name}
+                  {/* Distinct Elevated White Card Body (Exact Match to Recipes Card) */}
+                  <div className="p-3.5 pt-1.5 sm:p-4 sm:pt-2 flex-1 flex flex-col justify-between space-y-1.5 font-inter bg-white">
+                    <div className="space-y-0">
+                      {/* Product Title */}
+                      <h3
+                        className="text-md sm:text-base font-bold text-black tracking-wide uppercase leading-normal group-hover:text-[#064823] transition-colors line-clamp-2 h-[2.5rem] flex items-center"
+                        title={product.title}
+                      >
+                        {product.title}
                       </h3>
-                      <p className="text-xs text-slate-600 font-medium line-clamp-2 mt-1 leading-relaxed">
-                        {product.desc}
-                      </p>
+
+                      {/* Spec Row (Protein, Calories, Cold Chain) matching Recipes Spec Row */}
+                      <div className="flex items-center justify-between gap-1 text-[13.5px] font-semibold text-slate-900 font-manrope pt-2 border-t border-slate-200">
+                        {/* Protein */}
+                        <div className="flex items-center gap-1.5">
+                          <Sparkles className="w-4 h-4 text-[#064823] opacity-75 shrink-0" />
+                          <span>{product.nutrition.protein}</span>
+                        </div>
+
+                        {/* Calories */}
+                        <div className="flex items-center gap-1.5">
+                          <Flame className="w-4 h-4 text-[#F7840F] opacity-75 shrink-0" />
+                          <span>{product.nutrition.calories}</span>
+                        </div>
+
+                        {/* Cold Chain */}
+                        <div className="flex items-center gap-1.5">
+                          <ThermometerSnowflake className="w-4 h-4 text-[#064823] opacity-75 shrink-0" />
+                          <span>0°C-4°C</span>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Nutrition Mini Matrix */}
-                    <div className="grid grid-cols-2 gap-2 bg-[#F8FAF7] border border-slate-100 rounded-xl p-2.5 text-[11px]">
-                      <div>
-                        <span className="text-slate-400 block text-[9.5px]">PROTEIN</span>
-                        <span className="font-bold text-[#064823]">{product.nutrition.protein}</span>
-                      </div>
-                      <div>
-                        <span className="text-slate-400 block text-[9.5px]">ENERGY</span>
-                        <span className="font-bold text-[#064823]">{product.nutrition.calories}</span>
-                      </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="pt-1 flex items-center gap-2">
-                      <button
-                        onClick={() => setActiveModalProduct(product)}
-                        className="flex-1 bg-[#EEF6E8] hover:bg-[#064823] text-[#064823] hover:text-white font-bold text-xs py-2.5 px-3 rounded-xl transition-all duration-300 text-center"
-                      >
-                        Cut Details
-                      </button>
-                      <Link
-                        href={`/contact?product=${encodeURIComponent(product.name)}`}
-                        className="bg-[#064823] hover:bg-[#0a5e30] text-white p-2.5 rounded-xl transition-all duration-300 shadow-md active:scale-95 flex items-center justify-center"
-                        title="Enquire / Order this cut"
-                      >
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </div>
+                    {/* Action Button matching Recipes Button */}
+                    <button
+                      type="button"
+                      className="w-full bg-[#F7840F] group-hover:bg-[#e0730b] text-white text-[12.5px] font-bold py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 uppercase tracking-wider transition-colors cursor-pointer font-inter shadow-sm group-hover:shadow !mt-3"
+                    >
+                      <span>VIEW PRODUCT &amp; 3D &rarr;</span>
+                    </button>
                   </div>
                 </motion.div>
               );
             })}
           </div>
         ) : (
-          <div className="bg-white rounded-3xl p-12 text-center border border-slate-200 max-w-lg mx-auto shadow-sm space-y-4">
+          <div className="relative z-10 bg-white rounded-3xl p-12 text-center border border-slate-200 max-w-lg mx-auto shadow-sm space-y-4 my-8">
             <div className="w-16 h-16 rounded-full bg-[#EEF6E8] text-[#064823] flex items-center justify-center mx-auto">
               <Search className="w-8 h-8" />
             </div>
             <h3 className="text-xl font-extrabold text-[#064823]">No matching cuts found</h3>
             <p className="text-sm text-slate-500 max-w-sm mx-auto">
-              We couldn&apos;t find any cuts matching &ldquo;{searchQuery}&rdquo;. Try another cut name or reset your category filter.
+              We couldn&apos;t find any cuts matching &ldquo;{searchQuery}&rdquo;. Try another search term or show all 10 chicken cuts.
             </p>
             <button
               onClick={() => {
                 setSearchQuery('');
-                setSelectedCategory('all');
+                setActiveFilter('all');
               }}
               className="bg-[#064823] hover:bg-[#0a5e30] text-white text-xs sm:text-sm font-bold px-6 py-2.5 rounded-xl transition-all uppercase"
             >
-              Show All Cuts
+              Show All 10 Cuts
             </button>
           </div>
         )}
-      </section>
 
-      {/* 4. QUALITY PILLARS / WHY MEATIN MEAT */}
-      <section className="relative z-10 w-full max-w-[1400px] lg:max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-8">
-        <div className="bg-gradient-to-r from-[#064823] via-[#09592c] to-[#064823] rounded-3xl p-8 sm:p-12 text-white shadow-xl overflow-hidden relative">
+        {/* 4. QUALITY PILLARS / WHY MEATIN ASSURANCE BANNER */}
+        <div className="relative z-10 mt-12 bg-gradient-to-r from-[#064823] via-[#09592c] to-[#064823] rounded-3xl p-6 sm:p-10 text-white shadow-xl overflow-hidden">
           <div
             className="absolute inset-0 pointer-events-none bg-repeat opacity-25"
             style={{
@@ -1700,215 +1568,8 @@ function ProductCatalogView() {
               backgroundSize: '650px',
             }}
           />
-
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="max-w-xl space-y-3 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#8DC541] text-xs font-bold uppercase tracking-wider">
-                <ShieldCheck className="w-4 h-4" /> MEATiN Gold Standard
-              </div>
-              <h2 className="text-2xl sm:text-4xl font-extrabold font-bree uppercase tracking-normal">
-                Why Chefs &amp; Families Choose MEATiN
-              </h2>
-              <p className="text-slate-200 text-xs sm:text-sm leading-relaxed">
-                From biosafety-checked farms to sterile hygienic handling, every cut is chilled at continuous 0°C–4°C temperature. No preservatives, no frozen shelf aging, pure natural taste.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 w-full lg:w-auto shrink-0">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 text-center sm:text-left">
-                <span className="text-2xl sm:text-3xl font-extrabold text-[#8DC541] font-bree block">0°C-4°C</span>
-                <span className="text-xs font-bold text-white block mt-0.5">Strict Cold Chain</span>
-                <span className="text-[10px] text-slate-300">Continuous temp monitoring</span>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 text-center sm:text-left">
-                <span className="text-2xl sm:text-3xl font-extrabold text-[#F7840F] font-bree block">100%</span>
-                <span className="text-xs font-bold text-white block mt-0.5">Halal Certified</span>
-                <span className="text-[10px] text-slate-300">Ethical ritual processing</span>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 text-center sm:text-left">
-                <span className="text-2xl sm:text-3xl font-extrabold text-[#8DC541] font-bree block">0%</span>
-                <span className="text-xs font-bold text-white block mt-0.5">Antibiotic Residue</span>
-                <span className="text-[10px] text-slate-300">Clean natural feeds</span>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 text-center sm:text-left">
-                <span className="text-2xl sm:text-3xl font-extrabold text-[#F7840F] font-bree block">Daily</span>
-                <span className="text-xs font-bold text-white block mt-0.5">Fresh Farm Dispatch</span>
-                <span className="text-[10px] text-slate-300">Direct to outlets &amp; kitchen</span>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
-
-      {/* 5. B2B & RETAIL BULK ENQUIRY CTA SECTION */}
-      <section className="relative z-10 w-full max-w-[1400px] lg:max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8 pb-14">
-        <div className="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-10 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 text-center md:text-left">
-            <h3 className="text-xl sm:text-2xl font-extrabold text-[#064823] font-bree uppercase">
-              Partner with MEATiN for Bulk &amp; Commercial Supplies
-            </h3>
-            <p className="text-slate-600 text-xs sm:text-sm max-w-xl">
-              Are you a restaurant, supermarket, caterer, or meat distributor? We provide steady, high-volume daily shipments of precision-cut fresh meats.
-            </p>
-          </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <Link
-              href="/contact"
-              className="bg-[#064823] hover:bg-[#0a5e30] text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl uppercase tracking-wider transition-all shadow-md active:scale-95 flex items-center gap-2"
-            >
-              <span>Submit Commercial Enquiry</span>
-              <ChevronRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/know-your-meat"
-              className="bg-[#EEF6E8] hover:bg-[#ddead0] text-[#064823] font-bold text-xs sm:text-sm px-5 py-3 rounded-xl uppercase tracking-wider transition-all"
-            >
-              Explore Cuts 3D
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. INTERACTIVE PRODUCT DETAIL MODAL */}
-      <AnimatePresence>
-        {activeModalProduct && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActiveModalProduct(null)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm"
-            />
-
-            {/* Modal Dialog */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto z-10 border border-slate-100"
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => setActiveModalProduct(null)}
-                aria-label="Close Product Details"
-                className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Modal Top Banner */}
-              <div className="relative w-full pt-[60%] bg-gradient-to-b from-[#F8FAF7] to-[#F1F6EE] flex items-center justify-center p-6">
-                <span className="absolute top-4 left-4 bg-[#064823] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  {activeModalProduct.categoryLabel}
-                </span>
-
-                <div className="absolute inset-6 flex items-center justify-center">
-                  <Image
-                    src={viewMode === 'raw' && activeModalProduct.platterImg ? activeModalProduct.platterImg : activeModalProduct.pouchImg}
-                    alt={activeModalProduct.name}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* Modal Body */}
-              <div className="p-6 sm:p-8 space-y-6">
-                {/* Title & Detailed Description */}
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#064823] font-bree">
-                    {activeModalProduct.name}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed mt-2">
-                    {activeModalProduct.detailedDesc}
-                  </p>
-                </div>
-
-                {/* Nutritional Information Breakdown */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#064823]">
-                    <Layers className="w-4 h-4 text-[#8DC541]" />
-                    <span>NUTRITIONAL INFORMATION (PER 100G)</span>
-                  </div>
-                  <div className="grid grid-cols-4 gap-2 bg-[#F8FAF7] border border-slate-200/80 rounded-2xl p-3 text-center">
-                    <div>
-                      <span className="text-[9.5px] text-slate-400 block uppercase font-bold">Protein</span>
-                      <span className="text-xs sm:text-sm font-extrabold text-[#064823]">
-                        {activeModalProduct.nutrition.protein}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-[9.5px] text-slate-400 block uppercase font-bold">Calories</span>
-                      <span className="text-xs sm:text-sm font-extrabold text-[#064823]">
-                        {activeModalProduct.nutrition.calories}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-[9.5px] text-slate-400 block uppercase font-bold">Fats</span>
-                      <span className="text-xs sm:text-sm font-extrabold text-[#064823]">
-                        {activeModalProduct.nutrition.fat}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-[9.5px] text-slate-400 block uppercase font-bold">Carbs</span>
-                      <span className="text-xs sm:text-sm font-extrabold text-[#064823]">
-                        {activeModalProduct.nutrition.carbs}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Best Cooking Methods */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#064823]">
-                    <Utensils className="w-4 h-4 text-[#F7840F]" />
-                    <span>RECOMMENDED COOKING STYLES</span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {activeModalProduct.cookingMethods.map((method, idx) => (
-                      <span
-                        key={idx}
-                        className="bg-[#EEF6E8] text-[#064823] font-bold text-xs px-3 py-1 rounded-lg border border-[#D5E8CD]"
-                      >
-                        {method}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Ideal Dishes & Storage */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5">
-                  <div>
-                    <span className="font-bold text-[#064823] block mb-0.5">Best For:</span>
-                    <span className="text-slate-600">{activeModalProduct.idealFor}</span>
-                  </div>
-                  <div>
-                    <span className="font-bold text-[#064823] block mb-0.5">Cold Storage:</span>
-                    <span className="text-slate-600">{activeModalProduct.storage}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Modal Footer */}
-              <div className="p-4 sm:p-6 border-t border-slate-150 bg-white flex items-center justify-between gap-4">
-                <div>
-                  <span className="text-[10px] text-slate-400 uppercase block font-bold">Pack Standard</span>
-                  <span className="text-xs sm:text-sm font-bold text-[#064823]">{activeModalProduct.weight} vacuum pack</span>
-                </div>
-                <Link
-                  href={`/contact?product=${encodeURIComponent(activeModalProduct.name)}`}
-                  className="bg-[#064823] hover:bg-[#0a5e30] text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl uppercase tracking-wider transition-all duration-300 shadow-md active:scale-95 flex items-center gap-2"
-                >
-                  <span>Enquire / Order</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+      </main>
     </div>
   );
 }

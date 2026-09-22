@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 
 export interface EcosystemPillar {
@@ -87,13 +87,22 @@ export const ECOSYSTEM_PILLARS: EcosystemPillar[] = [
 ];
 
 export default function EcosystemCircle() {
-  const [activeIndex, setActiveIndex] = useState<number>(3); // Default to 04 (Halal)
+  const [activeIndex, setActiveIndex] = useState<number>(0); // Starts from 01
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.2, once: false });
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-advance every 5.5s unless user is hovering/interacting with the list
+  // Whenever this section goes off viewport and comes back into viewport, reset to 01
   useEffect(() => {
-    if (isHovered) {
+    if (isInView) {
+      setActiveIndex(0);
+    }
+  }, [isInView]);
+
+  // Auto-advance every 5.5s unless user is hovering/interacting with the list or section is out of view
+  useEffect(() => {
+    if (isHovered || !isInView) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
@@ -105,10 +114,10 @@ export default function EcosystemCircle() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isHovered]);
+  }, [isHovered, isInView]);
 
   return (
-    <section className="relative w-full bg-[#FBFBF8] py-12 sm:py-16 lg:py-14 overflow-hidden select-none border-y border-[#EAE8E0]">
+    <section ref={sectionRef} className="relative w-full bg-[#FBFBF8] py-12 sm:py-16 lg:py-14 overflow-hidden select-none border-y border-[#EAE8E0]">
       {/* MAIN 2-COLUMN SECTION: Left Docked Visual (stretching to full height) + Right Content */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-stretch pr-5 sm:pr-8 lg:pr-12 xl:pr-16">
         

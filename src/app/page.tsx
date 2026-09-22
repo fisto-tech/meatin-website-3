@@ -183,7 +183,7 @@ export default function HomePage() {
   const rafIdRef = React.useRef<number | null>(null);
   const imagesMapRef = React.useRef<Map<number, HTMLImageElement>>(new Map());
 
-  const TOTAL_HERO_FRAMES = 445;
+  const TOTAL_HERO_FRAMES = 563;
 
   // Draw the best available frame for the given target
   const drawCanvas = React.useCallback((targetFrame: number) => {
@@ -390,8 +390,8 @@ export default function HomePage() {
       };
     }
 
-    // 2. Tier 1: Preload milestones every 10 frames (10, 20, 30... 440, 445)
-    // Only ~45 frames total, loads in ~1.5s and provides seamless scrub across the full video
+    // 2. Tier 1: Preload milestones every 10 frames (10, 20, 30... 560, 563)
+    // Only ~57 frames total, loads quickly and provides seamless scrub across the full video
     const milestones: number[] = [];
     for (let i = 10; i <= totalFrames; i += 10) {
       milestones.push(i);
