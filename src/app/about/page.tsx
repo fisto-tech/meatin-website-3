@@ -413,7 +413,7 @@ export default function AboutUsPage() {
               </div>
 
               {/* Stamp Badges Row */}
-              <div className="flex flex-wrap items-center gap-6 xl:gap-10 2xl:gap-20 pt-2">
+              <div className="flex flex-wrap items-center gap-6 md:gap-[5%] xl:gap-[5%] 2xl:gap-[10%] pt-2">
                 <div className="relative w-44 sm:w-56 lg:w-52 xl:w-64 2xl:w-72 h-10 sm:h-12 lg:h-12 xl:h-14 2xl:h-16">
                   <Image
                     src="/AboutUs/quality-is-our-promise.webp"
@@ -450,7 +450,7 @@ export default function AboutUsPage() {
                       className="object-contain"
                     />
                   </div>
-                  <span className="text-[10px] sm:text-[11px] lg:text-[10px] xl:text-xs 2xl:text-sm !mt-3 font-black text-slate-800 tracking-wider uppercase leading-tight font-manrope">
+                  <span className="text-[10px] sm:text-[11px] lg:text-[10px] xl:text-xs !mt-3 font-black text-slate-800 tracking-wider uppercase leading-tight font-manrope">
                     SCIENTIFIC<br />PROCESSING
                   </span>
                 </motion.div>
@@ -465,7 +465,7 @@ export default function AboutUsPage() {
                       className="object-contain"
                     />
                   </div>
-                  <span className="text-[10px] sm:text-[11px] lg:text-[10px] xl:text-xs 2xl:text-sm !mt-3 font-black text-slate-800 tracking-wider uppercase leading-tight font-manrope">
+                  <span className="text-[10px] sm:text-[11px] lg:text-[10px] xl:text-xs !mt-3 font-black text-slate-800 tracking-wider uppercase leading-tight font-manrope">
                     HYGIENIC<br />PRODUCTION
                   </span>
                 </motion.div>
@@ -480,7 +480,7 @@ export default function AboutUsPage() {
                       className="object-contain"
                     />
                   </div>
-                  <span className="text-[10px] sm:text-[11px] lg:text-[10px] xl:text-xs 2xl:text-sm !mt-3 font-black text-slate-800 tracking-wider uppercase leading-tight font-manrope">
+                  <span className="text-[10px] sm:text-[11px] lg:text-[10px] xl:text-xs !mt-3 font-black text-slate-800 tracking-wider uppercase leading-tight font-manrope">
                     HALAL<br />CERTIFIED
                   </span>
                 </motion.div>
@@ -495,7 +495,7 @@ export default function AboutUsPage() {
                       className="object-contain"
                     />
                   </div>
-                  <span className="text-[10px] sm:text-[11px] lg:text-[10px] xl:text-xs 2xl:text-sm !mt-3 font-black text-slate-800 tracking-wider uppercase leading-tight font-manrope">
+                  <span className="text-[10px] sm:text-[11px] lg:text-[10px] xl:text-xs !mt-3 font-black text-slate-800 tracking-wider uppercase leading-tight font-manrope">
                     EXPORT<br />QUALITY
                   </span>
                 </motion.div>
