@@ -1394,7 +1394,7 @@ function ProductCatalogView() {
           >
             <div className="relative w-[80px] sm:w-[95px] md:w-[108px] lg:w-[118px] xl:w-[130px] h-[145px] sm:h-[170px] md:h-[190px] lg:h-[205px] xl:h-[215px]">
               <Image
-                src="/TrustedQualityBanner/character-popup.webp"
+                src="/Product/chicken-character.webp"
                 alt="MEATiN Chicken Mascot Thumbs Up"
                 fill
                 priority
