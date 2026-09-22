@@ -76,6 +76,18 @@ export default function TrustedQualityBanner({ className }: { className?: string
 
   return (
     <div className={`w-full relative z-10 ${className ?? 'pt-6 sm:pt-8 lg:pt-10 pb-6 sm:pb-8'}`} style={{ perspective: 1200 }}>
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+              <Image
+                src="/Home/section-bg.webp"
+                alt="Section background"
+                fill
+                className="object-cover object-center pointer-events-none"
+                style={{
+                  filter: "brightness(0)",
+                  opacity: 0.7,
+                }}
+              />
+            </div>
       <div className="w-full max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           ref={cardRef}

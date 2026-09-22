@@ -1260,7 +1260,7 @@ function ProductCatalogView() {
         style={{
           background: "radial-gradient(circle at center, #488E40 0%, #064823 100%)",
         }}
-        className="relative w-full text-white pt-20 sm:pt-24 md:pt-28 pb-4 sm:pb-6 px-4 sm:px-8 lg:px-12 rounded-b-[30px] md:rounded-b-[40px] overflow-hidden select-none shadow-xl min-h-[290px] sm:min-h-[320px] md:min-h-[340px] flex flex-col justify-center"
+        className="relative w-full text-white pt-20 sm:pt-24 md:pt-28 pb-5 sm:pb-7 md:pb-8 px-4 sm:px-8 lg:px-12 rounded-b-[30px] md:rounded-b-[40px] overflow-hidden select-none shadow-xl min-h-[310px] sm:min-h-[330px] md:min-h-[350px] flex flex-col justify-center"
       >
         {/* Background Tiled Doodle with Blend (Matching Recipes Page) */}
         <div
@@ -1271,120 +1271,134 @@ function ProductCatalogView() {
           }}
         />
 
-        {/* Hero Content Row */}
-        <div className="relative z-20 w-full flex items-center justify-between gap-4 md:gap-6 my-auto">
-          {/* Left: Titles & Tagline */}
-          <div className="space-y-2 sm:space-y-3 text-left max-w-sm sm:max-w-md lg:max-w-lg shrink-0">
+        {/* Hero Content Row - Left spans top-to-bottom, right elements align to bottom within height */}
+        <div className="relative z-20 w-full max-w-[1550px] mx-auto flex items-end justify-between gap-4 sm:gap-6 lg:gap-8 my-auto">
+          {/* 1. Left: Titles, Tagline & Quality Feature Chips */}
+          <div className="space-y-3 sm:space-y-3.5 text-left max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl shrink-0">
             <motion.div
-              initial={{ opacity: 0, x: -35 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
               className="flex items-center gap-2.5"
             >
-              <span className="w-7 h-[2.5px] bg-[#8DC541]" />
+              <span className="w-8 h-[2.5px] bg-[#8DC541]" />
               <span className="text-xs sm:text-sm font-extrabold text-[#8DC541] tracking-widest uppercase font-manrope">
                 PRODUCTS
               </span>
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-[46px] xl:text-[52px] font-bold font-anek tracking-wide uppercase leading-none text-white whitespace-nowrap"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[48px] xl:text-[54px] font-bold font-anek tracking-wide uppercase leading-none text-white whitespace-nowrap"
             >
               CHICKEN <span className="text-[#8DC541]">PRODUCTS</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.25 }}
-              className="text-white/85 text-xs sm:text-xs md:text-sm font-medium leading-relaxed font-manrope max-w-xs sm:max-w-sm"
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="text-white/90 text-xs sm:text-sm md:text-base font-medium leading-relaxed font-manrope max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
             >
               Explore 100% Halal farm-fresh chicken cuts, scientifically vacuum-chilled and butcher-trimmed for pure natural taste.
             </motion.p>
+
+            {/* Quality & Freshness Feature Chips */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="flex flex-wrap items-center gap-2 sm:gap-2.5 pt-1 sm:pt-1.5"
+            >
+              <span className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs sm:text-xs md:text-sm font-semibold text-white/95 shadow-sm">
+                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8DC541]" />
+                100% Halal Certified
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs sm:text-xs md:text-sm font-semibold text-white/95 shadow-sm">
+                <ThermometerSnowflake className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8DC541]" />
+                0°C–4°C Chilled Fresh
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs sm:text-xs md:text-sm font-semibold text-white/95 shadow-sm">
+                <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8DC541]" />
+                10 Butcher Cuts
+              </span>
+            </motion.div>
           </div>
 
-          {/* Center: Dynamic Retail Packed Packs Showcase */}
+          {/* 2. Fresh Raw Chicken Cuts Trio Group (Breast, Drumsticks, Wings) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.25, ease: 'easeOut' }}
-            className="hidden md:flex flex-1 items-center justify-center relative min-w-0 max-w-xl mx-auto h-[160px] lg:h-[190px]"
+            transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+            className="hidden lg:flex items-end justify-center shrink-0"
           >
-            <div className="relative w-full h-full flex items-center justify-center">
-              {/* Backing glow effect */}
-              <div className="absolute inset-0 bg-[#8DC541]/15 rounded-full blur-2xl pointer-events-none" />
-
-              {/* Pack 1: Thigh (Tilted Left) */}
-              <motion.div
-                whileHover={{ y: -6, scale: 1.05 }}
-                className="relative w-[120px] lg:w-[150px] xl:w-[165px] h-[130px] lg:h-[155px] xl:h-[170px] -mr-8 lg:-mr-12 -rotate-12 transition-transform duration-300 drop-shadow-xl z-10"
-              >
+            <div className="flex items-end gap-2 xl:gap-3">
+              {/* Platter 1: Fresh Breast */}
+              <div className="relative w-[95px] xl:w-[115px] h-[85px] xl:h-[105px]">
                 <Image
-                  src="/Product/Chicken/packed-meat/thigh.webp"
-                  alt="Packed Chicken Thigh"
+                  src="/Product/Chicken/Platters/breast.webp"
+                  alt="Fresh Chicken Breast Platter"
                   fill
-                  className="object-contain"
+                  className="object-contain object-bottom"
                 />
-              </motion.div>
+              </div>
 
-              {/* Pack 2: Breast (Center Elevated Standout) */}
-              <motion.div
-                whileHover={{ y: -8, scale: 1.05 }}
-                className="relative w-[135px] lg:w-[170px] xl:w-[185px] h-[145px] lg:h-[175px] xl:h-[190px] -rotate-2 transition-transform duration-300 drop-shadow-2xl z-20"
-              >
+              {/* Platter 2: Juicy Drumsticks */}
+              <div className="relative w-[110px] xl:w-[130px] h-[100px] xl:h-[120px]">
                 <Image
-                  src="/Product/Chicken/packed-meat/breast.webp"
-                  alt="Packed Chicken Breast"
+                  src="/Product/Chicken/Platters/drumstick.webp"
+                  alt="Fresh Juicy Drumsticks Platter"
                   fill
-                  className="object-contain"
+                  className="object-contain object-bottom"
                 />
-              </motion.div>
+              </div>
 
-              {/* Pack 3: Drumstick (Tilted Right) */}
-              <motion.div
-                whileHover={{ y: -6, scale: 1.05 }}
-                className="relative w-[120px] lg:w-[150px] xl:w-[165px] h-[130px] lg:h-[155px] xl:h-[170px] -ml-8 lg:-ml-12 rotate-12 transition-transform duration-300 drop-shadow-xl z-10"
-              >
+              {/* Platter 3: Crispy Wings */}
+              <div className="relative w-[95px] xl:w-[115px] h-[85px] xl:h-[105px]">
                 <Image
-                  src="/Product/Chicken/packed-meat/drumstick.webp"
-                  alt="Packed Chicken Drumstick"
+                  src="/Product/Chicken/Platters/wings.webp"
+                  alt="Fresh Chicken Wings Platter"
                   fill
-                  className="object-contain"
+                  className="object-contain object-bottom"
                 />
-              </motion.div>
-
-              {/* Pack 4: Wings (Offset outer right) */}
-              <motion.div
-                whileHover={{ y: -6, scale: 1.05 }}
-                className="hidden xl:block relative w-[110px] xl:w-[140px] h-[120px] xl:h-[150px] -ml-8 rotate-18 transition-transform duration-300 drop-shadow-lg z-0 opacity-95"
-              >
-                <Image
-                  src="/Product/Chicken/packed-meat/wings.webp"
-                  alt="Packed Chicken Wings"
-                  fill
-                  className="object-contain"
-                />
-              </motion.div>
+              </div>
             </div>
           </motion.div>
 
-          {/* Right Header Visual: Chicken Chef Mascot */}
+          {/* 3. Authentic Packed Chicken Products Family */}
           <motion.div
-            initial={{ opacity: 0, x: 30, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-            className="hidden sm:flex shrink-0 w-[95px] sm:w-[115px] md:w-[130px] lg:w-[150px] xl:w-[170px] relative items-end justify-center pointer-events-none"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.25, ease: 'easeOut' }}
+            className="hidden sm:flex items-end justify-center shrink-0"
           >
-            <div className="relative w-full h-[160px] sm:h-[190px] md:h-[220px] lg:h-[240px] xl:h-[260px]">
+            <div className="relative w-[230px] sm:w-[270px] md:w-[310px] lg:w-[350px] xl:w-[390px] h-[145px] sm:h-[165px] md:h-[185px] lg:h-[200px] xl:h-[215px]">
               <Image
-                src="/Recipies/header/chicken-character-image.webp"
-                alt="MEATiN Chicken Chef Mascot"
+                src="/AboutUs/countries-serve/packed-product.webp"
+                alt="MEATiN Packed Chicken Products Family"
                 fill
                 priority
-                className="object-contain object-bottom drop-shadow-2xl"
+                className="object-contain object-bottom"
+              />
+            </div>
+          </motion.div>
+
+          {/* 4. MEATiN Chicken Mascot Thumbs Up */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+            className="flex items-end justify-center shrink-0"
+          >
+            <div className="relative w-[80px] sm:w-[95px] md:w-[108px] lg:w-[118px] xl:w-[130px] h-[145px] sm:h-[170px] md:h-[190px] lg:h-[205px] xl:h-[215px]">
+              <Image
+                src="/TrustedQualityBanner/character-popup.webp"
+                alt="MEATiN Chicken Mascot Thumbs Up"
+                fill
+                priority
+                className="object-contain object-bottom"
               />
             </div>
           </motion.div>
@@ -1403,7 +1417,7 @@ function ProductCatalogView() {
         />
 
         {/* Section Label Header + Search Bar (Clean and Framed like Recipes) */}
-        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 sm:pb-8 w-full border-b border-slate-200/80">
+        <div className="relative z-10 max-w-[1550px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 sm:pb-8 w-full border-b border-slate-200/80">
           {/* Left: Section Title & Subtitle */}
           <div className="space-y-1">
             <div className="flex items-center gap-2">
@@ -1454,89 +1468,91 @@ function ProductCatalogView() {
           </div>
         </div>
 
-        {/* 3. PRODUCTS GRID */}
+        {/* 3. PRODUCTS GRID WITH LAST ROW CENTERED */}
         {filteredProducts.length > 0 ? (
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 w-full">
-            {filteredProducts.map((product, idx) => {
-              const displayImage = product.platterImg;
+          <div id="products-grid" className="relative z-10 max-w-[1550px] mx-auto w-full pt-6 sm:pt-8">
+            <div className="flex flex-wrap justify-center gap-6 sm:gap-8 w-full">
+              {filteredProducts.map((product, idx) => {
+                const displayImage = product.platterImg;
 
-              return (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
-                  transition={{ duration: 0.4, delay: idx * 0.05 }}
-                  whileHover={{
-                    y: -8,
-                    boxShadow: '0 20px 35px -5px rgba(0, 0, 0, 0.25)',
-                  }}
-                  onClick={() => handleProductClick(product.id)}
-                  className="w-full bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.14)] transition-all duration-300 group flex flex-col select-none cursor-pointer border border-slate-200/90 ring-1 ring-black/[0.04]"
-                >
-                  {/* Compact 16:9.5 Image Header */}
-                  <div className="relative aspect-[16/9.5] w-full overflow-hidden bg-gradient-to-b from-[#F8FAF7] to-[#F1F6EE] flex items-center justify-center p-3">
-                    {/* Top-Left Category Badge Pill */}
-                    <span className="absolute top-2.5 left-2.5 z-10 bg-[#d62828] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider shadow-sm pointer-events-none">
-                      {product.badge}
-                    </span>
+                return (
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.4, delay: idx * 0.05 }}
+                    whileHover={{
+                      y: -8,
+                      boxShadow: '0 20px 35px -5px rgba(0, 0, 0, 0.25)',
+                    }}
+                    onClick={() => handleProductClick(product.id)}
+                    className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] xl:w-[calc(25%-1.5rem)] max-w-[380px] bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.14)] transition-all duration-300 group flex flex-col select-none cursor-pointer border border-slate-200/90 ring-1 ring-black/[0.04]"
+                  >
+                    {/* Compact 16:9.5 Image Header */}
+                    <div className="relative aspect-[16/9.5] w-full overflow-hidden bg-gradient-to-b from-[#F8FAF7] to-[#F1F6EE] flex items-center justify-center p-3">
+                      {/* Top-Left Category Badge Pill */}
+                      <span className="absolute top-2.5 left-2.5 z-10 bg-[#d62828] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider shadow-sm pointer-events-none">
+                        {product.badge}
+                      </span>
 
-                    {/* Product Image */}
-                    <div className="relative w-full h-full flex items-center justify-center">
-                      <Image
-                        src={displayImage}
-                        alt={product.title}
-                        fill
-                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out drop-shadow-md"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Distinct Elevated White Card Body (Exact Match to Recipes Card) */}
-                  <div className="p-3.5 pt-1.5 sm:p-4 sm:pt-2 flex-1 flex flex-col justify-between space-y-1.5 font-inter bg-white">
-                    <div className="space-y-0">
-                      {/* Product Title */}
-                      <h3
-                        className="text-md sm:text-base font-bold text-black tracking-wide uppercase leading-normal group-hover:text-[#064823] transition-colors line-clamp-2 h-[2.5rem] flex items-center"
-                        title={product.title}
-                      >
-                        {product.title}
-                      </h3>
-
-                      {/* Spec Row (Protein, Calories, Cold Chain) matching Recipes Spec Row */}
-                      <div className="flex items-center justify-between gap-1 text-[13.5px] font-semibold text-slate-900 font-manrope pt-2 border-t border-slate-200">
-                        {/* Protein */}
-                        <div className="flex items-center gap-1.5">
-                          <Sparkles className="w-4 h-4 text-[#064823] opacity-75 shrink-0" />
-                          <span>{product.nutrition.protein}</span>
-                        </div>
-
-                        {/* Calories */}
-                        <div className="flex items-center gap-1.5">
-                          <Flame className="w-4 h-4 text-[#F7840F] opacity-75 shrink-0" />
-                          <span>{product.nutrition.calories}</span>
-                        </div>
-
-                        {/* Cold Chain */}
-                        <div className="flex items-center gap-1.5">
-                          <ThermometerSnowflake className="w-4 h-4 text-[#064823] opacity-75 shrink-0" />
-                          <span>0°C-4°C</span>
-                        </div>
+                      {/* Product Image */}
+                      <div className="relative w-full h-full flex items-center justify-center">
+                        <Image
+                          src={displayImage}
+                          alt={product.title}
+                          fill
+                          className="object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out drop-shadow-md"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        />
                       </div>
                     </div>
 
-                    {/* Action Button matching Recipes Button */}
-                    <button
-                      type="button"
-                      className="w-full bg-[#F7840F] group-hover:bg-[#e0730b] text-white text-[12.5px] font-bold py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 uppercase tracking-wider transition-colors cursor-pointer font-inter shadow-sm group-hover:shadow !mt-3"
-                    >
-                      <span>VIEW PRODUCT &amp; 3D &rarr;</span>
-                    </button>
-                  </div>
-                </motion.div>
-              );
-            })}
+                    {/* Distinct Elevated White Card Body (Exact Match to Recipes Card) */}
+                    <div className="p-3.5 pt-1.5 sm:p-4 sm:pt-2 flex-1 flex flex-col justify-between space-y-1.5 font-inter bg-white">
+                      <div className="space-y-0">
+                        {/* Product Title */}
+                        <h3
+                          className="text-md sm:text-base font-bold text-black tracking-wide uppercase leading-normal group-hover:text-[#064823] transition-colors line-clamp-2 h-[2.5rem] flex items-center"
+                          title={product.title}
+                        >
+                          {product.title}
+                        </h3>
+
+                        {/* Spec Row (Protein, Calories, Cold Chain) matching Recipes Spec Row */}
+                        <div className="flex items-center justify-between gap-1 text-[13.5px] font-semibold text-slate-900 font-manrope pt-2 border-t border-slate-200">
+                          {/* Protein */}
+                          <div className="flex items-center gap-1.5">
+                            <Sparkles className="w-4 h-4 text-[#064823] opacity-75 shrink-0" />
+                            <span>{product.nutrition.protein}</span>
+                          </div>
+
+                          {/* Calories */}
+                          <div className="flex items-center gap-1.5">
+                            <Flame className="w-4 h-4 text-[#F7840F] opacity-75 shrink-0" />
+                            <span>{product.nutrition.calories}</span>
+                          </div>
+
+                          {/* Cold Chain */}
+                          <div className="flex items-center gap-1.5">
+                            <ThermometerSnowflake className="w-4 h-4 text-[#064823] opacity-75 shrink-0" />
+                            <span>0°C-4°C</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Action Button matching Recipes Button */}
+                      <button
+                        type="button"
+                        className="w-full bg-[#F7840F] group-hover:bg-[#e0730b] text-white text-[12.5px] font-bold py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 uppercase tracking-wider transition-colors cursor-pointer font-inter shadow-sm group-hover:shadow !mt-3"
+                      >
+                        <span>VIEW PRODUCT &amp; 3D &rarr;</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         ) : (
           <div className="relative z-10 bg-white rounded-3xl p-12 text-center border border-slate-200 max-w-lg mx-auto shadow-sm space-y-4 my-8">
@@ -1559,16 +1575,7 @@ function ProductCatalogView() {
           </div>
         )}
 
-        {/* 4. QUALITY PILLARS / WHY MEATIN ASSURANCE BANNER */}
-        <div className="relative z-10 mt-12 bg-gradient-to-r from-[#064823] via-[#09592c] to-[#064823] rounded-3xl p-6 sm:p-10 text-white shadow-xl overflow-hidden">
-          <div
-            className="absolute inset-0 pointer-events-none bg-repeat opacity-25"
-            style={{
-              backgroundImage: 'url("/Product/Chicken/doodle.webp")',
-              backgroundSize: '650px',
-            }}
-          />
-        </div>
+        
       </main>
     </div>
   );

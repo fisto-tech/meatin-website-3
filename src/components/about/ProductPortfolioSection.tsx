@@ -83,7 +83,21 @@ const CATEGORIES: PortfolioCategory[] = [
 
 export default function ProductPortfolioSection() {
   return (
-    <section className="relative w-full bg-[#FAFDF5] py-10 sm:py-14 lg:py-[4.5vw] overflow-hidden select-none">
+    <section className="relative w-full bg-[#F6FFE8] py-10 sm:py-14 lg:py-[4.5vw] overflow-hidden select-none">
+      {/* Background Image Layer */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <Image
+          src="/Home/section-bg.webp"
+          alt="Section background"
+          fill
+          className="object-cover object-center pointer-events-none"
+          style={{
+            filter: "brightness(0)",
+            opacity: 0.7,
+          }}
+        />
+      </div>
+
       {/* Decorative Organic Vector Background Doodles matching mockup */}
       <div className="absolute inset-0 pointer-events-none opacity-45">
         <svg
@@ -265,7 +279,7 @@ export default function ProductPortfolioSection() {
                     borderColor: 'var(--card-border)',
                   } as React.CSSProperties
                 }
-                className="group relative flex flex-col justify-center h-auto rounded-2xl sm:rounded-3xl lg:rounded-[1.3vw] p-4 sm:p-5 lg:p-[1.2vw] border-2 shadow-[0_6px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_22px_44px_rgba(0,0,0,0.15)] overflow-hidden cursor-pointer hover:![background-color:var(--card-hover-bg)] hover:![border-color:var(--card-hover-border)]"
+                className="group relative flex flex-col justify-between h-full rounded-2xl sm:rounded-3xl lg:rounded-[1.2vw] p-3.5 sm:p-4 lg:p-[1vw] border-2 shadow-[0_6px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_22px_44px_rgba(0,0,0,0.15)] overflow-hidden cursor-pointer hover:![background-color:var(--card-hover-bg)] hover:![border-color:var(--card-hover-border)]"
               >
                 {/* Top: Icon + Title + Description */}
                 <div>
@@ -276,40 +290,40 @@ export default function ProductPortfolioSection() {
                     viewport={{ once: true }}
                     transition={{ type: "spring", stiffness: 140, damping: 12, delay: 0.2 + idx * 0.1 }}
                     style={{ backgroundColor: cat.iconBg }}
-                    className="w-11 h-11 sm:w-12 sm:h-12 lg:w-[3vw] lg:h-[3vw] rounded-full flex items-center justify-center text-white shadow-md mb-3 sm:mb-3.5 lg:mb-[0.9vw] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                    className="w-9 h-9 sm:w-10 sm:h-10 lg:w-[2.4vw] lg:h-[2.4vw] rounded-full flex items-center justify-center text-white shadow-md mb-2 sm:mb-2.5 lg:mb-[0.55vw] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
                   >
-                    <Icon icon={cat.icon} className="w-6 h-6 sm:w-6.5 sm:h-6.5 lg:w-[1.65vw] lg:h-[1.65vw]" />
+                    <Icon icon={cat.icon} className="w-5 h-5 sm:w-5.5 sm:h-5.5 lg:w-[1.35vw] lg:h-[1.35vw]" />
                   </motion.div>
 
-                  {/* Title - Increased font size */}
-                  <h3 className="font-barlow font-bold text-xl sm:text-2xl lg:text-[1.4vw] text-[#1E3B27] tracking-tight mb-1.5 sm:mb-2 leading-snug group-hover:text-[#0B4D26] transition-colors">
+                  {/* Title */}
+                  <h3 className="font-barlow font-bold text-lg sm:text-xl lg:text-[1.25vw] text-[#1E3B27] tracking-tight mb-1 leading-snug group-hover:text-[#0B4D26] transition-colors">
                     {cat.title}
                   </h3>
 
-                  {/* Description - Increased font size */}
-                  <p className="text-slate-800 text-sm sm:text-[14.5px] lg:text-[0.96vw] leading-relaxed font-medium">
+                  {/* Description */}
+                  <p className="text-slate-800 text-xs sm:text-[13px] lg:text-[0.88vw] leading-normal font-medium">
                     {cat.desc}
                   </p>
                 </div>
 
                 {/* Bottom Row: Circular Arrow Button (Left) & Platter Plate Image (Right) */}
-                <div className="relative flex items-end justify-between mt-4 pt-1">
+                <div className="relative flex items-end justify-between mt-2.5 sm:mt-3 pt-0">
                   
                   {/* Circular Arrow Button with bounce effect */}
                   <div
                     style={{ backgroundColor: cat.arrowBg }}
-                    className="w-8 h-8 sm:w-9 sm:h-9 lg:w-[2.2vw] lg:h-[2.2vw] rounded-full flex items-center justify-center text-slate-800 transition-all duration-300 group-hover:scale-115 group-hover:bg-white group-hover:shadow-md shrink-0 z-10"
+                    className="w-7 h-7 sm:w-8 sm:h-8 lg:w-[1.9vw] lg:h-[1.9vw] rounded-full flex items-center justify-center text-slate-800 transition-all duration-300 group-hover:scale-115 group-hover:bg-white group-hover:shadow-md shrink-0 z-10"
                   >
-                    <ArrowRight className="w-4 h-4 lg:w-[1vw] lg:h-[1vw] transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="w-3.5 h-3.5 lg:w-[0.9vw] lg:h-[0.9vw] transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
 
                   {/* Meat Platter Plate Image with 3D floating pop */}
-                  <div className="relative w-30 sm:w-36 lg:w-[9.6vw] aspect-square shrink-0 -mr-2.5 -mb-2.5 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
+                  <div className="relative w-28 sm:w-32 lg:w-[8.2vw] xl:w-[8.5vw] aspect-square shrink-0 -mr-2.5 -mb-2.5 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
                     <Image
                       src={cat.image}
                       alt={cat.imageAlt}
                       fill
-                      className="object-contain drop-shadow-[0_12px_20px_rgba(0,0,0,0.2)]"
+                      className="object-contain drop-shadow-[0_10px_16px_rgba(0,0,0,0.18)]"
                     />
                   </div>
 

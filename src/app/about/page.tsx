@@ -253,7 +253,7 @@ export default function AboutUsPage() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative max-w-2xl lg:max-w-3xl pt-2 pb-5 sm:p-8 lg:p-10"
+            className="relative -left-[2%] max-w-2xl lg:max-w-3xl pt-2 pb-5 sm:p-8 lg:p-10"
           >
             {/* Custom radial gradient for tablet & desktop */}
             <div
@@ -266,24 +266,23 @@ export default function AboutUsPage() {
 
             {/* Eyebrow Label */}
             <div className="flex items-center gap-2.5 sm:gap-3.5 mb-2.5 sm:mb-4">
-              <span className="h-[2.5px] w-6 sm:w-9 bg-[#CCA33D] rounded-full shrink-0" />
-              <span className="text-xs sm:text-sm md:text-[15px] font-bold tracking-[0.2em] text-[#1B3E2C] uppercase font-manrope">
-                WHAT IS MEATIN?
+              <span className="text-xs sm:text-sm md:text-lg font-semibold tracking-[0.2em] text-[#1B3E2C] uppercase font-manrope">
+                WHAT IS MEATiN?
               </span>
             </div>
 
             {/* Main Headline matching reference image */}
-            <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-[5em] xl:text-[5.7rem] font-medium font-bree tracking-normal uppercase leading-[0.93] sm:leading-[0.89] mb-1">
+            <h1 className="text-4xl xs:text-5xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[5.5vw] font-medium font-bree tracking-normal uppercase leading-[0.93] sm:leading-[0.89] mb-1">
               <span className="block text-[#1E5638]">WE ENGINEER</span>
               <span className="block text-[#E86D00]">QUALITY INTO</span>
               <span className="block text-[#1E5638]">EVERY CUT.</span>
             </h1>
 
             {/* Subtle Horizontal Divider Line */}
-            <div className="w-full max-w-[320px] xs:max-w-[420px] sm:max-w-[580px] md:max-w-[640px] h-[1.5px] bg-[#1E5638]/25 my-3.5 sm:my-6 md:my-7" />
+            <div className="w-full max-w-[320px] xs:max-w-[420px] sm:max-w-[580px] md:max-w-[25%] h-[2.5px] bg-[#F45D04] my-3.5 sm:my-6 md:my-7" />
 
             {/* Subtitle Paragraph */}
-            <p className="text-[#1A2E26] text-base sm:text-lg md:text-xl lg:text-[1.35rem] font-semibold leading-snug sm:leading-relaxed font-manrope max-w-xl">
+            <p className="text-[#032F22] text-base sm:text-lg md:text-xl lg:text-[1.35rem] font-normal leading-snug sm:leading-relaxed font-manrope max-w-xl">
               Integrated farming, scientific processing, and{' '}
               <br className="hidden sm:inline" />
               cold-chain distribution.

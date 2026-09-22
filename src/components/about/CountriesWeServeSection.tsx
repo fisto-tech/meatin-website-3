@@ -42,7 +42,20 @@ export default function CountriesWeServeSection() {
     return () => clearInterval(timer);
   }, []);
   return (
-    <section className="relative w-full bg-[#FBFDF8] pt-8 sm:pt-12 lg:pt-[3.8vw] pb-10 sm:pb-14 lg:pb-[4.2vw] overflow-hidden select-none">
+    <section className="relative w-full pt-8 sm:pt-12 lg:pt-[3.8vw] pb-10 sm:pb-14 lg:pb-[4.2vw] overflow-hidden select-none">
+      {/* Background Image Layer */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <Image
+          src="/Home/section-bg.webp"
+          alt="Section background"
+          fill
+          className="object-cover object-center pointer-events-none"
+          style={{
+            filter: "brightness(0)",
+            opacity: 0.7,
+          }}
+        />
+      </div>
       
       {/* Background Subtle Organic Curved Pattern (as seen in mockup background) */}
       <div className="absolute inset-0 pointer-events-none opacity-30">
