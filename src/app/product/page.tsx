@@ -468,6 +468,10 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
   const partKey = currentPart.name.toLowerCase().trim();
   const rawRecipes = PART_RECIPES_MAP[partKey] || PART_RECIPES_MAP['drumette'] || [];
   const partRecipes = rawRecipes.slice(0, 4);
+  const firstRecipe = partRecipes[0] || rawRecipes[0];
+  const firstRecipeHref = firstRecipe
+    ? `/recipes?part=${encodeURIComponent(partKey)}&recipeId=${encodeURIComponent(partKey)}-1&title=${encodeURIComponent(firstRecipe.title)}`
+    : `/recipes?part=${encodeURIComponent(partKey)}`;
 
   return (
     <div className="w-full min-h-screen bg-[#8DC541] flex flex-col font-anek">
@@ -1017,10 +1021,10 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
                 />
               </div>
 
-              <div className="w-20 h-20 lg:w-[9.2vw] lg:h-[7.2vw] rounded-xl lg:rounded-[0] overflow-hidden relative shrink-0 shadow-sm">
+              <div className="w-20 h-20 lg:w-[9.2vw] lg:h-[7.2vw] rounded-xl lg:rounded-l-[1vw] lg:rounded-r-none overflow-hidden relative shrink-0 shadow-sm">
                 <Image
-                  src="/Product/details/bottomCard.webp"
-                  alt="Recipe"
+                  src={firstRecipe?.img || '/Product/details/bottomCard.webp'}
+                  alt={firstRecipe?.title || 'Recipe'}
                   fill
                   className="object-cover"
                 />
@@ -1030,15 +1034,21 @@ function ProductDetailExperience({ initialPart }: { initialPart: string }) {
                 <span className="text-xs lg:text-[0.85vw] font-bold text-[#E31E24] uppercase tracking-widest leading-none">
                   WHAT'S COOKING?
                 </span>
-                <h5 className="text-xs lg:text-[0.75vw] font-bold text-black leading-tight mt-1 lg:mt-[0.35vw] truncate">
-                  Spicy Chicken {currentPart.name} Fry
+                <h5
+                  className="text-xs lg:text-[0.75vw] font-bold text-black leading-tight mt-1 lg:mt-[0.35vw] truncate"
+                  title={firstRecipe?.title || `Spicy Chicken ${currentPart.name} Fry`}
+                >
+                  {firstRecipe?.title || `Spicy Chicken ${currentPart.name} Fry`}
                 </h5>
-                <p className="text-[10px] lg:text-[0.6vw] font-medium text-slate-900 leading-tight mt-1 lg:mt-[0.2vw] line-clamp-2 max-w-full lg:max-w-[11vw]">
-                  A Spicy and flavourful recipe For a perfect family meal.
+                <p
+                  className="text-[10px] lg:text-[0.6vw] font-medium text-slate-900 leading-tight mt-1 lg:mt-[0.2vw] line-clamp-2 max-w-full lg:max-w-[11vw]"
+                  title={firstRecipe?.desc}
+                >
+                  {firstRecipe?.desc || 'A Spicy and flavourful recipe For a perfect family meal.'}
                 </p>
 
                 <Link
-                  href={`/recipes?part=${currentPart.name.toLowerCase()}`}
+                  href={firstRecipeHref}
                   className="mt-2 lg:mt-[0.55vw] bg-[#E31E24] hover:bg-[#c9181d] text-white text-[10px] lg:text-[0.6vw] font-extrabold py-1 lg:py-[0.35vw] px-2.5 lg:px-[0.85vw] rounded-md lg:rounded-[0.4vw] uppercase tracking-wider inline-flex items-center gap-1 lg:gap-[0.3vw] shadow transition-colors w-max"
                 >
                   <span>EXPLORE RECIPE</span>

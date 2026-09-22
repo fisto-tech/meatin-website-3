@@ -3450,7 +3450,7 @@ export default function KnowYourMeatPage() {
                       delay: 0.1,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    className="relative top-[0.5vh] sm:-top-[3vh] md:-top-[4vh] lg:-top-[4vh] xl:-top-[10.5vh] 2xl:-top-[6vh] w-[98%] sm:w-[94%] md:w-[90%] max-w-[300px] sm:max-w-[720px] md:max-w-[800px] lg:max-w-[900px] xl:max-w-[940px] h-[260px] sm:h-[420px] md:h-[480px] lg:h-[470px] flex items-center justify-center z-20 viz-goat-img-wrap mt-[0%] mb-[-6.5%] ml-[-4%] md:ml-[0] md:mt-[28%] md:mb-[-13.5%] lg:mt-0 lg:mb-0 overflow-visible"
+                    className="relative top-[0.5vh] sm:-top-[3vh] md:-top-[2vh] lg:-top-[1.5vh] xl:-top-[2vh] 2xl:-top-[1.5vh] w-[98%] sm:w-[94%] md:w-[60%] lg:w-[50%] max-w-[300px] sm:max-w-[600px] md:max-w-[480px] lg:max-w-[420px] 2xl:max-w-[750px] xl:max-w-[560px] h-[260px] sm:h-[380px] md:h-[295px] lg:h-[260px] xl:h-[310px] 2xl:h-[425px] flex items-center justify-center z-20 viz-goat-img-wrap mt-0 mb-[-6.5%] ml-[-4%] md:ml-0 md:mt-[6%] md:mb-[-4%] lg:mt-0 lg:mb-[4%] overflow-visible"
                   >
                     <GoatParts partsDx={70} partsDy={-20} />
                   </motion.div>
@@ -3669,8 +3669,8 @@ export default function KnowYourMeatPage() {
                       <div className="group flex flex-col items-center gap-1 sm:gap-1.5 lg:gap-2">
                         <div
                           className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full border-[3px] lg:border-[5px] bg-white flex items-center justify-center transition-all duration-500 ${isHighlighted
-                              ? "border-[#F2CE07] ring-2 sm:ring-3 lg:ring-4 ring-[#F2CE07]/40 shadow-lg lg:shadow-xl shadow-[#F2CE07]/30 scale-105 lg:scale-108"
-                              : "border-[#CCCCCC] shadow-sm sm:shadow-md shadow-slate-200/50 group-hover:scale-105 group-hover:border-[#153520]"
+                            ? "border-[#F2CE07] ring-2 sm:ring-3 lg:ring-4 ring-[#F2CE07]/40 shadow-lg lg:shadow-xl shadow-[#F2CE07]/30 scale-105 lg:scale-108"
+                            : "border-[#CCCCCC] shadow-sm sm:shadow-md shadow-slate-200/50 group-hover:scale-105 group-hover:border-[#153520]"
                             }`}
                         >
                           <div
@@ -3691,8 +3691,8 @@ export default function KnowYourMeatPage() {
 
                         <span
                           className={`text-[10px] sm:text-[11px] lg:text-[14px] font-black tracking-wide lg:tracking-wider uppercase text-center leading-tight transition-all duration-300 group-hover:text-[#153520] ${isHighlighted
-                              ? "text-[#127431] scale-105 lg:scale-110"
-                              : "text-slate-800 group-hover:text-[#127431]"
+                            ? "text-[#127431] scale-105 lg:scale-110"
+                            : "text-slate-800 group-hover:text-[#127431]"
                             }`}
                         >
                           {cat.name}
