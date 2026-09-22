@@ -189,12 +189,24 @@ export default function HomePage() {
   const drawCanvas = React.useCallback((targetFrame: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", {
+      alpha: false,
+      desynchronized: true,
+    }) as CanvasRenderingContext2D | null;
     if (!ctx) return;
 
     const totalFrames = TOTAL_HERO_FRAMES;
     const safeTarget = Math.max(1, Math.min(totalFrames, Math.round(targetFrame)));
     const map = imagesMapRef.current;
+
+    // Helper to safely retrieve cached frame from global LRU cache
+    const getGlobalFrame = (src: string): HTMLImageElement | null => {
+      if (typeof window === "undefined") return null;
+      const store = (window as any).__HERO_FRAMES__;
+      if (!store) return null;
+      if (typeof store.get === "function") return store.get(src) || null;
+      return store[src] || null;
+    };
 
     // Helper to check if an image is completely loaded and ready to draw
     const getReadyImg = (num: number): HTMLImageElement | null => {
@@ -202,7 +214,7 @@ export default function HomePage() {
       if (!img && typeof window !== "undefined") {
         const frameStr = String(num).padStart(5, "0");
         const src = `/Home/Hero/video-frames-opt/${frameStr}.jpg`;
-        const globalImg = (window as any).__HERO_FRAMES__?.[src];
+        const globalImg = getGlobalFrame(src);
         if (globalImg) {
           map.set(num, globalImg);
           img = globalImg;
@@ -265,23 +277,18 @@ export default function HomePage() {
     const shiftX = (canvas.width - imgWidth * ratio) / 2;
     const shiftY = (canvas.height - imgHeight * ratio) / 2;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    try {
-      ctx.drawImage(
-        imgToDraw,
-        0,
-        0,
-        imgWidth,
-        imgHeight,
-        shiftX,
-        shiftY,
-        imgWidth * ratio,
-        imgHeight * ratio,
-      );
-      lastDrawnFrameRef.current = frameUsed;
-    } catch (err) {
-      // Silently skip if image state changes mid-render
-    }
+    ctx.drawImage(
+      imgToDraw,
+      0,
+      0,
+      imgWidth,
+      imgHeight,
+      shiftX,
+      shiftY,
+      imgWidth * ratio,
+      imgHeight * ratio,
+    );
+    lastDrawnFrameRef.current = frameUsed;
   }, []);
 
   // Coalesced 60FPS RAF-based Canvas Drawing
@@ -293,10 +300,21 @@ export default function HomePage() {
     });
   }, [drawCanvas]);
 
-  // Synchronous / on-demand frame loader linked to global cache
+  // Synchronous / on-demand frame loader linked to global LRU cache
   const loadFrame = React.useCallback((frameNum: number): HTMLImageElement | null => {
     if (frameNum < 1 || frameNum > TOTAL_HERO_FRAMES) return null;
     const map = imagesMapRef.current;
+
+    // Prune distant frames when local map exceeds 150 items to keep memory lean
+    if (map.size > 150) {
+      const currentTarget = targetFrameRef.current;
+      map.forEach((_, key) => {
+        if (Math.abs(key - currentTarget) > 75) {
+          map.delete(key);
+        }
+      });
+    }
+
     let img = map.get(frameNum);
     if (img) {
       if (!img.complete) {
@@ -314,29 +332,42 @@ export default function HomePage() {
     const frameStr = String(frameNum).padStart(5, "0");
     const src = `/Home/Hero/video-frames-opt/${frameStr}.jpg`;
 
-    // 1. Check global preloader cache
-    if (typeof window !== "undefined" && (window as any).__HERO_FRAMES__?.[src]) {
-      const globalImg = (window as any).__HERO_FRAMES__[src] as HTMLImageElement;
-      map.set(frameNum, globalImg);
-      if (globalImg.complete && globalImg.naturalWidth > 0) {
+    // 1. Check global preloader LRU cache
+    if (typeof window !== "undefined") {
+      const store = (window as any).__HERO_FRAMES__;
+      const globalImg = store
+        ? typeof store.get === "function"
+          ? store.get(src)
+          : store[src]
+        : null;
+
+      if (globalImg) {
+        map.set(frameNum, globalImg);
+        if (globalImg.complete && globalImg.naturalWidth > 0) {
+          return globalImg;
+        }
+        globalImg.addEventListener("load", () => {
+          const currentDiff = Math.abs(targetFrameRef.current - lastDrawnFrameRef.current);
+          const newDiff = Math.abs(targetFrameRef.current - frameNum);
+          if (newDiff <= currentDiff || Math.abs(targetFrameRef.current - frameNum) <= 4) {
+            scheduleRender();
+          }
+        }, { once: true });
         return globalImg;
       }
-      globalImg.addEventListener("load", () => {
-        const currentDiff = Math.abs(targetFrameRef.current - lastDrawnFrameRef.current);
-        const newDiff = Math.abs(targetFrameRef.current - frameNum);
-        if (newDiff <= currentDiff || Math.abs(targetFrameRef.current - frameNum) <= 4) {
-          scheduleRender();
-        }
-      }, { once: true });
-      return globalImg;
     }
 
     // 2. Instantiate new Image
     img = new window.Image();
     map.set(frameNum, img);
     if (typeof window !== "undefined") {
-      (window as any).__HERO_FRAMES__ = (window as any).__HERO_FRAMES__ || {};
-      (window as any).__HERO_FRAMES__[src] = img;
+      const store = (window as any).__HERO_FRAMES__;
+      if (store && typeof store.set === "function") {
+        store.set(src, img);
+      } else {
+        (window as any).__HERO_FRAMES__ = (window as any).__HERO_FRAMES__ || {};
+        (window as any).__HERO_FRAMES__[src] = img;
+      }
     }
 
     const onImageLoaded = () => {
@@ -357,16 +388,26 @@ export default function HomePage() {
     return img;
   }, [scheduleRender]);
 
-  // Guaranteed Canvas Render Engine with On-Demand Prioritization
+  // Guaranteed Canvas Render Engine with Adaptive Mobile Density & On-Demand Prioritization
   const renderFrame = React.useCallback((targetFrame: number) => {
-    const safeTarget = Math.max(1, Math.min(TOTAL_HERO_FRAMES, Math.round(targetFrame)));
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    let safeTarget = Math.max(1, Math.min(TOTAL_HERO_FRAMES, Math.round(targetFrame)));
+    
+    // On mobile, step by 2 (~280 frames) for silky 30FPS motion with 50% data savings
+    if (isMobile && safeTarget > 1 && safeTarget < TOTAL_HERO_FRAMES) {
+      safeTarget = Math.round(safeTarget / 2) * 2;
+    }
+    
     targetFrameRef.current = safeTarget;
 
-    // Immediately load target frame and proactive lookahead buffer in both directions
+    // Immediately load target frame and adaptive lookahead buffer
     loadFrame(safeTarget);
-    for (let i = 1; i <= 8; i++) {
-      if (safeTarget + i <= TOTAL_HERO_FRAMES) loadFrame(safeTarget + i);
-      if (safeTarget - i >= 1) loadFrame(safeTarget - i);
+    const lookaheadStep = isMobile ? 2 : 1;
+    const lookaheadCount = isMobile ? 4 : 8;
+    for (let i = 1; i <= lookaheadCount; i++) {
+      const offset = i * lookaheadStep;
+      if (safeTarget + offset <= TOTAL_HERO_FRAMES) loadFrame(safeTarget + offset);
+      if (safeTarget - offset >= 1) loadFrame(safeTarget - offset);
     }
 
     scheduleRender();
@@ -374,11 +415,12 @@ export default function HomePage() {
 
   // Two-tier background frame preloader:
   // Tier 1: Keyframe milestones across the whole sequence (every 10th frame) -> scrubs immediately across entire video
-  // Tier 2: Fill in remaining intermediate frames progressively
+  // Tier 2: Fill in remaining intermediate frames progressively (stepping by 2 on mobile)
   React.useEffect(() => {
     const totalFrames = TOTAL_HERO_FRAMES;
     let isCancelled = false;
     let batchTimer: NodeJS.Timeout | null = null;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
     // 1. Load Frame 1 immediately
     const firstImg = loadFrame(1);
@@ -391,7 +433,6 @@ export default function HomePage() {
     }
 
     // 2. Tier 1: Preload milestones every 10 frames (10, 20, 30... 560, 563)
-    // Only ~57 frames total, loads quickly and provides seamless scrub across the full video
     const milestones: number[] = [];
     for (let i = 10; i <= totalFrames; i += 10) {
       milestones.push(i);
@@ -416,15 +457,16 @@ export default function HomePage() {
         if (milestoneIdx < milestones.length) {
           batchTimer = setTimeout(processMilestones, 40);
         } else {
-          // Tier 2: Fill in remaining intermediate frames
+          // Tier 2: Fill in remaining intermediate frames (step by 2 on mobile to save 50% data)
+          const frameStep = isMobile ? 2 : 1;
           let currentFrame = 2;
           const processRemaining = () => {
             if (isCancelled || currentFrame > totalFrames) return;
-            const batchEnd = Math.min(totalFrames, currentFrame + 12);
-            for (let f = currentFrame; f <= batchEnd; f++) {
+            const batchEnd = Math.min(totalFrames, currentFrame + (isMobile ? 16 : 12));
+            for (let f = currentFrame; f <= batchEnd; f += frameStep) {
               if (f % 10 !== 0) loadFrame(f);
             }
-            currentFrame = batchEnd + 1;
+            currentFrame = batchEnd + frameStep;
             if (currentFrame <= totalFrames) {
               batchTimer = setTimeout(processRemaining, 50);
             }
@@ -601,7 +643,7 @@ export default function HomePage() {
                   transition={{ duration: 0.8 }}
                   className="space-y-3"
                 >
-                  <h1 className="text-4xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[5.5vw] font-bold font-bree tracking-wide uppercase leading-[0.92] space-y-1.5">
+                  <h1 className="text-4xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[5.5vw] font-bold tracking-wide uppercase leading-[0.92] space-y-1.5">
                     <span className="block text-[#F48207] normal-case">MEATiN</span>
                     <span className="block text-white">PURE QUALITY.</span>
                     <span

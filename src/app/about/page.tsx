@@ -232,75 +232,82 @@ export default function AboutUsPage() {
   return (
     <div className="min-h-screen bg-[#F3F3F3] font-manrope overflow-x-clip">
 
-      {/* 1. HERO HEADER BANNER SECTION */}
-      {/* Mobile: stacked layout with text block at top and crisp hero image below */}
-      {/* Desktop/Tablet (md+): full-bleed side-by-side backdrop layout with true vertical centering accounting for navbar */}
-      <section className="relative w-full bg-[#E8EDE7] pt-24 sm:pt-28 md:pt-24 lg:pt-28 pb-6 sm:pb-12 md:pb-0 md:h-[780px] lg:h-[90vh] xl:h-[94vh] md:flex md:flex-col md:justify-center overflow-hidden">
-        {/* Desktop/Tablet Background Image */}
-        <div className="absolute inset-0 z-0 hidden md:block">
+      {/* 1. HERO HEADER BANNER SECTION - RESPONSIVE STACKED ON MOBILE/TABLET, OVERLAY ON DESKTOP */}
+      <section className="relative w-full overflow-hidden bg-[#F3F3F3] lg:bg-black lg:h-screen lg:min-h-[620px] lg:max-h-[1080px] lg:flex lg:items-center">
+        {/* Desktop Only: Full-Fill Background Image with Exact Figma Dark Gradient */}
+        <div className="hidden lg:block absolute inset-0 z-0 w-full h-full">
           <Image
-            src="/AboutUs/hero-image.webp"
+            src="/AboutUs/about-hero-img.webp"
             alt="MEATiN Scientific Meat Processing Facility"
             fill
             priority
-            className="object-cover object-[68%_center] lg:object-[center_right]"
+            className="object-cover object-[68%_center]"
           />
+          {/* Exact Left-to-Right Dark Gradient Overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none z-1"
+            style={{
+              background:
+                "linear-gradient(270deg, rgba(0, 0, 0, 0) 52.66%, rgba(0, 0, 0, 0.562192) 70.16%, rgba(0, 0, 0, 0.7136) 85.22%, #000000 116.99%)",
+            }}
+          />
+          {/* Top Gradient for Navbar legibility */}
+          <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-1" />
         </div>
 
-        {/* Content Area */}
-        <div className="w-full mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 relative z-20 flex justify-center md:justify-start my-auto">
+        {/* Content Container */}
+        <div className="relative z-10 w-full max-w-[1400px] lg:max-w-[95vw] mx-auto px-6 sm:px-8 lg:px-[2.5vw] h-full flex flex-col lg:flex-row lg:items-center pt-28 sm:pt-32 lg:pt-20 pb-10 lg:pb-0">
+          {/* Text Content (Above on mobile/tablet, left-aligned on desktop) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-xl md:max-w-[48%] lg:max-w-[45%] xl:max-w-[42%] pt-2 pb-5 sm:p-6 lg:p-8 flex flex-col items-center text-center"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full max-w-2xl lg:max-w-3xl min-[1800px]:max-w-5xl text-left"
           >
-            {/* Custom radial gradient for tablet & desktop */}
-            <div
-              className="absolute -inset-6 sm:-inset-8 lg:-inset-12 -z-10 pointer-events-none rounded-[60px] hidden sm:block"
-              style={{
-                background: 'radial-gradient(71.28% 67.51% at 50% 50%, #EFEFEF 0%, #FFFFFF 100%)',
-                filter: 'blur(131.23px)',
-              }}
-            />
-
-            {/* Eyebrow Label */}
-            <div className="flex items-center justify-center gap-2.5 sm:gap-3.5 mb-2.5 sm:mb-4">
-              <span className="text-xs sm:text-sm md:text-lg font-semibold tracking-[0.2em] text-[#1B3E2C] font-manrope">
+            {/* Eyebrow Label with Green Accent Underline */}
+            <div className="mb-4 sm:mb-6 min-[1800px]:mb-9">
+              <span className="text-xs sm:text-base md:text-lg min-[1800px]:text-2xl font-semibold tracking-[0.22em] text-[#1F5A3C] lg:text-white/95 block mb-2 sm:mb-2.5 min-[1800px]:mb-3.5">
                 WHAT IS MEATiN?
               </span>
+              <div className="w-12 sm:w-16 min-[1800px]:w-24 h-[3px] min-[1800px]:h-[4px] bg-[#7BB23E] rounded-full" />
             </div>
 
-            {/* Main Headline matching reference image */}
-            <h1 className="text-4xl xs:text-5xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[5.5vw] font-medium font-bree tracking-normal uppercase leading-[0.93] sm:leading-[0.89] mb-1">
-              <span className="block text-[#1E5638]">WE ENGINEER</span>
-              <span className="block text-[#E86D00]">QUALITY INTO</span>
-              <span className="block text-[#1E5638]">EVERY CUT.</span>
+            {/* Main Headline - Exact 1:1 Scale Ratio with Reference */}
+            <h1 className="font-extrabold uppercase mb-5 sm:mb-7 min-[1800px]:mb-10 leading-[0.9] tracking-tight">
+              <span className="block text-[#1F5A3C] lg:text-white whitespace-nowrap text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] xl:text-[5rem] min-[1800px]:text-[6.4rem] font-extrabold tracking-tight">
+                WE ENGINEER
+              </span>
+              <span className="block text-[#F07C00] whitespace-nowrap text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-[5.8rem] xl:text-[7rem] min-[1800px]:text-[9rem] font-black tracking-tight leading-[0.7]">
+                QUALITY
+              </span>
+              <span className="block text-[#1F5A3C] lg:text-white whitespace-nowrap text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[3.8rem] xl:text-[4.5rem] min-[1800px]:text-[5.8rem] font-extrabold tracking-tight">
+                INTO EVERY CUT.
+              </span>
             </h1>
 
-            {/* Subtle Horizontal Divider Line */}
-            <div className="w-full max-w-[140px] sm:max-w-[180px] md:max-w-[200px] h-[2.5px] bg-[#F45D04] my-3.5 sm:my-6 md:my-7 rounded-full" />
-
             {/* Subtitle Paragraph */}
-            <p className="text-[#032F22] text-base sm:text-lg md:text-xl lg:text-[1.35rem] font-normal leading-snug sm:leading-relaxed font-manrope max-w-xl mx-auto">
-              Integrated farming, scientific processing, and{' '}
-              <br className="hidden sm:inline" />
+            <p className="text-slate-700 lg:text-white/90 text-sm sm:text-lg md:text-xl min-[1800px]:text-2xl min-[1800px]:leading-relaxed font-normal leading-snug max-w-lg min-[1800px]:max-w-2xl">
+              Integrated farming, <br />
+              scientific processing, and <br />
               cold-chain distribution.
             </p>
           </motion.div>
-        </div>
 
-        {/* Mobile-only crisp Image below the text */}
-        <div className="md:hidden relative w-full h-[270px] xs:h-[320px] sm:h-[380px] mt-2 px-4">
-          <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-md">
+          {/* Mobile & Tablet Only: Clean Image Displayed Below Text Without Overlay */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:hidden w-full relative h-[260px] xs:h-[320px] sm:h-[400px] md:h-[460px] rounded-2xl overflow-hidden mt-8 shadow-xl border border-slate-200"
+          >
             <Image
-              src="/AboutUs/hero-image.webp"
+              src="/AboutUs/about-hero-img.webp"
               alt="MEATiN Scientific Meat Processing Facility"
               fill
               priority
-              className="object-cover object-[80%_center]"
+              className="object-cover object-center"
             />
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -407,7 +414,7 @@ export default function AboutUsPage() {
 
               <div className="space-y-3">
                 <h3 className="text-lg sm:text-xl lg:text-xl xl:text-2xl font-bold text-[#064823]">Building a better meat ecosystem.</h3>
-                <p className="text-xs sm:text-sm lg:text-[14px] xl:text-sm 2xl:text-base text-slate-700 font-medium leading-relaxed max-w-[600px]">
+                <p className="text-xs sm:text-sm lg:text-[14px] xl:text-sm 2xl:text-[18px] text-slate-700 font-medium leading-relaxed tracking-wide">
                   MEATiN delivers safe, hygienic meat through scientific processing and controlled cold-chain systems. Built on quality, safety, and Halal-certified standards, our integrated approach ensures reliable production and distribution. From responsible sourcing to advanced infrastructure, we are building a better meat ecosystem.
                 </p>
               </div>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { PRELOAD_ASSETS } from './preloaderAssets';
-import { AssetPreloadEngine } from './preloadEngine';
+import { AssetPreloadEngine, startBackgroundAssetPreload } from './preloadEngine';
 
 export const Preloader: React.FC = () => {
   const router = useRouter();
@@ -55,6 +55,8 @@ export const Preloader: React.FC = () => {
       if ((window as any).lenis) {
         (window as any).lenis.resize();
       }
+      // Warm remaining assets in background
+      startBackgroundAssetPreload(PRELOAD_ASSETS);
       return;
     }
 
@@ -101,6 +103,8 @@ export const Preloader: React.FC = () => {
             window.dispatchEvent(new Event('resize'));
             window.dispatchEvent(new Event('scroll'));
           }
+          // Continue background preloading for 100% asset pool
+          startBackgroundAssetPreload(PRELOAD_ASSETS);
         }, 500);
       }, 300);
     };
@@ -120,12 +124,12 @@ export const Preloader: React.FC = () => {
     }
 
     if (typeof window !== 'undefined') {
-      // Concurrency 12 to quickly swallow and cache image/route assets
+      // Concurrency 16 to quickly swallow and cache image/route assets
       const engine = new AssetPreloadEngine(PRELOAD_ASSETS, {
-        concurrency: 12,
+        concurrency: 16,
         onProgress: (percent) => {
           setProgress((prev) => Math.max(prev, percent));
-          if (percent >= 92) {
+          if (percent >= 90) {
             assetsLoaded = true;
             checkReady();
           }
